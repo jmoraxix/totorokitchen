@@ -1,0 +1,21 @@
+#sidebar {
+    height: 100vh;
+    background-color: #1f2125;
+    color: #faa007;
+}
+
+NavBar {
+    height: 100vh;
+}
+
+.navbar-nav {
+    height: 100vh;
+}
+
+NavLink {
+    color: #faa007;
+}
+
+li.nav-item > a {
+    color: #faa007;
+}
