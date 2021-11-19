@@ -1,6 +1,6 @@
 const Paises = require('totoro-models').Pais;
 
-exports.lista = async(req, res)=>{
+exports.getAll = async(req, res)=>{
     try {
         const pais = await Paises.find();
         res.json(pais);
@@ -9,7 +9,7 @@ exports.lista = async(req, res)=>{
     }
 }
 
-exports.seleccionado = async(req, res)=>{
+exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
@@ -25,7 +25,7 @@ exports.seleccionado = async(req, res)=>{
     }
 }
 
-exports.agregar = async(req, res)=>{
+exports.create = async(req, res)=>{
     const pais= new Paises(req.body);
     try {
         await pais.save();
@@ -38,7 +38,7 @@ exports.agregar = async(req, res)=>{
     }
 }
 
-exports.actualizar = async(req, res)=>{
+exports.update = async(req, res)=>{
     try {
         const id= req.params.id;
         const pais = await Paises.findOneAndUpdate(
@@ -54,7 +54,7 @@ exports.actualizar = async(req, res)=>{
     }
 }
 
-exports.eliminar= async(req, res)=>{
+exports.delete= async(req, res)=>{
     try{
         const id= req.params.id;
         const pais = await Paises.findOneAndDelete({_id:id});
