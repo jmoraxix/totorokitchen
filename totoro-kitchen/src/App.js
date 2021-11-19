@@ -1,10 +1,15 @@
 import * as React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import {
+  Routes,
+  Route
+} from "react-router-dom";
 import "./css/App.css";
 import NavBar from "./NavBar";
 import { Container } from 'reactstrap';
 
 import Home from "./components/home.component";
+import Pais from "./components/pais.component";
+import Topics, { Topic } from "./components/topic.component";
 
 function App() {
   return (
@@ -15,7 +20,7 @@ function App() {
 
       <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Library</a></li>
             <li class="breadcrumb-item active" aria-current="page">Data</li>
           </ol>
@@ -23,13 +28,20 @@ function App() {
 
       <Container>
         <div className="row">
-        
-          <div className="col-3"><NavBar/></div>
+          <div className="col col-xl-4 col-md-2 col-lg-2"><NavBar/></div>
 
           <div className="col" id="contenido">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/pais" element={<Pais />} />
+              <Route path="/topics" element={<Topics />} />
               {/* <Route path="about" element={<About />} /> */}
+              <Route path="/topics">
+                <Route path=":topicId" element={<Topic />} />
+              </Route>
+              <Route path="users">
+                {/* <Route path=":id" element={<UserProfile />} /> */}
+              </Route>
             </Routes>
           </div>
         </div>

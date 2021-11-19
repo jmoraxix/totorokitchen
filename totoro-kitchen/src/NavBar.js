@@ -4,46 +4,62 @@ import {
   Navbar,
   Nav,
   NavItem,
-  NavLink } from 'reactstrap';
+  NavLink
+} from 'reactstrap';
 import "./css/NavBar.css";
+import { Collapse } from 'react-collapse';
 
 export default class Example extends React.Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
+    this.toggleAdmin = this.toggleAdmin.bind(this);
     this.state = {
-      isOpen: false
+      adminOpen: true
     };
   }
-  toggle() {
+
+  toggleAdmin() {
     this.setState({
-      isOpen: !this.state.isOpen
+      adminOpen: !this.state.adminOpen
     });
   }
+
   render() {
     return (
       <div>
         <Navbar id="sidebar">
           <Nav navbar>
+            <h4>Navegaci&oacute;n</h4>
             <List type="unstyled">
               <NavItem>
-                <NavLink href="/">Crear reserva</NavLink>
+                <NavLink href="/">Home</NavLink>
               </NavItem>
+              <Collapse isOpened={this.props.usuario}>
+                <NavItem>
+                  <NavLink href="/pais">Mi usuario</NavLink>
+                </NavItem>
+              </Collapse>    
               <NavItem>
-                <NavLink href="/test">Mis reservas</NavLink>
+                <NavLink onClick={this.toggleAdmin}>Administraci&oacute;n</NavLink>
               </NavItem>
-              <NavItem data-toggle="collapse">
-                <NavLink href="#homeSubmenu">Home Submenu</NavLink>
-                <List className="collapse unstyled" id="homeSubmenu">
-                  <NavItem>
-                    <NavLink href="/">Mis reservas</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="/">Mi cuenta</NavLink>
-                  </NavItem>
-                </List>
-              </NavItem>
+              <Collapse isOpened={this.state.adminOpen}>
+                <NavItem>
+                  <NavLink href="/pais">Paises</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/pais">Pais</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/pais">Pais</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/pais">Pais</NavLink>
+                </NavItem>
+              </Collapse>  
+              <NavItem>
+                <NavLink href="/topics">Topics</NavLink>
+              </NavItem>          
             </List>
           </Nav>
         </Navbar>

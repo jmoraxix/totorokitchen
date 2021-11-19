@@ -19,3 +19,7 @@ NavLink {
 li.nav-item > a {
     color: #faa007;
 }
+
+.ReactCollapse--content > .nav-item > .nav-link {
+    padding-left: 2vw;
+}
