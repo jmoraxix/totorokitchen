@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import PaisDataService from "../services/pais.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import {
+  useLocation,
+  useParams
+} from "react-router-dom";
+import {
+  NavLink
+} from 'reactstrap';
 
-export default class Pais extends Component {
+export default class Paises extends Component {
 
   state = {
-    data: [],
-    modalInsertar: false,
-    modalActualizar: false,
-    form: {
-      Consecutivo: "",
-      Nombre: "",
-    },
+    data: []
   };
 
   componentDidMount() {
@@ -20,7 +21,7 @@ export default class Pais extends Component {
   }
 
   listarObjetos() {
-    PaisDataService.listar()
+    PaisDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data
@@ -33,15 +34,14 @@ export default class Pais extends Component {
   }
 
   crearObjeto(data){
-    // PaisDataService.create(data)
-    //     .then(response => {
-    //       console.log(response.data);
-    //       this.listarObjetos();
-    //       this.cerrarModalInsertar();
-    //     })
-    //     .catch(e => {
-    //       console.log(e);
-    //     });
+    PaisDataService.create(data)
+      .then(response => {
+        console.log(response.data);
+        this.listarObjetos();
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   actualizarObjeto(data){
@@ -248,4 +248,9 @@ export default class Pais extends Component {
       </>
     );
   }
+}
+
+export function Pais() {
+  let { paisId } = useParams();
+  return <h3>Pais ID: { paisId }</h3>;
 }

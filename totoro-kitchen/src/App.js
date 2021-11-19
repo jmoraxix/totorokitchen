@@ -8,7 +8,7 @@ import NavBar from "./NavBar";
 import { Container } from 'reactstrap';
 
 import Home from "./components/home.component";
-import Pais from "./components/pais.component";
+import Paises, { Pais } from "./components/pais.component";
 import Topics, { Topic } from "./components/topic.component";
 
 function App() {
@@ -33,9 +33,9 @@ function App() {
           <div className="col" id="contenido">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/pais" element={<Pais />} />
-              <Route path="/topics" element={<Topics />} />
-              {/* <Route path="about" element={<About />} /> */}
+              <Route path="/pais" element={<Paises />}>
+                <Route path=":paisId" element={<Pais />} />
+              </Route>
               <Route path="/topics">
                 <Route path=":topicId" element={<Topic />} />
               </Route>
