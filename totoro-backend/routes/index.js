@@ -15,7 +15,7 @@ const tipoProductoController = require('../controllers/tipoProductoController.js
 
 const prefix = '/api';
 
-module.exports= function(){
+module.exports = function () {
     // Pais
     router.get(`${prefix}/pais`, paisController.getAll)
     router.get(`${prefix}/pais/:id`, paisController.get)

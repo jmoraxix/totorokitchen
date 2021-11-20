@@ -28,14 +28,16 @@ function App() {
 
       <Container>
         <div className="row">
-          <div className="col col-xl-4 col-md-2 col-lg-2"><NavBar/></div>
+          <div className="col col-lg-3"><NavBar/></div>
 
           <div className="col" id="contenido">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/pais" element={<Paises />}>
+              <Route path="/pais" element={<Paises />}/>
+              <Route path="/pais">
                 <Route path=":paisId" element={<Pais />} />
               </Route>
+              <Route path="/topics" element={<Topics />}/>
               <Route path="/topics">
                 <Route path=":topicId" element={<Topic />} />
               </Route>

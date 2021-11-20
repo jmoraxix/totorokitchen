@@ -41,6 +41,14 @@ li.breadcrumb-item.active {
   width: 100%;
 }
 
-th {
+.btn {
+  margin-right: 8px;
+}
+
+th, td {
   color: #faa007;
+}
+
+form-group > row {
+  margin-bottom: 8px;
 }
