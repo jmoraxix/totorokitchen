@@ -4,7 +4,7 @@ const Schema= mongoose.Schema;
 
 const empresaSchema = new Schema({
     id: {
-        type: Int32Array,
+        type: Number,
         trim: true,
         unique: true
     },
@@ -25,7 +25,7 @@ const empresaSchema = new Schema({
         trim:true,
     },
     foto:{
-        type:Image
+        type:String
     }
 })
 

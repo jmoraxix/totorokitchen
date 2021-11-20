@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const claseComestibleSchema = new Schema({
     id: {
-        type: Int32Array,
+        type: Number,
         trim: true,
         unique: true
     },

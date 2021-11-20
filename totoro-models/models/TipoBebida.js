@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const tipoBebidaSchema = new Schema({
     id: {
-        type: Int32Array,
+        type: Number,
         trim: true,
         unique: true
     },
