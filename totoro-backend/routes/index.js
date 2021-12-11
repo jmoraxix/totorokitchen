@@ -17,10 +17,10 @@ const lineaComestibleController = require('../controllers/lineaComestibleControl
 const marcaController = require('../controllers/marcaController.js');
 const mesasController = require('../controllers/mesasController.js');
 const restaurantesController = require('../controllers/restaurantesController.js');
-
+const ordenController = require('../controllers/ordenController.js');
 const productoController = require('../controllers/productoController.js');
 const platilloController = require('../controllers/platilloController.js');
-
+const proveedorController = require('../controllers/proveedorController.js');
 const rolController = require('../controllers/rolController.js');
 const tipoBebidaController = require('../controllers/tipoBebidaController.js');
 const tipoComestibleController = require('../controllers/tipoComestibleController.js');
@@ -28,7 +28,7 @@ const tipoComidaController = require('../controllers/tipoComidaController.js');
 const tipoProductoController = require('../controllers/tipoProductoController.js');
 const tipoPlatilloController = require('../controllers/tipoPlatilloController.js');
 const unidadMedidaController = require('../controllers/unidadMedidaController.js');
-
+const usuariosController = require('../controllers/usuariosController.js');
 
 const prefix = '/api';
 
@@ -137,6 +137,12 @@ module.exports = function () {
      router.post(`${prefix}/restaurantes`, restaurantesController.create)
      router.put(`${prefix}/restaurantes/:id`, restaurantesController.update)
      router.delete(`${prefix}/restaurantes/:id`, restaurantesController.delete)
+     // Orden
+     router.get(`${prefix}/orden`, ordenController.getAll)
+     router.get(`${prefix}/orden/:id`, ordenController.get)
+     router.post(`${prefix}/orden`, ordenController.create)
+     router.put(`${prefix}/orden/:id`, ordenController.update)
+     router.delete(`${prefix}/orden/:id`, ordenController.delete)
      // Producto
      router.get(`${prefix}/productos`, productoController.getAll)
      router.get(`${prefix}/productos/:id`, productoController.get)
@@ -149,6 +155,12 @@ module.exports = function () {
      router.post(`${prefix}/platillos`, platilloController.create)
      router.put(`${prefix}/platillos/:id`, platilloController.update)
      router.delete(`${prefix}/platillos/:id`, platilloController.delete)
+     // Proveedor
+     router.get(`${prefix}/proveedores`, proveedorController.getAll)
+     router.get(`${prefix}/proveedores/:id`, proveedorController.get)
+     router.post(`${prefix}/proveedores`, proveedorController.create)
+     router.put(`${prefix}/proveedores/:id`, proveedorController.update)
+     router.delete(`${prefix}/proveedores/:id`, proveedorController.delete)
      // Rol
      router.get(`${prefix}/rol`, rolController.getAll)
      router.get(`${prefix}/rol/:id`, rolController.get)
@@ -191,6 +203,12 @@ module.exports = function () {
      router.post(`${prefix}/unidadMedidas`, unidadMedidaController.create)
      router.put(`${prefix}/unidadMedidas/:id`, unidadMedidaController.update)
      router.delete(`${prefix}/unidadMedidas/:id`, unidadMedidaController.delete)
+     // Usuario
+     router.get(`${prefix}/usuarios`, usuariosController.getAll)
+     router.get(`${prefix}/usuarios/:id`, usuariosController.get)
+     router.post(`${prefix}/usuarios`, usuariosController.create)
+     router.put(`${prefix}/usuarios/:id`, usuariosController.update)
+     router.delete(`${prefix}/usuarios/:id`, usuariosController.delete)
 
     return router;
 }
