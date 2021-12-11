@@ -8,8 +8,11 @@ import NavBar from "./NavBar";
 import { Container } from 'reactstrap';
 
 import Home from "./components/home.component";
-import Paises, { Pais } from "./components/pais.component";
-import Topics, { Topic } from "./components/topic.component";
+import { Consecutivos, Consecutivo } from "./components/consecutivo.component";
+import { Paises, Pais } from "./components/pais.component";
+import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
+import { TipoComestibles, TipoComestible } from "./components/tipoComestible.component";
+import { DetalleUnidades, DetalleUnidad } from "./components/detalleUnidad.component";
 
 function App() {
   return (
@@ -28,17 +31,36 @@ function App() {
 
       <Container>
         <div className="row">
-          <div className="col col-xl-4 col-md-2 col-lg-2"><NavBar/></div>
+          <div className="col col-lg-3"><NavBar/></div>
 
           <div className="col" id="contenido">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/pais" element={<Paises />}>
-                <Route path=":paisId" element={<Pais />} />
+
+              {/**** CRUDs ****/}
+              <Route path="/consecutivo" element={<Consecutivos />}/>
+              <Route path="/consecutivo">
+                <Route path=":_id" element={<Consecutivo />} />
               </Route>
-              <Route path="/topics">
-                <Route path=":topicId" element={<Topic />} />
+
+              <Route path="/pais" element={<Paises />}/>
+              <Route path="/pais">
+                <Route path=":_id" element={<Pais />} />
               </Route>
+              <Route path="/tipoBebida" element={<TipoBebidas />}/>
+              <Route path="/tipoBebida">
+                <Route path=":_id" element={<TipoBebida />} />
+              </Route>
+              <Route path="/tipoComestible" element={<TipoComestibles />}/>
+              <Route path="/tipoComestible">
+                <Route path=":_id" element={<TipoComestible />} />
+              </Route>
+              <Route path="/detalleUnidad" element={<DetalleUnidades />}/>
+              <Route path="/detalleUnidad">
+                <Route path=":_id" element={<DetalleUnidad />} />
+              </Route>
+
+              {/**** Usuarios ****/}
               <Route path="users">
                 {/* <Route path=":id" element={<UserProfile />} /> */}
               </Route>

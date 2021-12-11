@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
-
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 const Schema= mongoose.Schema;
 
 const empresaSchema = new Schema({
-    id: {
-        type: Number,
-        trim: true,
-        unique: true
+    codigo: {
+      type: Number,
     },
     cedJuridica:{
         type:String,
@@ -28,5 +26,6 @@ const empresaSchema = new Schema({
         type:String
     }
 })
+empresaSchema.plugin(AutoIncrement, { id: 'empresaSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('Empresa',empresaSchema);
+module.exports = mongoose.model('Empresa', empresaSchema);

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
-import PaisDataService from "../services/pais.service";
-import ConsecutivoService from "../services/consecutivo.service";
+import TipoComestibleDataService from "../services/tipoComestible.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -10,7 +9,7 @@ import {
 } from "react-router-dom";
 import history from 'history/browser';
 
-export class Paises extends Component {
+export class TipoComestibles extends Component {
   state = {
     data: [],
     dataLoaded: false
@@ -21,7 +20,7 @@ export class Paises extends Component {
   }
 
   async listarObjetos() {
-    await PaisDataService.getAll()
+    await TipoComestibleDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data,
@@ -34,8 +33,8 @@ export class Paises extends Component {
       });
   }
 
-  eliminarObjeto(Consecutivo){
-    PaisDataService.delete(Consecutivo)
+  eliminarObjeto(_id){
+    TipoComestibleDataService.delete(_id)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -51,14 +50,15 @@ export class Paises extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Paises</h1></Col>
+           <Col><h1>Tipos de comestibles</h1></Col>
            <Col><Button color="success" href={`${history.location.pathname}/new`}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
-                <th>Consecutivo</th>
-                <th>Pais</th>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
                 <th></th>
               </tr>
             </thead>
@@ -67,7 +67,8 @@ export class Paises extends Component {
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
-                    <td>{dato.pais}</td>
+                    <td>{dato.nombre}</td>
+                    <td>{dato.descripcion}</td>
                     <td>
                       <Button
                         color="primary"
@@ -88,30 +89,23 @@ export class Paises extends Component {
   }
 }
 
-export function Pais() {
+export function TipoComestible() {
   let { _id } = useParams();
   let location = useLocation();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
-  const [cargaObjeto, setCargaObjecto] = useState(false);
   const [isNew] = useState(_id === 'new');
 
   useEffect(() => {
-    if (!isNew){
-      PaisDataService.get(_id)
-          .then(response => {
-            setObjeto(response.data)
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-    }
-    else {
-      generarConsecutivo('Pais')
-    }
-
-    setCargaObjecto(true);
+    if (!isNew)
+      TipoComestibleDataService.get(_id)
+        .then(response => {
+          setObjeto(response.data)
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
   }, []);
 
   const handleChange = e => {
@@ -126,14 +120,14 @@ export function Pais() {
     console.log("Objeto a procesar: ", objeto);
     e.preventDefault();
     if(isNew){
-      PaisDataService.create(objeto)
+      TipoComestibleDataService.create(objeto)
         .then(response => {
         })
         .catch(e => {
           console.log(e);
         });
     } else {
-      PaisDataService.update(objeto._id, objeto)
+      TipoComestibleDataService.update(objeto._id, objeto)
         .then(response => {
         })
         .catch(e => {
@@ -141,53 +135,46 @@ export function Pais() {
         });
     }
 
-    goBack();
+    // goBack();
   }
 
   function goBack(){
     navigate(-1);
   }
 
-  function generarConsecutivo() {
-    ConsecutivoService.generarConsecutivo('Pais')
-      .then(response => {
-        console.log(response);
-        setObjeto( { codigo: response.data });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
   return (
     <div>
-      <h2>Pais</h2>
+      <h2>Tipo de comestible</h2>
 
       <form onSubmit={handleSubmit}>
-        { cargaObjeto &&
-            <div>
-              <div className="form-group row">
-                <label htmlFor="codigo" className="col-4 col-form-label">Codigo</label>
-                <div className="col-8">
-                  <input name="codigo" type="text" className="form-control" value={objeto.codigo} disabled/>
-                </div>
-              </div>
-              <div className="form-group row">
-                <label htmlFor="pais" className="col-4 col-form-label">Nombre</label>
-                <div className="col-8">
-                  <input id="pais" name="pais" type="text" className="form-control" required="required" value={objeto.pais} onChange={handleChange}/>
-                </div>
-              </div>
-              <div className="form-group row">
-                <div className="offset-8 col-2">
-                  <a className="btn btn-danger" onClick={goBack}>Cancelar</a>
-                </div>
-                <div className="col-2">
-                  <button name="submit" type="submit" className="btn btn-primary">Guardar</button>
-                </div>
-              </div>
+        {!isNew &&
+          <div class="form-group row">
+            <label for="codigo" class="col-4 col-form-label">Codigo</label>
+            <div class="col-8">
+              <input name="codigo" type="text" class="form-control" value={objeto.codigo} disabled/>
             </div>
+          </div>
         }
+        <div className="form-group row">
+          <label className="col-4 col-form-label">Nombre</label>
+          <div className="col-8">
+            <input name="nombre" type="text" className="form-control" required="required" value={objeto.nombre} onChange={handleChange}/>
+          </div>
+        </div>
+        <div className="form-group row">
+          <label className="col-4 col-form-label">Descripcion</label>
+          <div className="col-8">
+            <input name="descripcion" type="text" className="form-control" value={objeto.descripcion} onChange={handleChange}/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-8 col-2">
+            <a class="btn btn-danger" onClick={goBack}>Cancelar</a>
+          </div>
+          <div class="col-2">
+            <button name="submit" type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </div>
       </form>
       
     </div>

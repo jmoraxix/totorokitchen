@@ -45,7 +45,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://Admin:QRwAb1x0VruYHgwL@cltadriano.req5g.mongodb.net/restaurante?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-})
+});
 
 module.exports = {
     Bebidas: Bebidas,

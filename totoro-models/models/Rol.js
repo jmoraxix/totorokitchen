@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 const Schema = mongoose.Schema;
 
 const rolSchema = new Schema({
-    id: {
-        type: Number,
-        trim: true,
-        unique: true
+    codigo: {
+      type: Number
     },
     nombre:{
         type:String,
@@ -20,5 +19,6 @@ const rolSchema = new Schema({
         trim: true
     }
 })
+rolSchema.plugin(AutoIncrement, { id: 'rolSchema_counter', inc_field: 'codigo' });
 
 module.exports = mongoose.model('Rol', rolSchema);
