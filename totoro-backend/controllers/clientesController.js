@@ -13,7 +13,7 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const clientes = await Clientes.findById(id);
+        const clientes = await Clientes.findById(id).populate('restaurantes');
         if(!clientes){
             res.status(404).json({
                 mensaje:'Objeto no existe'

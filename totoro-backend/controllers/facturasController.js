@@ -13,7 +13,7 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const facturas = await Facturas.findById(id);
+        const facturas = await Facturas.findById(id).populate('orden').populate('clientes').populate('restaurantes');
         if(!facturas){
             res.status(404).json({
                 mensaje:'Objeto no existe'

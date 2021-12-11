@@ -23,9 +23,7 @@ const unidadMedidaSchema = new Schema({
     },
     detalleUnidad: {
         type: Schema.Types.ObjectId,
-        ref: 'DetalleUnidad',
-        type: DetalleUnidad,
-        default: {}
+        ref: 'DetalleUnidad'
     }
 })
 

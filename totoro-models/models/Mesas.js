@@ -21,9 +21,7 @@ const mesasSchema = new Schema({
     },
     restaurantes: {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurantes',
-        type: Restaurantes,
-        default: {}
+        ref: 'Restaurantes'
     }
 })
 

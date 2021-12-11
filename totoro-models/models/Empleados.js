@@ -45,15 +45,11 @@ const empleadosSchema = new Schema({
     },
     restaurantes: {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurantes',
-        type: Restaurantes,
-        default: {}
+        ref: 'Restaurantes'
     },
     puestos: {
         type: Schema.Types.ObjectId,
-        ref: 'Puestos',
-        type: Puestos,
-        default: {}
+        ref: 'Puestos'
     }
 })
 

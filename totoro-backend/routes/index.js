@@ -17,12 +17,15 @@ const lineaComestibleController = require('../controllers/lineaComestibleControl
 const marcaController = require('../controllers/marcaController.js');
 const mesasController = require('../controllers/mesasController.js');
 const restaurantesController = require('../controllers/restaurantesController.js');
+const productoController = require('../controllers/productoController.js');
 
 const rolController = require('../controllers/rolController.js');
 const tipoBebidaController = require('../controllers/tipoBebidaController.js');
 const tipoComestibleController = require('../controllers/tipoComestibleController.js');
 const tipoComidaController = require('../controllers/tipoComidaController.js');
 const tipoProductoController = require('../controllers/tipoProductoController.js');
+const unidadMedidaController = require('../controllers/unidadMedidaController.js');
+
 
 const prefix = '/api';
 
@@ -131,6 +134,12 @@ module.exports = function () {
      router.post(`${prefix}/restaurantes`, restaurantesController.create)
      router.put(`${prefix}/restaurantes/:id`, restaurantesController.update)
      router.delete(`${prefix}/restaurantes/:id`, restaurantesController.delete)
+     // Producto
+     router.get(`${prefix}/productos`, productoController.getAll)
+     router.get(`${prefix}/productos/:id`, productoController.get)
+     router.post(`${prefix}/productos`, productoController.create)
+     router.put(`${prefix}/productos/:id`, productoController.update)
+     router.delete(`${prefix}/productos/:id`, productoController.delete)
      // Rol
      router.get(`${prefix}/rol`, rolController.getAll)
      router.get(`${prefix}/rol/:id`, rolController.get)
@@ -161,6 +170,12 @@ module.exports = function () {
      router.post(`${prefix}/tipoProducto`, tipoProductoController.create)
      router.put(`${prefix}/tipoProducto/:id`, tipoProductoController.update)
      router.delete(`${prefix}/tipoProducto/:id`, tipoProductoController.delete)
+     // Unidad Medida
+     router.get(`${prefix}/unidadMedidas`, unidadMedidaController.getAll)
+     router.get(`${prefix}/unidadMedidas/:id`, unidadMedidaController.get)
+     router.post(`${prefix}/unidadMedidas`, unidadMedidaController.create)
+     router.put(`${prefix}/unidadMedidas/:id`, unidadMedidaController.update)
+     router.delete(`${prefix}/unidadMedidas/:id`, unidadMedidaController.delete)
 
     return router;
 }

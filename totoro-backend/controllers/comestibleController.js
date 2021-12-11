@@ -13,7 +13,7 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const comestibles = await Comestibles.findById(id);
+        const comestibles = await Comestibles.findById(id).populate('tipoComestible').populate('lineaComestible').populate('clasecomestible').populate('unidadMedida');
         if(!comestibles){
             res.status(404).json({
                 mensaje:'Objeto no existe'

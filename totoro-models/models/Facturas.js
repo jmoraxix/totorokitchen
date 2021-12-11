@@ -20,21 +20,15 @@ const facturasSchema = new Schema({
     },
     orden: {
         type: Schema.Types.ObjectId,
-        ref: 'Orden',
-        type: Orden,
-        default: {}
+        ref: 'Orden'
     },
     clientes: {
         type: Schema.Types.ObjectId,
-        ref: 'Clientes',
-        type: Clientes,
-        default: {}
+        ref: 'Clientes'
     },
     restaurantes: {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurantes',
-        type: Restaurantes,
-        default: {}
+        ref: 'Restaurantes'
     }
 })
 

@@ -21,15 +21,11 @@ const marcaSchema = new Schema({
     },
     empresa: {
         type: Schema.Types.ObjectId,
-        ref: 'Empresa',
-        type: Empresa,
-        default: {}
+        ref: 'Empresa'
     },
     pais: {
         type: Schema.Types.ObjectId,
-        ref: 'Pais',
-        type: Pais,
-        default: {}
+        ref: 'Pais'
     }
 })
 module.exports = marcaSchema;

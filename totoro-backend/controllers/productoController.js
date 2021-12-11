@@ -1,9 +1,9 @@
-const Empleados = require('totoro-models').Empleados;
+const Productos = require('totoro-models').Producto;
 
 exports.getAll = async(req, res)=>{
     try {
-        const empleados = await Empleados.find();
-        res.json(empleados);
+        const productos = await Productos.find();
+        res.json(productos);
     } catch (error) {
         res.status(400).send(error);
     }
@@ -13,22 +13,22 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const empleados = await Empleados.findById(id).populate('puestos').populate('restaurantes');
-        if(!empleados){
+        const productos = await Productos.findById(id).populate('marca').populate('unidadMedida').populate('tipoComestible').populate('lineaComestible').populate('claseComestible').populate('restaurantes');
+        if(!productos){
             res.status(404).json({
                 mensaje:'Objeto no existe'
             })
         }
-        res.json(empleados)
+        res.json(productos)
     } catch (error) {
         res.status(400).send(error);
     }
 }
 
 exports.create = async(req, res)=>{
-    const empleados= new Empleados(req.body);
+    const productos= new Productos(req.body);
     try {
-        await empleados.save();
+        await productos.save();
         res.json({
             mensaje:'Objeto creado con exito'
         })
@@ -41,7 +41,7 @@ exports.create = async(req, res)=>{
 exports.update = async(req, res)=>{
     try {
         const id= req.params.id;
-        const empleados = await Empleados.findOneAndUpdate(
+        const productos = await Productos.findOneAndUpdate(
             {_id:id},
             req.body,
             {new: true}
@@ -57,7 +57,7 @@ exports.update = async(req, res)=>{
 exports.delete= async(req, res)=>{
     try{
         const id= req.params.id;
-        const empleados = await Empleados.findOneAndDelete({_id:id});
+        const productos = await Productos.findOneAndDelete({_id:id});
         res.json({
             mensaje:`Objeto eliminado ${id} con exito`
         })
