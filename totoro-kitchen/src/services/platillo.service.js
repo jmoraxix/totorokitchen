@@ -1,25 +1,25 @@
 import http from "../http-common";
 
-class ConsecutivoService {
+class PlatilloDataService {
     getAll() {
-        return http.get("/consecutivo");
+        return http.get("/platillo");
     }
 
     get(id) {
-        return http.get(`/consecutivo/${id}`);
+        return http.get(`/platillo/${id}`);
     }
 
     create(data) {
-        return http.post("/consecutivo", data);
+        return http.post("/platillo", data);
     }
 
     update(id, data) {
-        return http.put(`/consecutivo/${id}`, data);
+        return http.put(`/platillo/${id}`, data);
     }
 
     delete(id) {
-        return http.delete(`/consecutivo/${id}`);
+        return http.delete(`/platillo/${id}`);
     }
 }
 
-export default new ConsecutivoService();
+export default new PlatilloDataService();

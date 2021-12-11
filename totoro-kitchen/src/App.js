@@ -14,6 +14,7 @@ import { Empresas, Empresa } from "./components/empresa.component";
 import { Marcas, Marca } from "./components/marca.component";
 import { Platillos, Platillo } from "./components/platillo.component";
 import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
+import { TipoComidas, TipoComida } from "./components/tipoComida.component";
 import { TipoComestibles, TipoComestible } from "./components/tipoComestible.component";
 import { TipoPlatillos, TipoPlatillo } from "./components/tipoPlatillo.component";
 import { DetalleUnidades, DetalleUnidad } from "./components/detalleUnidad.component";
@@ -83,6 +84,12 @@ function App() {
               <Route path="/tipoBebida">
                 <Route path=":_id" element={<TipoBebida />} />
               </Route>
+              
+              <Route path="/tipoComida" element={<TipoComidas />}/>
+              <Route path="/tipoComida">
+                <Route path=":_id" element={<TipoComida />} />
+              </Route>
+
               <Route path="/tipoComestible" element={<TipoComestibles />}/>
               <Route path="/tipoComestible">
                 <Route path=":_id" element={<TipoComestible />} />
