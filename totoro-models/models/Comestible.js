@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { tipoComestibleSchema } = require('./TipoComestible');
 const { lineaComestibleSchema } = require('./LineaComestible');
-const { ClaseComestible } = require('./ClaseComestible');
+const { claseComestibleSchema } = require('./ClaseComestible');
 const { UnidadMedida } = require('./UnidadMedida');
 const Schema = mongoose.Schema;
 
@@ -21,7 +21,7 @@ const comestibleSchema = new Schema({
         default: {}
     },
     claseComestibleSchema: {
-        type: ClaseComestible,
+        type: claseComestibleSchema,
         default: {}
     },
     unidadMedida: {
