@@ -8,7 +8,7 @@ import NavBar from "./NavBar";
 import { Container } from 'reactstrap';
 
 import Home from "./components/home.component";
-import Paises, { Pais } from "./components/pais.component";
+import { Consecutivos, Consecutivo } from "./components/consecutivo.component";
 import Topics, { Topic } from "./components/topic.component";
 
 function App() {
@@ -33,6 +33,13 @@ function App() {
           <div className="col" id="contenido">
             <Routes>
               <Route path="/" element={<Home />} />
+
+              {/**** CRUDs ****/}
+              <Route path="/consecutivo" element={<Consecutivos />}/>
+              <Route path="/consecutivo">
+                <Route path=":_id" element={<Consecutivo />} />
+              </Route>
+
               <Route path="/pais" element={<Paises />}/>
               <Route path="/pais">
                 <Route path=":paisId" element={<Pais />} />

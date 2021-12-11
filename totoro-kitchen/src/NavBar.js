@@ -45,6 +45,9 @@ export default class Example extends React.Component {
               </NavItem>
               <Collapse isOpened={this.state.adminOpen}>
                 <NavItem>
+                  <NavLink href="/consecutivo">Consecutivos</NavLink>
+                </NavItem>
+                <NavItem>
                   <NavLink href="/pais">Paises</NavLink>
                 </NavItem>
               </Collapse>  

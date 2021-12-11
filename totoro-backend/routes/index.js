@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const consecutivoController = require('../controllers/consecutivoController.js');
 const paisController = require('../controllers/paisController.js');
 const claseComestibleController = require('../controllers/claseComestibleController.js');
 const detalleUnidadController = require('../controllers/detalleUnidadController.js');
@@ -16,6 +17,14 @@ const tipoProductoController = require('../controllers/tipoProductoController.js
 const prefix = '/api';
 
 module.exports = function () {
+    /** CRUDs **/
+    // Consecutivo
+    router.get(`${prefix}/consecutivo`, consecutivoController.getAll)
+    router.get(`${prefix}/consecutivo/generarConsecutivo`, consecutivoController.generarConsecutivo)
+    router.get(`${prefix}/consecutivo/:id`, consecutivoController.get)
+    router.post(`${prefix}/consecutivo`, consecutivoController.create)
+    router.put(`${prefix}/consecutivo/:id`, consecutivoController.update)
+    router.delete(`${prefix}/consecutivo/:id`, consecutivoController.delete)
     // Pais
     router.get(`${prefix}/pais`, paisController.getAll)
     router.get(`${prefix}/pais/:id`, paisController.get)
