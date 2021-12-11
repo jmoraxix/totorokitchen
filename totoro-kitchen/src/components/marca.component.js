@@ -1,10 +1,11 @@
 import React, { useState, useEffect, Component } from "react";
 import MarcaDataService from "../services/marca.service";
+import PaisDataService from "../services/pais.service";
+import EmpresaDataService from "../services/empresa.service";
 import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
-  useLocation,
   useNavigate,
   useParams
 } from "react-router-dom";
@@ -90,10 +91,11 @@ export class Marcas extends Component {
 
 export function Marca() {
   let { _id } = useParams();
-  let location = useLocation();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
   const [cargaObjeto, setCargaObjecto] = useState(false);
+  const [listaPaises, setListaPaises] = useState([]);
+  const [listaEmpresas, setListaEmpresas] = useState([]);
   const [isNew] = useState(_id === 'new');
 
   useEffect(() => {
@@ -111,6 +113,22 @@ export function Marca() {
       generarConsecutivo('Marca')
     }
 
+    PaisDataService.getAll()
+        .then(response => {
+          setListaPaises(response.data)
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    EmpresaDataService.getAll()
+        .then(response => {
+          setListaEmpresas(response.data)
+        })
+        .catch(e => {
+          console.log(e);
+        });
+
+    console.log(listaPaises, listaEmpresas);
     setCargaObjecto(true);
   }, []);
 
@@ -175,6 +193,21 @@ export function Marca() {
                 <label htmlFor="pais" className="col-4 col-form-label">Nombre</label>
                 <div className="col-8">
                   <input name="nombre" type="text" className="form-control" required="required" value={objeto.nombre} onChange={handleChange}/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label htmlFor="pais" className="col-4 col-form-label">Descripcion</label>
+                <div className="col-8">
+                  <input name="descripcion" type="text" className="form-control" value={objeto.descripcion} onChange={handleChange}/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label htmlFor="pais" className="col-4 col-form-label">Empresa</label>
+                <div className="col-8">
+                  <select name="empresa" className="form-select" value={objeto.empresa} onChange={handleChange}>
+                    <option selected>Seleccione una opcion</option>
+                    {/*{ listaEmpresas.map(({ _id, nombre }, index) => <option value={_id} >{nombre}</option>) }*/}
+                  </select>
                 </div>
               </div>
               <div className="form-group row">

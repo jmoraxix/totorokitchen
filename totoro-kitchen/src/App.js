@@ -11,6 +11,7 @@ import Home from "./components/home.component";
 import { Consecutivos, Consecutivo } from "./components/consecutivo.component";
 import { Paises, Pais } from "./components/pais.component";
 import { Empresas, Empresa } from "./components/empresa.component";
+import { Marcas, Marca } from "./components/marca.component";
 import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
 import { TipoComestibles, TipoComestible } from "./components/tipoComestible.component";
 import { TipoPlatillos, TipoPlatillo } from "./components/tipoPlatillo.component";
@@ -37,7 +38,7 @@ function App() {
       <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item"><a href="/">Library</a></li>
             <li class="breadcrumb-item active" aria-current="page">Data</li>
           </ol>
       </nav>
@@ -63,6 +64,10 @@ function App() {
               <Route path="/empresa" element={<Empresas />}/>
               <Route path="/empresa">
                 <Route path=":_id" element={<Empresa />} />
+              </Route>
+              <Route path="/marca" element={<Marcas />}/>
+              <Route path="/marca">
+                <Route path=":_id" element={<Marca />} />
               </Route>
 
               <Route path="/detalleUnidad" element={<DetalleUnidades />}/>
