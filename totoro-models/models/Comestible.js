@@ -13,18 +13,26 @@ const comestibleSchema = new Schema({
         uppercase: true
     },
     tipoComestible: {
-        type: tipoComestibleSchema,
+        type: Schema.Types.ObjectId,
+        ref: 'TipoComestible',
+        type: TipoComestible,
         default: {}
     },
     lineaComestible: {
-        type: lineaComestibleSchema,
+        type: Schema.Types.ObjectId,
+        ref: 'LineaComestible',
+        type: LineaComestible,
         default: {}
     },
     claseComestibleSchema: {
-        type: claseComestibleSchema,
+        type: Schema.Types.ObjectId,
+        ref: 'ClaseComestible',
+        type: ClaseComestible,
         default: {}
     },
     unidadMedida: {
+        type: Schema.Types.ObjectId,
+        ref: 'UnidadMedida',
         type: UnidadMedida,
         default: {}
     }

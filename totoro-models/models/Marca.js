@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Empresa = require('./Empresa');
+const Pais = require('./Pais');
 
 const Schema = mongoose.Schema;
 
@@ -19,12 +21,15 @@ const marcaSchema = new Schema({
     },
     empresa: {
         type: Schema.Types.ObjectId,
-        ref: 'Empresa'
+        ref: 'Empresa',
+        type: Empresa,
+        default: {}
     },
     pais: {
         type: Schema.Types.ObjectId,
-        ref: 'Pais'
+        ref: 'Pais',
+        type: Pais,
+        default: {}
     }
 })
-
 module.exports = marcaSchema;

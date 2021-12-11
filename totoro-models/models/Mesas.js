@@ -20,6 +20,8 @@ const mesasSchema = new Schema({
         type: Number
     },
     restaurantes: {
+        type: Schema.Types.ObjectId,
+        ref: 'Restaurantes',
         type: Restaurantes,
         default: {}
     }

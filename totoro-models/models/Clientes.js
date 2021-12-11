@@ -31,8 +31,11 @@ const clientesSchema = new Schema({
         type: Boolean
     },
     restaurantes: {
+        type: Schema.Types.ObjectId,
+        ref: 'Restaurantes',
         type: Restaurantes,
         default: {}
+        
     }
 })
 

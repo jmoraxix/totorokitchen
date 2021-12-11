@@ -44,13 +44,17 @@ const empleadosSchema = new Schema({
         trim: true
     },
     restaurantes: {
+        type: Schema.Types.ObjectId,
+        ref: 'Restaurantes',
         type: Restaurantes,
         default: {}
     },
     puestos: {
+        type: Schema.Types.ObjectId,
+        ref: 'Puestos',
         type: Puestos,
         default: {}
     }
 })
 
-module.exports = mongoose.model('Empleados', empleadosSchema);
+module.exports = empleadosSchema;
