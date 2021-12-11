@@ -2,23 +2,23 @@ import http from "../http-common";
 
 class MesasDataService {
     getAll() {
-        return http.get("/mesas");
+        return http.get("/mesa");
     }
 
     get(id) {
-        return http.get(`/mesas/${id}`);
+        return http.get(`/mesa/${id}`);
     }
 
     create(data) {
-        return http.post("/mesas", data);
+        return http.post("/mesa", data);
     }
 
     update(id, data) {
-        return http.put(`/mesas/${id}`, data);
+        return http.put(`/mesa/${id}`, data);
     }
 
     delete(id) {
-        return http.delete(`/mesas/${id}`);
+        return http.delete(`/mesa/${id}`);
     }
 }
 

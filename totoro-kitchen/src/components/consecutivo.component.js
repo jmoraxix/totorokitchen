@@ -122,7 +122,6 @@ export function Consecutivo() {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    console.log("handleChange: ", name, value);
     setObjeto(prevState => ({
       ...prevState,
       [name]: value
