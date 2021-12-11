@@ -10,6 +10,7 @@ import { Container } from 'reactstrap';
 import Home from "./components/home.component";
 import { Consecutivos, Consecutivo } from "./components/consecutivo.component";
 import { Paises, Pais } from "./components/pais.component";
+import { Empresas, Empresa } from "./components/empresa.component";
 import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
 import { TipoComestibles, TipoComestible } from "./components/tipoComestible.component";
 import { DetalleUnidades, DetalleUnidad } from "./components/detalleUnidad.component";
@@ -47,6 +48,11 @@ function App() {
               <Route path="/pais">
                 <Route path=":_id" element={<Pais />} />
               </Route>
+              <Route path="/empresa" element={<Empresas />}/>
+              <Route path="/empresa">
+                <Route path=":_id" element={<Empresa />} />
+              </Route>
+
               <Route path="/tipoBebida" element={<TipoBebidas />}/>
               <Route path="/tipoBebida">
                 <Route path=":_id" element={<TipoBebida />} />

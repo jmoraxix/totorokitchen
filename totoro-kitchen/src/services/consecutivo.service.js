@@ -21,10 +21,6 @@ class ConsecutivoService {
         return http.delete(`/consecutivo/${id}`);
     }
 
-    incrementar(id) {
-      return http.put(`/consecutivo/${id}/incrementar`);
-    }
-
     generarConsecutivo(tipo) {
       return http.get(`/consecutivo/generarConsecutivo?tipo=${tipo}`);
     }
