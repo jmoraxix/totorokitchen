@@ -13,4 +13,4 @@ const tipoBebidaSchema = new Schema({
 })
 tipoBebidaSchema.plugin(AutoIncrement, { id: 'tipoBebidaSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('TipoBebida', tipoBebidaSchema);
+module.exports =tipoBebidaSchema;

@@ -13,4 +13,4 @@ const tipoComidaSchema = new Schema({
 })
 tipoComidaSchema.plugin(AutoIncrement, { id: 'tipoComidaSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('TipoComida', tipoComidaSchema);
+module.exports = tipoComidaSchema;

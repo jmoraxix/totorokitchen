@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const restaurantesSchema = new Schema({
+const puestosSchema = new Schema({
     codigo: {
         type: String,
         trim: true,
@@ -12,20 +12,13 @@ const restaurantesSchema = new Schema({
         type: String,
         trim: true
     },
-    direccion: {
+    rol: {
         type: String,
         trim: true
     },
-    aforo: {
-        type: Number
-    },
-    telefono: {
-        type: String,
-        trim: true
-    },
-    activo: {
+    interno: {
         type: Boolean
     }
 })
 
-module.exports =  restaurantesSchema;
+module.exports =  puestosSchema;

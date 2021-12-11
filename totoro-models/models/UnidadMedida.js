@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const Orden  = require('./Orden.');
-const Clientes = require('./Clientes');
-const Restaurantes = require('./Restaurantes');
+const DetalleUnidad = require('./DetalleUnidad');
 const Schema = mongoose.Schema;
 
 const unidadMedidaSchema = new Schema({
@@ -24,9 +22,9 @@ const unidadMedidaSchema = new Schema({
         trim: true
     },
     detalleUnidad: {
-        type: detalleUnidad,
+        type: DetalleUnidad,
         default: {}
     }
 })
 
-module.exports = mongoose.model('UnidadMedida', unidadMedidaSchema);
+module.exports = unidadMedidaSchema;

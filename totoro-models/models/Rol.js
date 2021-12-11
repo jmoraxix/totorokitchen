@@ -21,4 +21,4 @@ const rolSchema = new Schema({
 })
 rolSchema.plugin(AutoIncrement, { id: 'rolSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('Rol', rolSchema);
+module.exports =  rolSchema;

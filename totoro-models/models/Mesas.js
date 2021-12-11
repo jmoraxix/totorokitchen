@@ -25,4 +25,4 @@ const mesasSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Mesas', mesasSchema);
+module.exports =  mesasSchema;

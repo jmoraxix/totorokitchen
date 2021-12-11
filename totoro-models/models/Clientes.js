@@ -36,4 +36,4 @@ const clientesSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Clientes', clientesSchema);
+module.exports = clientesSchema;

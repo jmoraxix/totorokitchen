@@ -37,4 +37,4 @@ const claseBebidasSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('claseBebidas', claseBebidasSchema);
+module.exports = claseBebidasSchema;

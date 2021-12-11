@@ -13,4 +13,4 @@ const eventoSchema = new Schema({
 })
 eventoSchema.plugin(AutoIncrement, { id: 'eventoSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('Evento', eventoSchema);
+module.exports =  eventoSchema;

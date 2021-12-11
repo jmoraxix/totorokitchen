@@ -13,4 +13,4 @@ const estadoOrdenSchema = new Schema({
 })
 estadoOrdenSchema.plugin(AutoIncrement, { id: 'estadoOrdenSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('EstadoOrden', estadoOrdenSchema);
+module.exports =  estadoOrdenSchema;

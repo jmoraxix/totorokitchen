@@ -13,4 +13,4 @@ const detalleUnidadSchema = new Schema({
 })
 detalleUnidadSchema.plugin(AutoIncrement, { id: 'detalleUnidadSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('DetalleUnidad', detalleUnidadSchema);
+module.exports = detalleUnidadSchema;

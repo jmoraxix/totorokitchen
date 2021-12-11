@@ -31,4 +31,4 @@ const consecutivoSchema = new Schema({
 })
 consecutivoSchema.plugin(AutoIncrement, { id: 'consecutivoSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('ConsecutivoSchema', consecutivoSchema);
+module.exports = consecutivoSchema;

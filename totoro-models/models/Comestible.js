@@ -30,4 +30,4 @@ const comestibleSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Comestible', comestibleSchema);
+module.exports = comestibleSchema;

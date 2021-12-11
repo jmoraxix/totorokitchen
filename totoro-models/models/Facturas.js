@@ -32,4 +32,4 @@ const facturasSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Facturas', facturasSchema);
+module.exports =  facturasSchema;

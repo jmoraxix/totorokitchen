@@ -13,4 +13,4 @@ const tipoProductoSchema = new Schema({
 })
 tipoProductoSchema.plugin(AutoIncrement, { id: 'tipoProductoSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('TipoProducto', tipoProductoSchema);
+module.exports = tipoProductoSchema;

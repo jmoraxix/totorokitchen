@@ -20,4 +20,4 @@ const cajasSchema = new Schema({
 })
 cajasSchema.plugin(AutoIncrement, { id: 'cajasSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('Cajas', cajasSchema);
+module.exports = cajasSchema;

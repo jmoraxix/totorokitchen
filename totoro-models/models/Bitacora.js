@@ -25,4 +25,4 @@ const bitacoraSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Bitacora', bitacoraSchema);
+module.exports = bitacoraSchema;

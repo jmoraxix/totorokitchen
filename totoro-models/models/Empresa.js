@@ -28,4 +28,4 @@ const empresaSchema = new Schema({
 })
 empresaSchema.plugin(AutoIncrement, { id: 'empresaSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('Empresa', empresaSchema);
+module.exports = empresaSchema;
