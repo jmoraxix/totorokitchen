@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 const Schema = mongoose.Schema;
 
 const claseComestibleSchema = new Schema({
-    id: {
+    codigo: {
         type: Number,
-        trim: true,
-        unique: true
     },
     nombre:{
         type:String,
@@ -16,5 +15,6 @@ const claseComestibleSchema = new Schema({
         trim: true
     }
 })
+claseComestibleSchema.plugin(AutoIncrement, { id: 'claseComestibleSchema_counter', inc_field: 'codigo' });
 
 module.exports = mongoose.model('ClaseComestible', claseComestibleSchema);

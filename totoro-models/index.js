@@ -13,12 +13,13 @@ const TipoBebida = require('./models/TipoBebida');
 const TipoComestible = require('./models/TipoComestible');
 const TipoComida = require('./models/TipoComida');
 const TipoProducto = require('./models/TipoProducto');
+const Consecutivo = require('./models/Consecutivo');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://Admin:QRwAb1x0VruYHgwL@cltadriano.req5g.mongodb.net/restaurante?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-})
+});
 
 module.exports = {
     ClaseComestible: ClaseComestible,
@@ -33,5 +34,6 @@ module.exports = {
     TipoBebida: TipoBebida,
     TipoComestible: TipoComestible,
     TipoComida: TipoComida,
-    TipoProducto: TipoProducto
+    TipoProducto: TipoProducto,
+    Consecutivo: Consecutivo
 };
