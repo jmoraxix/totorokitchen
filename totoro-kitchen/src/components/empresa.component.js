@@ -3,7 +3,6 @@ import EmpresaDataService from "../services/empresa.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
-  useLocation,
   useNavigate,
   useParams
 } from "react-router-dom";

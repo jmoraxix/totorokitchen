@@ -3,7 +3,6 @@ import TipoComestibleDataService from "../services/tipoComestible.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
-  useLocation,
   useNavigate,
   useParams
 } from "react-router-dom";
@@ -91,7 +90,6 @@ export class TipoComestibles extends Component {
 
 export function TipoComestible() {
   let { _id } = useParams();
-  let location = useLocation();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
   const [isNew] = useState(_id === 'new');
