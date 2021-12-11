@@ -17,7 +17,9 @@ const lineaComestibleController = require('../controllers/lineaComestibleControl
 const marcaController = require('../controllers/marcaController.js');
 const mesasController = require('../controllers/mesasController.js');
 const restaurantesController = require('../controllers/restaurantesController.js');
+
 const productoController = require('../controllers/productoController.js');
+const platilloController = require('../controllers/platilloController.js');
 
 const rolController = require('../controllers/rolController.js');
 const tipoBebidaController = require('../controllers/tipoBebidaController.js');
@@ -141,6 +143,12 @@ module.exports = function () {
      router.post(`${prefix}/productos`, productoController.create)
      router.put(`${prefix}/productos/:id`, productoController.update)
      router.delete(`${prefix}/productos/:id`, productoController.delete)
+     // Platillos
+     router.get(`${prefix}/platillos`, platilloController.getAll)
+     router.get(`${prefix}/platillos/:id`, platilloController.get)
+     router.post(`${prefix}/platillos`, platilloController.create)
+     router.put(`${prefix}/platillos/:id`, platilloController.update)
+     router.delete(`${prefix}/platillos/:id`, platilloController.delete)
      // Rol
      router.get(`${prefix}/rol`, rolController.getAll)
      router.get(`${prefix}/rol/:id`, rolController.get)
