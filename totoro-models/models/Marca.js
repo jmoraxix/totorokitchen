@@ -29,4 +29,4 @@ const marcaSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Marca', marcaSchema);
+module.exports = marcaSchema;

@@ -56,7 +56,7 @@ module.exports = {
     Evento: Evento,
     Facturas: Facturas,
     LineaComestible: LineaComestible,
-    Marca: Marca,
+    Marca: mongoose.model('Marca', Marca),
     Mesas: Mesas,
     Orden: Orden,
     Pais: mongoose.model('Pais', Pais),
