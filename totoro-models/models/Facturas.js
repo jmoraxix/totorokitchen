@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const Orden  = require('./Orden.');
-const Clientes = require('./Clientes');
-const Restaurantes = require('./Restaurantes');
 const Schema = mongoose.Schema;
 
 const facturasSchema = new Schema({

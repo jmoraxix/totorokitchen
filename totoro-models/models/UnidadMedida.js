@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const DetalleUnidad = require('./DetalleUnidad');
 const Schema = mongoose.Schema;
 
 const unidadMedidaSchema = new Schema({

@@ -1,10 +1,4 @@
 const mongoose = require('mongoose');
-const Marca  = require('./Marca.');
-const UnidadMedida = require('./UnidadMedida');
-const TipoComestible = require('./TipoComestible');
-const LineaComestible = require('./LineaComestible');
-const UnidadMedida = require('./UnidadMedida');
-const ClaseComestible = require('./ClaseComestible');
 const Schema = mongoose.Schema;
 
 const productoSchema = new Schema({

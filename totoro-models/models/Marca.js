@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const Empresa = require('./Empresa');
-const Pais = require('./Pais');
-
 const Schema = mongoose.Schema;
 
 const marcaSchema = new Schema({

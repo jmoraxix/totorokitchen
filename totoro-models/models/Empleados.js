@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const Restaurantes = require('./Restaurantes');
-const Puestos = require('./Puestos');
-
 const Schema = mongoose.Schema;
 
 const empleadosSchema = new Schema({
