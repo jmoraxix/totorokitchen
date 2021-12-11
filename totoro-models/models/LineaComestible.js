@@ -17,4 +17,7 @@ const lineaComestibleSchema = new Schema({
 })
 lineaComestibleSchema.plugin(AutoIncrement, { id: 'lineaComestibleSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('LineaComestible', lineaComestibleSchema);
+module.exports = {
+  lineaComestibleSchema: tipoComestibleSchema,
+  LineaComestible: mongoose.model('LineaComestible', lineaComestibleSchema)
+}
