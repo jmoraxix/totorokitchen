@@ -13,7 +13,13 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const platillos = await Platillos.findById(id).populate('unidadMedida').populate('tipoComida').populate('tipoBebida').populate('tipoPlatillo').populate('pais').populate('marca');
+        const platillos = await Platillos.findById(id)
+            .populate('unidadMedida')
+            .populate('tipoComida')
+            .populate('tipoBebida')
+            .populate('tipoPlatillo')
+            .populate('pais')
+            .populate('marca');
         if(!platillos){
             res.status(404).json({
                 mensaje:'Objeto no existe'

@@ -12,6 +12,7 @@ import { Consecutivos, Consecutivo } from "./components/consecutivo.component";
 import { Paises, Pais } from "./components/pais.component";
 import { Empresas, Empresa } from "./components/empresa.component";
 import { Marcas, Marca } from "./components/marca.component";
+import { Platillos, Platillo } from "./components/platillo.component";
 import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
 import { TipoComestibles, TipoComestible } from "./components/tipoComestible.component";
 import { TipoPlatillos, TipoPlatillo } from "./components/tipoPlatillo.component";
@@ -68,6 +69,10 @@ function App() {
               <Route path="/marca" element={<Marcas />}/>
               <Route path="/marca">
                 <Route path=":_id" element={<Marca />} />
+              </Route>
+              <Route path="/platillo" element={<Platillos />}/>
+              <Route path="/platillo">
+                <Route path=":_id" element={<Platillo />} />
               </Route>
 
               <Route path="/detalleUnidad" element={<DetalleUnidades />}/>

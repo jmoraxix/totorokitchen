@@ -1,0 +1,25 @@
+import http from "../http-common";
+
+class ConsecutivoService {
+    getAll() {
+        return http.get("/consecutivo");
+    }
+
+    get(id) {
+        return http.get(`/consecutivo/${id}`);
+    }
+
+    create(data) {
+        return http.post("/consecutivo", data);
+    }
+
+    update(id, data) {
+        return http.put(`/consecutivo/${id}`, data);
+    }
+
+    delete(id) {
+        return http.delete(`/consecutivo/${id}`);
+    }
+}
+
+export default new ConsecutivoService();
