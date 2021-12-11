@@ -28,8 +28,7 @@ const platilloSchema = new Schema({
         trim: true
     },
     year: {
-        type: String,
-        trim: true
+        type: Number
     },
     precioBotella: {
         type: Number

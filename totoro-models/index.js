@@ -2,38 +2,34 @@ const mongoose = require('mongoose');
 
 
 const Bitacora = require('./models/Bitacora');
-const Cajas = require('./models/Cajas');
+const Cajas = require('./models/Caja');
 const ClaseComestible = require('./models/ClaseComestible');
-const Clientes = require('./models/Clientes');
-const Comestible = require('./models/Comestible');
+const Clientes = require('./models/Cliente');
 const Consecutivo = require('./models/Consecutivo');
 const DetalleUnidad = require('./models/DetalleUnidad');
-const Empleados = require('./models/Empleados');
+const Empleados = require('./models/Empleado');
 const Empresa = require('./models/Empresa');
 const EstadoOrden = require('./models/EstadoOrden');
 const Evento = require('./models/Evento');
-const Facturas = require('./models/Facturas');
+const Facturas = require('./models/Factura');
 const LineaComestible = require('./models/LineaComestible');
 const Marca = require('./models/Marca');
-const Mesas = require('./models/Mesas');
+const Mesas = require('./models/Mesa');
 const Orden = require('./models/Orden');
 const Pais = require('./models/Pais');
 const Persona = require('./models/Persona');
 const Platillo = require('./models/Platillo');
 const Producto = require('./models/Producto');
-const Proveedores = require('./models/Proveedores');
-const Puestos = require('./models/Puestos');
-const Restaurantes = require('./models/Restaurantes');
-const Rol = require('./models/Rol');
+const Proveedores = require('./models/Proveedor');
+const Puestos = require('./models/Puesto');
+const Restaurantes = require('./models/Restaurante');
 const TipoBebida = require('./models/TipoBebida');
 const TipoComestible = require('./models/TipoComestible');
 const TipoComida = require('./models/TipoComida');
 const TipoPlatillo = require('./models/TipoPlatillo');
 const TipoProducto = require('./models/TipoProducto');
-
-
 const UnidadMedida = require('./models/UnidadMedida');
-const Usuarios = require('./models/Usuarios');
+const Usuarios = require('./models/Usuario');
 
 
 
@@ -49,7 +45,6 @@ module.exports = {
     Cajas: mongoose.model('Cajas', Cajas),
     ClaseComestible: mongoose.model('ClaseComestible', ClaseComestible),
     Clientes: mongoose.model('Clientes', Clientes),
-    Comestible: mongoose.model('Comestible', Comestible),
     Consecutivo: mongoose.model('Consecutivo', Consecutivo),
     DetalleUnidad: mongoose.model('DetalleUnidad', DetalleUnidad),
     Empleados: mongoose.model('Empleados', Empleados),
@@ -68,7 +63,6 @@ module.exports = {
     Proveedores: mongoose.model('Proveedores', Proveedores),
     Puestos: mongoose.model('Puestos', Puestos),
     Restaurantes: mongoose.model('Restaurantes', Restaurantes),
-    Rol: mongoose.model('Rol', Rol),
     TipoBebida: mongoose.model('TipoBebida', TipoBebida),
     TipoComestible: mongoose.model('TipoComestible', TipoComestible),
     TipoComida: mongoose.model('TipoComida', TipoComida),

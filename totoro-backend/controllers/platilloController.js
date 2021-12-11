@@ -2,7 +2,8 @@ const Platillos = require('totoro-models').Platillo;
 
 exports.getAll = async(req, res)=>{
     try {
-        const platillos = await Platillos.find();
+        const platillos = await Platillos.find()
+            .populate('tipoPlatillo');
         res.json(platillos);
     } catch (error) {
         res.status(400).send(error);
@@ -11,7 +12,6 @@ exports.getAll = async(req, res)=>{
 
 exports.get = async(req, res)=>{
     try {
-        console.log(req.params.id)
         const id = req.params.id;
         const platillos = await Platillos.findById(id)
             .populate('unidadMedida')
