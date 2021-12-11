@@ -190,23 +190,32 @@ export function Marca() {
                 </div>
               </div>
               <div className="form-group row">
-                <label htmlFor="pais" className="col-4 col-form-label">Nombre</label>
+                <label htmlFor="nombre" className="col-4 col-form-label">Nombre</label>
                 <div className="col-8">
                   <input name="nombre" type="text" className="form-control" required="required" value={objeto.nombre} onChange={handleChange}/>
                 </div>
               </div>
               <div className="form-group row">
-                <label htmlFor="pais" className="col-4 col-form-label">Descripcion</label>
+                <label htmlFor="descripcion" className="col-4 col-form-label">Descripcion</label>
                 <div className="col-8">
                   <input name="descripcion" type="text" className="form-control" value={objeto.descripcion} onChange={handleChange}/>
                 </div>
               </div>
               <div className="form-group row">
-                <label htmlFor="pais" className="col-4 col-form-label">Empresa</label>
+                <label htmlFor="pais" className="col-4 col-form-label">Pais</label>
                 <div className="col-8">
-                  <select name="empresa" className="form-select" value={objeto.empresa} onChange={handleChange}>
+                  <select name="pais" className="form-select" value={objeto.pais?._id} onChange={handleChange}>
                     <option selected>Seleccione una opcion</option>
-                    {/*{ listaEmpresas.map(({ _id, nombre }, index) => <option value={_id} >{nombre}</option>) }*/}
+                    { listaPaises.map(({ _id, pais }, index) => <option value={_id} >{pais}</option>) }
+                  </select>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label htmlFor="empresa" className="col-4 col-form-label">Empresa</label>
+                <div className="col-8">
+                  <select name="empresa" className="form-select" value={objeto.empresa?._id} onChange={handleChange}>
+                    <option selected>Seleccione una opcion</option>
+                    { listaEmpresas.map(({ _id, nombre }, index) => <option value={_id} >{nombre}</option>) }
                   </select>
                 </div>
               </div>
