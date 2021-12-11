@@ -30,6 +30,8 @@ const TipoComestible = require('./models/TipoComestible');
 const TipoComida = require('./models/TipoComida');
 const TipoPlatillo = require('./models/TipoPlatillo');
 const TipoProducto = require('./models/TipoProducto');
+
+
 const UnidadMedida = require('./models/UnidadMedida');
 const Usuarios = require('./models/Usuarios');
 
