@@ -17,4 +17,7 @@ const claseComestibleSchema = new Schema({
 })
 claseComestibleSchema.plugin(AutoIncrement, { id: 'claseComestibleSchema_counter', inc_field: 'codigo' });
 
-module.exports = mongoose.model('ClaseComestible', claseComestibleSchema);
+module.exports = {
+  claseComestibleSchema: tipoComestibleSchema,
+  ClaseComestible: mongoose.model('ClaseComestible', claseComestibleSchema)
+}
