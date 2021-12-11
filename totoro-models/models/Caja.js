@@ -11,12 +11,16 @@ const cajasSchema = new Schema({
         trim:true
     },
     dinero: {
-        type: Number
-    }
-    ,
+        type: Number,
+        default: 0
+    },
     abierta: {
         type: Boolean
-    }
+    },
+    restaurante: {
+    type: Schema.Types.ObjectId,
+    ref: 'Restaurantes'
+  }
 })
 cajasSchema.plugin(AutoIncrement, { id: 'cajasSchema_counter', inc_field: 'codigo' });
 

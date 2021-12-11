@@ -20,6 +20,10 @@ class MesasDataService {
     delete(id) {
         return http.delete(`/mesa/${id}`);
     }
+
+    findByRestaurante(id) {
+      return http.get(`/mesa/restaurante?nombre=${id}`);
+    }
 }
 
 export default new MesasDataService();

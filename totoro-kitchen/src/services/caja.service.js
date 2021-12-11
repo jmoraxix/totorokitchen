@@ -20,6 +20,10 @@ class CajasDataService {
     delete(id) {
         return http.delete(`/caja/${id}`);
     }
+
+    cambiarEstadoCaja(id, estado) {
+      return http.post(`/caja/cambiarEstadoCaja?id=${id}&estado=${estado}`);
+    }
 }
 
 export default new CajasDataService();

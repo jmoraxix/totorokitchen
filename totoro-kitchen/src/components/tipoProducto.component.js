@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
-import TipoComestibleDataService from "../services/tipoComestible.service";
+import TipoProductoDataService from "../services/tipoProducto.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import history from 'history/browser';
 
-export class TipoComestibles extends Component {
+export class TipoProductos extends Component {
   state = {
     data: [],
     dataLoaded: false
@@ -19,7 +19,7 @@ export class TipoComestibles extends Component {
   }
 
   async listarObjetos() {
-    await TipoComestibleDataService.getAll()
+    await TipoProductoDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data,
@@ -33,7 +33,7 @@ export class TipoComestibles extends Component {
   }
 
   eliminarObjeto(_id){
-    TipoComestibleDataService.delete(_id)
+    TipoProductoDataService.delete(_id)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -49,15 +49,14 @@ export class TipoComestibles extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Tipos de comestibles</h1></Col>
+           <Col><h1>Tipos de Productos</h1></Col>
            <Col><Button color="success" href={`${history.location.pathname}/new`}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
                 <th>Codigo</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
+                <th>Tipo</th>
                 <th></th>
               </tr>
             </thead>
@@ -66,8 +65,7 @@ export class TipoComestibles extends Component {
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
-                    <td>{dato.nombre}</td>
-                    <td>{dato.descripcion}</td>
+                    <td>{dato.tipo}</td>
                     <td>
                       <Button
                         color="primary"
@@ -88,7 +86,7 @@ export class TipoComestibles extends Component {
   }
 }
 
-export function TipoComestible() {
+export function TipoProducto() {
   let { _id } = useParams();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
@@ -96,7 +94,7 @@ export function TipoComestible() {
 
   useEffect(() => {
     if (!isNew)
-      TipoComestibleDataService.get(_id)
+      TipoProductoDataService.get(_id)
         .then(response => {
           setObjeto(response.data)
           console.log(response.data);
@@ -118,14 +116,14 @@ export function TipoComestible() {
     console.log("Objeto a procesar: ", objeto);
     e.preventDefault();
     if(isNew){
-      TipoComestibleDataService.create(objeto)
+      TipoProductoDataService.create(objeto)
         .then(response => {
         })
         .catch(e => {
           console.log(e);
         });
     } else {
-      TipoComestibleDataService.update(objeto._id, objeto)
+      TipoProductoDataService.update(objeto._id, objeto)
         .then(response => {
         })
         .catch(e => {
@@ -142,7 +140,7 @@ export function TipoComestible() {
 
   return (
     <div>
-      <h2>Tipo de comestible</h2>
+      <h2>Tipo de Producto</h2>
 
       <form onSubmit={handleSubmit}>
         {!isNew &&
@@ -153,16 +151,10 @@ export function TipoComestible() {
             </div>
           </div>
         }
-        <div className="form-group row">
-          <label className="col-4 col-form-label">Nombre</label>
-          <div className="col-8">
-            <input name="nombre" type="text" className="form-control" required="required" value={objeto.nombre} onChange={handleChange}/>
-          </div>
-        </div>
-        <div className="form-group row">
-          <label className="col-4 col-form-label">Descripcion</label>
-          <div className="col-8">
-            <input name="descripcion" type="text" className="form-control" value={objeto.descripcion} onChange={handleChange}/>
+        <div class="form-group row">
+          <label class="col-4 col-form-label">Nombre</label>
+          <div class="col-8">
+            <input name="tipo" type="text" class="form-control" required="required" value={objeto.tipo} onChange={handleChange}/>
           </div>
         </div>
         <div class="form-group row">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
-import TipoComestibleDataService from "../services/tipoComestible.service";
+import LineaComestibleDataService from "../services/lineaComestible.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import history from 'history/browser';
 
-export class TipoComestibles extends Component {
+export class LineaComestibles extends Component {
   state = {
     data: [],
     dataLoaded: false
@@ -19,7 +19,7 @@ export class TipoComestibles extends Component {
   }
 
   async listarObjetos() {
-    await TipoComestibleDataService.getAll()
+    await LineaComestibleDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data,
@@ -33,7 +33,7 @@ export class TipoComestibles extends Component {
   }
 
   eliminarObjeto(_id){
-    TipoComestibleDataService.delete(_id)
+    LineaComestibleDataService.delete(_id)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -49,7 +49,7 @@ export class TipoComestibles extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Tipos de comestibles</h1></Col>
+           <Col><h1>Lineas de comestibles</h1></Col>
            <Col><Button color="success" href={`${history.location.pathname}/new`}>Crear</Button></Col>
          </Row>
           <Table>
@@ -88,7 +88,7 @@ export class TipoComestibles extends Component {
   }
 }
 
-export function TipoComestible() {
+export function LineaComestible() {
   let { _id } = useParams();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
@@ -96,7 +96,7 @@ export function TipoComestible() {
 
   useEffect(() => {
     if (!isNew)
-      TipoComestibleDataService.get(_id)
+      LineaComestibleDataService.get(_id)
         .then(response => {
           setObjeto(response.data)
           console.log(response.data);
@@ -118,14 +118,14 @@ export function TipoComestible() {
     console.log("Objeto a procesar: ", objeto);
     e.preventDefault();
     if(isNew){
-      TipoComestibleDataService.create(objeto)
+      LineaComestibleDataService.create(objeto)
         .then(response => {
         })
         .catch(e => {
           console.log(e);
         });
     } else {
-      TipoComestibleDataService.update(objeto._id, objeto)
+      LineaComestibleDataService.update(objeto._id, objeto)
         .then(response => {
         })
         .catch(e => {
@@ -142,7 +142,7 @@ export function TipoComestible() {
 
   return (
     <div>
-      <h2>Tipo de comestible</h2>
+      <h2>Linea de comestible</h2>
 
       <form onSubmit={handleSubmit}>
         {!isNew &&

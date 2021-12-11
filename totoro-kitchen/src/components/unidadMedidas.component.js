@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
-import MarcaDataService from "../services/marca.service";
-import PaisDataService from "../services/pais.service";
-import EmpresaDataService from "../services/empresa.service";
+import UnidadMedidaDataService from "../services/unidadMedida.service";
+import DetalleUnidadDataService from "../services/detalleUnidad.service";
 import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
@@ -11,7 +10,7 @@ import {
 } from "react-router-dom";
 import history from 'history/browser';
 
-export class Marcas extends Component {
+export class UnidadMedidas extends Component {
   state = {
     data: [],
     dataLoaded: false
@@ -22,7 +21,7 @@ export class Marcas extends Component {
   }
 
   async listarObjetos() {
-    await MarcaDataService.getAll()
+    await UnidadMedidaDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data,
@@ -36,7 +35,7 @@ export class Marcas extends Component {
   }
 
   eliminarObjeto(Consecutivo){
-    MarcaDataService.delete(Consecutivo)
+    UnidadMedidaDataService.delete(Consecutivo)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -52,13 +51,13 @@ export class Marcas extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Marcas</h1></Col>
+           <Col><h1>Unidades de medida</h1></Col>
            <Col><Button color="success" href={`${history.location.pathname}/new`}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
-                <th>Codigo</th>
+                <th>Consecutivo</th>
                 <th>Nombre</th>
                 <th></th>
               </tr>
@@ -68,7 +67,7 @@ export class Marcas extends Component {
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
-                    <td>{dato.nombre}</td>
+                    <td>{dato.unidad}</td>
                     <td>
                       <Button
                         color="primary"
@@ -89,18 +88,17 @@ export class Marcas extends Component {
   }
 }
 
-export function Marca() {
+export function UnidadMedida() {
   let { _id } = useParams();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
   const [cargaObjeto, setCargaObjecto] = useState(false);
-  const [listaPaises, setListaPaises] = useState([]);
-  const [listaEmpresas, setListaEmpresas] = useState([]);
+  const [listaDetalles, setListaDetalles] = useState([]);
   const [isNew] = useState(_id === 'new');
 
   useEffect(() => {
     if (!isNew){
-      MarcaDataService.get(_id)
+      UnidadMedidaDataService.get(_id)
           .then(response => {
             setObjeto(response.data)
             console.log(response.data);
@@ -110,19 +108,12 @@ export function Marca() {
           });
     }
     else {
-      generarConsecutivo('Marca')
+      generarConsecutivo('UnidadMedida')
     }
 
-    PaisDataService.getAll()
+    DetalleUnidadDataService.getAll()
         .then(response => {
-          setListaPaises(response.data)
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    EmpresaDataService.getAll()
-        .then(response => {
-          setListaEmpresas(response.data)
+          setListaDetalles(response.data)
         })
         .catch(e => {
           console.log(e);
@@ -143,14 +134,14 @@ export function Marca() {
     console.log("Objeto a procesar: ", objeto);
     e.preventDefault();
     if(isNew){
-      MarcaDataService.create(objeto)
+      UnidadMedidaDataService.create(objeto)
         .then(response => {
         })
         .catch(e => {
           console.log(e);
         });
     } else {
-      MarcaDataService.update(objeto._id, objeto)
+      UnidadMedidaDataService.update(objeto._id, objeto)
         .then(response => {
         })
         .catch(e => {
@@ -177,7 +168,7 @@ export function Marca() {
 
   return (
     <div>
-      <h2>Marca</h2>
+      <h2>Unidad Medida</h2>
 
       <form onSubmit={handleSubmit}>
         { cargaObjeto &&
@@ -189,32 +180,29 @@ export function Marca() {
                 </div>
               </div>
               <div className="form-group row">
-                <label htmlFor="nombre" className="col-4 col-form-label">Nombre</label>
+                <label htmlFor="unidad" className="col-4 col-form-label">Unidad</label>
                 <div className="col-8">
-                  <input name="nombre" type="text" className="form-control" required="required" value={objeto.nombre} onChange={handleChange}/>
+                  <input name="unidad" type="text" className="form-control" required="required" value={objeto.unidad} onChange={handleChange}/>
                 </div>
               </div>
               <div className="form-group row">
-                <label htmlFor="descripcion" className="col-4 col-form-label">Descripcion</label>
+                <label htmlFor="simbolo" className="col-4 col-form-label">S&iacute;mbolo</label>
                 <div className="col-8">
-                  <input name="descripcion" type="text" className="form-control" value={objeto.descripcion} onChange={handleChange}/>
+                  <input name="simbolo" type="text" className="form-control" value={objeto.simbolo} onChange={handleChange}/>
                 </div>
               </div>
               <div className="form-group row">
-                <label htmlFor="pais" className="col-4 col-form-label">Pais</label>
+                <label htmlFor="simbologia" className="col-4 col-form-label">Simbolog&iacute;a</label>
                 <div className="col-8">
-                  <select name="pais" className="form-select" value={objeto.pais?._id} onChange={handleChange}>
+                  <input name="simbologia" type="text" className="form-control" value={objeto.simbologia} onChange={handleChange}/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label htmlFor="detalleUnidad" className="col-4 col-form-label">Detalle Unidad</label>
+                <div className="col-8">
+                  <select name="detalleUnidad" className="form-select" value={objeto.detalleUnidad?._id} onChange={handleChange}>
                     <option selected>Seleccione una opcion</option>
-                    { listaPaises.map(({ _id, pais }, index) => <option value={_id} >{pais}</option>) }
-                  </select>
-                </div>
-              </div>
-              <div className="form-group row">
-                <label htmlFor="empresa" className="col-4 col-form-label">Empresa</label>
-                <div className="col-8">
-                  <select name="empresa" className="form-select" value={objeto.empresa?._id} onChange={handleChange}>
-                    <option selected>Seleccione una opcion</option>
-                    { listaEmpresas.map(({ _id, nombre }, index) => <option value={_id} >{nombre}</option>) }
+                    { listaDetalles.map(({ _id, detalle }, index) => <option value={_id} >{detalle}</option>) }
                   </select>
                 </div>
               </div>

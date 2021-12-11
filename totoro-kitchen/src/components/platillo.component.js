@@ -62,7 +62,7 @@ export class Platillos extends Component {
           <Table>
             <thead>
               <tr>
-                <th>Consecutivo</th>
+                <th>Codigo</th>
                 <th>Nombre</th>
                 <th>Tipo</th>
                 <th>Precio</th>
@@ -194,7 +194,7 @@ export function Platillo() {
         });
     }
 
-    // goBack();
+    goBack();
   }
 
   function goBack(){
@@ -208,16 +208,20 @@ export function Platillo() {
           ...prevState,
           codigo: response.data
         }));
-        PlatilloDataService.create(objeto)
-            .then(response => {
-            })
-            .catch(e => {
-              console.log(e);
-            });
+        console.log(tipo)
+        crearObjeto();
       })
       .catch(e => {
         console.log(e);
       });
+  }
+  function crearObjeto() {
+      PlatilloDataService.create(objeto)
+          .then(response => {
+          })
+          .catch(e => {
+            console.log(e);
+          });
   }
 
   return (
@@ -289,13 +293,13 @@ export function Platillo() {
                   <div className="form-group row">
                     <label htmlFor="ingredientes" className="col-4 col-form-label">Ingredientes</label>
                     <div className="col-8">
-                      <input name="ingredientes" type="text" className="form-control" required="required" value={objeto.ingredientes} onChange={handleChange}/>
+                      <input name="ingredientes" type="text" className="form-control" value={objeto.ingredientes} onChange={handleChange}/>
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlFor="detalle" className="col-4 col-form-label">Detalle</label>
                     <div className="col-8">
-                      <input name="detalle" type="text" className="form-control" required="required" value={objeto.detalle} onChange={handleChange}/>
+                      <input name="detalle" type="text" className="form-control" value={objeto.detalle} onChange={handleChange}/>
                     </div>
                   </div>
                 </div>

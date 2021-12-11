@@ -51,6 +51,7 @@ module.exports = function () {
     router.get(`${prefix}/caja`, cajaController.getAll)
     router.get(`${prefix}/caja/:id`, cajaController.get)
     router.post(`${prefix}/caja`, cajaController.create)
+    router.post(`${prefix}/caja/cambiarEstadoCaja`, cajaController.cambiarEstadoCaja)
     router.put(`${prefix}/caja/:id`, cajaController.update)
     router.delete(`${prefix}/caja/:id`, cajaController.delete)
     // Clientes
@@ -128,6 +129,7 @@ module.exports = function () {
      // Mesas
      router.get(`${prefix}/mesa`, mesaController.getAll)
      router.get(`${prefix}/mesa/:id`, mesaController.get)
+     router.get(`${prefix}/mesa/restaurante`, mesaController.findByRestaurante)
      router.post(`${prefix}/mesa`, mesaController.create)
      router.put(`${prefix}/mesa/:id`, mesaController.update)
      router.delete(`${prefix}/mesa/:id`, mesaController.delete)

@@ -2,7 +2,7 @@ const Mesas = require('totoro-models').Mesas;
 
 exports.getAll = async(req, res)=>{
     try {
-        const mesas = await Mesas.find();
+        const mesas = await Mesas.find().populate('restaurantes');
         res.json(mesas);
     } catch (error) {
         res.status(400).send(error);
@@ -64,4 +64,19 @@ exports.delete= async(req, res)=>{
     } catch (error) {
         res.status(400).send(error);
     }
+}
+
+exports.findByRestaurante = async(req, res)=>{
+  try {
+    const restaurante = req.query.nombre;
+    const mesas = await Mesas.find({'restaurante': restaurante});
+    if(!mesas){
+      res.status(404).json({
+        mensaje:'Objeto no existe'
+      })
+    }
+    res.json(mesas)
+  } catch (error) {
+    res.status(400).send(error);
+  }
 }

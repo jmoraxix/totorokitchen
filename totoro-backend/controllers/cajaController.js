@@ -2,7 +2,7 @@ const Cajas = require('totoro-models').Cajas;
 
 exports.getAll = async(req, res)=>{
     try {
-        const cajas = await Cajas.find();
+        const cajas = await Cajas.find().populate('restaurante');
         res.json(cajas);
     } catch (error) {
         res.status(400).send(error);
@@ -13,7 +13,7 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const cajas = await Cajas.findById(id);
+        const cajas = await Cajas.findById(id).populate('restaurante');
         if(!cajas){
             res.status(404).json({
                 mensaje:'Objeto no existe'
@@ -64,4 +64,20 @@ exports.delete= async(req, res)=>{
     } catch (error) {
         res.status(400).send(error);
     }
+}
+
+exports.cambiarEstadoCaja = async(req, res)=>{
+  try {
+    const id= req.params.id;
+    const estado= req.params.estado;
+    const caja = await Cajas.findById(id).populate('restaurante');
+    caja.abierta = estado;
+    caja.save();
+
+    res.json({
+      mensaje:'Objeto actualizado con exito'
+    })
+  } catch (error) {
+    res.status(400).send(error);
+  }
 }
