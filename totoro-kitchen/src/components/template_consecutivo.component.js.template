@@ -4,7 +4,6 @@ import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
-  useLocation,
   useNavigate,
   useParams
 } from "react-router-dom";
@@ -90,7 +89,6 @@ export class Paises extends Component {
 
 export function Pais() {
   let { _id } = useParams();
-  let location = useLocation();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
   const [cargaObjeto, setCargaObjecto] = useState(false);

@@ -3,7 +3,6 @@ import TipoBebidaDataService from "../services/tipoBebida.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
-  useLocation,
   useNavigate,
   useParams
 } from "react-router-dom";
@@ -89,7 +88,6 @@ export class TipoBebidas extends Component {
 
 export function TipoBebida() {
   let { _id } = useParams();
-  let location = useLocation();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
   const [isNew] = useState(_id === 'new');
