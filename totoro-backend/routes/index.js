@@ -24,6 +24,7 @@ const tipoBebidaController = require('../controllers/tipoBebidaController.js');
 const tipoComestibleController = require('../controllers/tipoComestibleController.js');
 const tipoComidaController = require('../controllers/tipoComidaController.js');
 const tipoProductoController = require('../controllers/tipoProductoController.js');
+const tipoPlatilloController = require('../controllers/tipoPlatilloController.js');
 const unidadMedidaController = require('../controllers/unidadMedidaController.js');
 
 
@@ -170,6 +171,12 @@ module.exports = function () {
      router.post(`${prefix}/tipoProducto`, tipoProductoController.create)
      router.put(`${prefix}/tipoProducto/:id`, tipoProductoController.update)
      router.delete(`${prefix}/tipoProducto/:id`, tipoProductoController.delete)
+     // Tipo Platillo
+     router.get(`${prefix}/tipoPlatillo`, tipoPlatilloController.getAll)
+     router.get(`${prefix}/tipoPlatillo/:id`, tipoPlatilloController.get)
+     router.post(`${prefix}/tipoPlatillo`, tipoPlatilloController.create)
+     router.put(`${prefix}/tipoPlatillo/:id`, tipoPlatilloController.update)
+     router.delete(`${prefix}/tipoPlatillo/:id`, tipoPlatilloController.delete)
      // Unidad Medida
      router.get(`${prefix}/unidadMedidas`, unidadMedidaController.getAll)
      router.get(`${prefix}/unidadMedidas/:id`, unidadMedidaController.get)

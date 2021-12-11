@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
-import TipoBebidaDataService from "../services/tipoBebida.service";
+import TipoPlatilloDataService from "../services/tipoPlatillo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import history from 'history/browser';
 
-export class TipoBebidas extends Component {
+export class TipoPlatillos extends Component {
   state = {
     data: [],
     dataLoaded: false
@@ -19,7 +19,7 @@ export class TipoBebidas extends Component {
   }
 
   async listarObjetos() {
-    await TipoBebidaDataService.getAll()
+    await TipoPlatilloDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data,
@@ -33,7 +33,7 @@ export class TipoBebidas extends Component {
   }
 
   eliminarObjeto(_id){
-    TipoBebidaDataService.delete(_id)
+    TipoPlatilloDataService.delete(_id)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -49,7 +49,7 @@ export class TipoBebidas extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Tipos de bebidas</h1></Col>
+           <Col><h1>Tipos de platillo</h1></Col>
            <Col><Button color="success" href={`${history.location.pathname}/new`}>Crear</Button></Col>
          </Row>
           <Table>
@@ -86,7 +86,7 @@ export class TipoBebidas extends Component {
   }
 }
 
-export function TipoBebida() {
+export function TipoPlatillo() {
   let { _id } = useParams();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
@@ -94,7 +94,7 @@ export function TipoBebida() {
 
   useEffect(() => {
     if (!isNew)
-      TipoBebidaDataService.get(_id)
+      TipoPlatilloDataService.get(_id)
         .then(response => {
           setObjeto(response.data)
           console.log(response.data);
@@ -116,14 +116,14 @@ export function TipoBebida() {
     console.log("Objeto a procesar: ", objeto);
     e.preventDefault();
     if(isNew){
-      TipoBebidaDataService.create(objeto)
+      TipoPlatilloDataService.create(objeto)
         .then(response => {
         })
         .catch(e => {
           console.log(e);
         });
     } else {
-      TipoBebidaDataService.update(objeto._id, objeto)
+      TipoPlatilloDataService.update(objeto._id, objeto)
         .then(response => {
         })
         .catch(e => {
@@ -140,7 +140,7 @@ export function TipoBebida() {
 
   return (
     <div>
-      <h2>Tipo de bebida</h2>
+      <h2>Tipo de platillo</h2>
 
       <form onSubmit={handleSubmit}>
         {!isNew &&

@@ -60,6 +60,9 @@ export default class Example extends React.Component {
                   <NavLink href="/tipoComestible">Tipos de comestible</NavLink>
                 </NavItem>
                 <NavItem>
+                  <NavLink href="/tipoPlatillo">Tipos de platillo</NavLink>
+                </NavItem>
+                <NavItem>
                   <NavLink href="/detalleUnidad">Detalle unidad</NavLink>
                 </NavItem>
               </Collapse>

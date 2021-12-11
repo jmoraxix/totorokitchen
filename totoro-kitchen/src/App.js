@@ -13,13 +13,25 @@ import { Paises, Pais } from "./components/pais.component";
 import { Empresas, Empresa } from "./components/empresa.component";
 import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
 import { TipoComestibles, TipoComestible } from "./components/tipoComestible.component";
+import { TipoPlatillos, TipoPlatillo } from "./components/tipoPlatillo.component";
 import { DetalleUnidades, DetalleUnidad } from "./components/detalleUnidad.component";
 
 function App() {
   return (
     <div className="App">
       <Container>
-        <h1>Totoro Kitchen</h1>
+        <div className="row">
+          <div className="col">
+            <h1>Totoro Kitchen</h1>
+          </div>
+          <div className="col-3">
+            <div className="justify-content-end">
+              <div>
+                Signed in as: <a href="#login">Mark Otto</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </Container>
 
       <nav aria-label="breadcrumb">
@@ -53,6 +65,10 @@ function App() {
                 <Route path=":_id" element={<Empresa />} />
               </Route>
 
+              <Route path="/detalleUnidad" element={<DetalleUnidades />}/>
+              <Route path="/detalleUnidad">
+                <Route path=":_id" element={<DetalleUnidad />} />
+              </Route>
               <Route path="/tipoBebida" element={<TipoBebidas />}/>
               <Route path="/tipoBebida">
                 <Route path=":_id" element={<TipoBebida />} />
@@ -61,9 +77,9 @@ function App() {
               <Route path="/tipoComestible">
                 <Route path=":_id" element={<TipoComestible />} />
               </Route>
-              <Route path="/detalleUnidad" element={<DetalleUnidades />}/>
-              <Route path="/detalleUnidad">
-                <Route path=":_id" element={<DetalleUnidad />} />
+              <Route path="/tipoPlatillo" element={<TipoPlatillos />}/>
+              <Route path="/tipoPlatillo">
+                <Route path=":_id" element={<TipoPlatillo />} />
               </Route>
 
               {/**** Usuarios ****/}

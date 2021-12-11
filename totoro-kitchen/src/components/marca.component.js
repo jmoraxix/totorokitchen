@@ -1,14 +1,16 @@
 import React, { useState, useEffect, Component } from "react";
-import TipoBebidaDataService from "../services/tipoBebida.service";
+import MarcaDataService from "../services/marca.service";
+import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
+  useLocation,
   useNavigate,
   useParams
 } from "react-router-dom";
 import history from 'history/browser';
 
-export class TipoBebidas extends Component {
+export class Marcas extends Component {
   state = {
     data: [],
     dataLoaded: false
@@ -19,7 +21,7 @@ export class TipoBebidas extends Component {
   }
 
   async listarObjetos() {
-    await TipoBebidaDataService.getAll()
+    await MarcaDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data,
@@ -32,8 +34,8 @@ export class TipoBebidas extends Component {
       });
   }
 
-  eliminarObjeto(_id){
-    TipoBebidaDataService.delete(_id)
+  eliminarObjeto(Consecutivo){
+    MarcaDataService.delete(Consecutivo)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -49,14 +51,14 @@ export class TipoBebidas extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Tipos de bebidas</h1></Col>
+           <Col><h1>Marcas</h1></Col>
            <Col><Button color="success" href={`${history.location.pathname}/new`}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
-                <th>Codigo</th>
-                <th>Tipo</th>
+                <th>Consecutivo</th>
+                <th>Nombre</th>
                 <th></th>
               </tr>
             </thead>
@@ -65,7 +67,7 @@ export class TipoBebidas extends Component {
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
-                    <td>{dato.tipo}</td>
+                    <td>{dato.nombre}</td>
                     <td>
                       <Button
                         color="primary"
@@ -86,22 +88,30 @@ export class TipoBebidas extends Component {
   }
 }
 
-export function TipoBebida() {
+export function Marca() {
   let { _id } = useParams();
+  let location = useLocation();
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
+  const [cargaObjeto, setCargaObjecto] = useState(false);
   const [isNew] = useState(_id === 'new');
 
   useEffect(() => {
-    if (!isNew)
-      TipoBebidaDataService.get(_id)
-        .then(response => {
-          setObjeto(response.data)
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+    if (!isNew){
+      MarcaDataService.get(_id)
+          .then(response => {
+            setObjeto(response.data)
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    }
+    else {
+      generarConsecutivo('Marca')
+    }
+
+    setCargaObjecto(true);
   }, []);
 
   const handleChange = e => {
@@ -116,14 +126,14 @@ export function TipoBebida() {
     console.log("Objeto a procesar: ", objeto);
     e.preventDefault();
     if(isNew){
-      TipoBebidaDataService.create(objeto)
+      MarcaDataService.create(objeto)
         .then(response => {
         })
         .catch(e => {
           console.log(e);
         });
     } else {
-      TipoBebidaDataService.update(objeto._id, objeto)
+      MarcaDataService.update(objeto._id, objeto)
         .then(response => {
         })
         .catch(e => {
@@ -138,33 +148,45 @@ export function TipoBebida() {
     navigate(-1);
   }
 
+  function generarConsecutivo(tipo) {
+    ConsecutivoService.generarConsecutivo(tipo)
+      .then(response => {
+        setObjeto( { codigo: response.data });
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
   return (
     <div>
-      <h2>Tipo de bebida</h2>
+      <h2>Marca</h2>
 
       <form onSubmit={handleSubmit}>
-        {!isNew &&
-          <div class="form-group row">
-            <label for="codigo" class="col-4 col-form-label">Codigo</label>
-            <div class="col-8">
-              <input name="codigo" type="text" class="form-control" value={objeto.codigo} disabled/>
+        { cargaObjeto &&
+            <div>
+              <div className="form-group row">
+                <label htmlFor="codigo" className="col-4 col-form-label">Codigo</label>
+                <div className="col-8">
+                  <input name="codigo" type="text" className="form-control" value={objeto.codigo} disabled/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label htmlFor="pais" className="col-4 col-form-label">Nombre</label>
+                <div className="col-8">
+                  <input name="nombre" type="text" className="form-control" required="required" value={objeto.nombre} onChange={handleChange}/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <div className="offset-8 col-2">
+                  <a className="btn btn-danger" onClick={goBack}>Cancelar</a>
+                </div>
+                <div className="col-2">
+                  <button name="submit" type="submit" className="btn btn-primary">Guardar</button>
+                </div>
+              </div>
             </div>
-          </div>
         }
-        <div class="form-group row">
-          <label class="col-4 col-form-label">Nombre</label>
-          <div class="col-8">
-            <input name="tipo" type="text" class="form-control" required="required" value={objeto.tipo} onChange={handleChange}/>
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="offset-8 col-2">
-            <a class="btn btn-danger" onClick={goBack}>Cancelar</a>
-          </div>
-          <div class="col-2">
-            <button name="submit" type="submit" class="btn btn-primary">Guardar</button>
-          </div>
-        </div>
       </form>
       
     </div>

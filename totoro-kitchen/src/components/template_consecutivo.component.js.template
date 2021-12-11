@@ -148,10 +148,9 @@ export function Pais() {
     navigate(-1);
   }
 
-  function generarConsecutivo() {
-    ConsecutivoService.generarConsecutivo('Pais')
+  function generarConsecutivo(tipo) {
+    ConsecutivoService.generarConsecutivo(tipo)
       .then(response => {
-        console.log(response);
         setObjeto( { codigo: response.data });
       })
       .catch(e => {
@@ -175,7 +174,7 @@ export function Pais() {
               <div className="form-group row">
                 <label htmlFor="pais" className="col-4 col-form-label">Nombre</label>
                 <div className="col-8">
-                  <input id="pais" name="pais" type="text" className="form-control" required="required" value={objeto.pais} onChange={handleChange}/>
+                  <input name="pais" type="text" className="form-control" required="required" value={objeto.pais} onChange={handleChange}/>
                 </div>
               </div>
               <div className="form-group row">
