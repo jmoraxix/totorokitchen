@@ -9,7 +9,10 @@ import { Container } from 'reactstrap';
 
 import Home from "./components/home.component";
 import { Consecutivos, Consecutivo } from "./components/consecutivo.component";
-import Topics, { Topic } from "./components/topic.component";
+import { Paises, Pais } from "./components/pais.component";
+import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
+import { TipoComestibles, TipoComestible } from "./components/tipoComestible.component";
+import { DetalleUnidades, DetalleUnidad } from "./components/detalleUnidad.component";
 
 function App() {
   return (
@@ -42,12 +45,22 @@ function App() {
 
               <Route path="/pais" element={<Paises />}/>
               <Route path="/pais">
-                <Route path=":paisId" element={<Pais />} />
+                <Route path=":_id" element={<Pais />} />
               </Route>
-              <Route path="/topics" element={<Topics />}/>
-              <Route path="/topics">
-                <Route path=":topicId" element={<Topic />} />
+              <Route path="/tipoBebida" element={<TipoBebidas />}/>
+              <Route path="/tipoBebida">
+                <Route path=":_id" element={<TipoBebida />} />
               </Route>
+              <Route path="/tipoComestible" element={<TipoComestibles />}/>
+              <Route path="/tipoComestible">
+                <Route path=":_id" element={<TipoComestible />} />
+              </Route>
+              <Route path="/detalleUnidad" element={<DetalleUnidades />}/>
+              <Route path="/detalleUnidad">
+                <Route path=":_id" element={<DetalleUnidad />} />
+              </Route>
+
+              {/**** Usuarios ****/}
               <Route path="users">
                 {/* <Route path=":id" element={<UserProfile />} /> */}
               </Route>
