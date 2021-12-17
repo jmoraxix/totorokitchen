@@ -14,11 +14,15 @@ import { Restaurantes, Restaurante } from "./components/restaurante.component";
 import { Mesas, Mesa } from "./components/mesa.component";
 import { Cajas, Caja } from "./components/caja.component";
 import { Paises, Pais } from "./components/pais.component";
+import { Bitacoras, Bitacora } from "./components/bitacora.component";
 import { Empresas, Empresa } from "./components/empresa.component";
 import { Eventos, Evento } from "./components/evento.component";
 import { Empleados, Empleado } from "./components/empleado.component";
 import { Marcas, Marca } from "./components/marca.component";
+import { Ordenes, Orden } from "./components/orden.component";
 import { Platillos, Platillo } from "./components/platillo.component";
+import { Productos, Producto } from "./components/producto.component";
+
 import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
 import { TipoComidas, TipoComida } from "./components/tipoComida.component";
 import { TipoComestibles, TipoComestible } from "./components/tipoComestible.component";
@@ -29,6 +33,7 @@ import { TipoProductos, TipoProducto } from "./components/tipoProducto.component
 import { UnidadMedidas, UnidadMedida } from "./components/unidadMedidas.component";
 import { Usuarios, Usuario } from "./components/usuario.component";
 import { DetalleUnidades, DetalleUnidad } from "./components/detalleUnidad.component";
+import { Proveedor, Proveedores } from "./components/proveedor.component";
 
 function App() {
   return (
@@ -104,6 +109,10 @@ function App() {
               <Route path="/pais">
                 <Route path=":_id" element={<Pais />} />
               </Route>
+              <Route path="/bitacora" element={<Bitacoras />}/>
+              <Route path="/bitacora">
+                <Route path=":_id" element={<Bitacora />} />
+              </Route>
               <Route path="/empresa" element={<Empresas />}/>
               <Route path="/empresa">
                 <Route path=":_id" element={<Empresa />} />
@@ -120,11 +129,22 @@ function App() {
               <Route path="/marca">
                 <Route path=":_id" element={<Marca />} />
               </Route>
+              <Route path="/orden" element={<Ordenes />}/>
+              <Route path="/orden">
+                <Route path=":_id" element={<Orden />} />
+              </Route>
               <Route path="/platillo" element={<Platillos />}/>
               <Route path="/platillo">
                 <Route path=":_id" element={<Platillo />} />
               </Route>
-
+              <Route path="/producto" element={<Productos />}/>
+              <Route path="/producto">
+                <Route path=":_id" element={<Producto />} />
+              </Route>
+              <Route path="/proveedor" element={<Proveedores />}/>
+              <Route path="/proveedor">
+                <Route path=":_id" element={<Proveedor />} />
+              </Route>
               <Route path="/detalleUnidad" element={<DetalleUnidades />}/>
               <Route path="/detalleUnidad">
                 <Route path=":_id" element={<DetalleUnidad />} />
