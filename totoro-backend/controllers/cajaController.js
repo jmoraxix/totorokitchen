@@ -1,4 +1,5 @@
 const Cajas = require('totoro-models').Cajas;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const cajas= new Cajas(req.body);
+    var cajas= new Cajas(req.body);
+    cajas.codigo = await consecutivoController.generarConsecutivo('Caja');
     try {
         await cajas.save();
         res.json({
@@ -64,6 +66,21 @@ exports.delete= async(req, res)=>{
     } catch (error) {
         res.status(400).send(error);
     }
+}
+
+exports.findByRestaurante = async(req, res)=>{
+  try {
+    const codRestaurante = req.query.codigo;
+    const caja = await Cajas.find({ restaurantes: codRestaurante }).populate('restaurante');
+    if(!caja){
+      res.status(404).json({
+        mensaje:'Objeto no existe'
+      })
+    }
+    res.json(caja)
+  } catch (error) {
+    res.status(400).send(error);
+  }
 }
 
 exports.cambiarEstadoCaja = async(req, res)=>{

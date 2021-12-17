@@ -1,4 +1,5 @@
 const Paises = require('totoro-models').Pais;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const pais= new Paises(req.body);
+    var pais= new Paises(req.body);
+    pais.codigo = await consecutivoController.generarConsecutivo('Pais');
     try {
         await pais.save();
         res.json({

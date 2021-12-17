@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import MesaDataService from "../services/mesa.service";
 import RestauranteDataService from "../services/restaurante.service";
-import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -113,9 +112,6 @@ export function Mesa() {
             console.log(e);
           });
     }
-    else {
-      generarConsecutivo('Mesa')
-    }
 
     RestauranteDataService.getAll()
         .then(response => {
@@ -162,16 +158,6 @@ export function Mesa() {
     navigate(-1);
   }
 
-  function generarConsecutivo(tipo) {
-    ConsecutivoService.generarConsecutivo(tipo)
-        .then(response => {
-          setObjeto( { codigo: response.data });
-        })
-        .catch(e => {
-          console.log(e);
-        });
-  }
-
   return (
       <div>
         <h2>Mesa</h2>
@@ -179,12 +165,14 @@ export function Mesa() {
         <form onSubmit={handleSubmit}>
           { cargaObjeto &&
           <div>
-            <div className="form-group row">
-              <label htmlFor="codigo" className="col-4 col-form-label">Codigo</label>
-              <div className="col-8">
-                <input name="codigo" type="text" className="form-control" value={objeto.codigo} disabled/>
+            {!isNew &&
+            <div class="form-group row">
+              <label for="codigo" class="col-4 col-form-label">Codigo</label>
+              <div class="col-8">
+                <input name="codigo" type="text" class="form-control" value={objeto.codigo} disabled/>
               </div>
             </div>
+            }
             <div className="form-group row">
               <label htmlFor="numero" className="col-4 col-form-label">N&uacute;mero</label>
               <div className="col-8">
@@ -231,9 +219,11 @@ export function Mesa() {
 export class MesasRestaurante extends Component {
   state = {
     data: [],
-    dataLoaded: false,
+    restaurantesCargados: false,
+    restauranteSeleccionado: '',
     listaRestaurantes: [],
-    resturanteSeleccionado: ''
+    listaCargada: false,
+    listaMesas: []
   };
 
   componentDidMount() {
@@ -245,7 +235,7 @@ export class MesasRestaurante extends Component {
         .then(response => {
           this.setState({
             listaRestaurantes: response.data,
-            dataLoaded: true
+            restaurantesCargados: true
           });
         })
         .catch(e => {
@@ -253,29 +243,23 @@ export class MesasRestaurante extends Component {
         });
   }
 
-  listarMesasPorRetaurante() {
-    MesaDataService.findByRestaurante(this.state.resturanteSeleccionado)
-        .then(response => {
-          this.setState({
-            data: response.data,
-            dataLoaded: true
-          });
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+  cambiarRestaurante = (e) => {
+    this.listarMesasPorRetaurante(e.target.value);
   }
 
-  eliminarObjeto(Consecutivo){
-    MesaDataService.delete(Consecutivo)
-        .then(response => {
-          console.log(response.data);
-          this.listarRestaurantes();
-        })
-        .catch(e => {
-          console.log(e);
+  async listarMesasPorRetaurante(restauranteSeleccionado) {
+    await MesaDataService.findByRestaurante(restauranteSeleccionado)
+      .then(response => {
+        console.log('1', response.data);
+        this.setState({
+          listaMesas: response.data,
+          listaCargada: true
         });
+        console.log('2');
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   render() {
@@ -287,10 +271,9 @@ export class MesasRestaurante extends Component {
               <Col><h1>Mesas</h1></Col>
               <Col>
                 <div className="form-group row">
-                  <label htmlFor="restaurantes" className="col-4 col-form-label">Seleccione una mesa</label>
-                  <div className="col-8">
-                    <select name="restaurantes" className="form-select" onChange={() => this.listarMesasPorRetaurante()}>
-                      <option selected>Seleccione una opcion</option>
+                  <div>
+                    <select name="restauranteSeleccionado" className="form-select" onChange={this.cambiarRestaurante}>
+                      <option selected>Seleccione un restaurante</option>
                       { this.state.listaRestaurantes.map(({ _id, nombre }, index) => <option value={_id} >{nombre}</option>) }
                     </select>
                   </div>
@@ -300,31 +283,26 @@ export class MesasRestaurante extends Component {
             <Table>
               <thead>
               <tr>
-                <th>Codigo</th>
                 <th>Numero</th>
                 <th>Nombre</th>
                 <th>Sillas</th>
-                <th>Restaurante</th>
                 <th></th>
               </tr>
               </thead>
 
               <tbody>
-              {this.state.dataLoaded && this.state.data.map((dato) => (
+              { this.state.listaCargada && this.state.listaMesas.map((dato) => (
                   <tr key={dato._id}>
-                    <td>{dato.codigo}</td>
                     <td>{dato.numero}</td>
                     <td>{dato.nombre}</td>
                     <td>{dato.cantSillas}</td>
-                    <td>{dato.restaurantes?.nombre}</td>
                     <td>
                       <Button
                           color="primary"
                           href={`${history.location.pathname}/${dato._id}`}
                       >
-                        Editar
-                      </Button>{" "}
-                      <Button color="danger" onClick={() => this.eliminarObjeto(dato._id)}>Eliminar</Button>
+                        Orden
+                      </Button>
                     </td>
                   </tr>
               ))}

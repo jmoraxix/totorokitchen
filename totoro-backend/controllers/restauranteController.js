@@ -1,4 +1,5 @@
 const Restaurantes = require('totoro-models').Restaurantes;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const restaurantes= new Restaurantes(req.body);
+    var restaurantes= new Restaurantes(req.body);
+    restaurantes.codigo = await consecutivoController.generarConsecutivo('Restaurante');
     try {
         await restaurantes.save();
         res.json({

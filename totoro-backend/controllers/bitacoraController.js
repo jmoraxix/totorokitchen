@@ -1,4 +1,5 @@
 const Bitacoras = require('totoro-models').Bitacora;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const bitacoras= new Bitacoras(req.body);
+    var bitacoras= new Bitacoras(req.body);
+    bitacoras.codigo = await consecutivoController.generarConsecutivo('Bitacora');
     try {
         await bitacoras.save();
         res.json({

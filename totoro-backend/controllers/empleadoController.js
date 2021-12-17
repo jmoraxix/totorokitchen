@@ -1,4 +1,5 @@
 const Empleados = require('totoro-models').Empleados;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const empleados= new Empleados(req.body);
+    var empleados = new Empleados(req.body);
+    empleados.codigo = await consecutivoController.generarConsecutivo('Empleado');
     try {
         await empleados.save();
         res.json({

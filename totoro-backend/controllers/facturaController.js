@@ -1,4 +1,5 @@
 const Facturas = require('totoro-models').Facturas;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -13,7 +14,10 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const facturas = await Facturas.findById(id).populate('orden').populate('clientes').populate('restaurantes');
+        const facturas = await Facturas.findById(id)
+            .populate('orden')
+            .populate('clientes')
+            .populate('restaurantes');
         if(!facturas){
             res.status(404).json({
                 mensaje:'Objeto no existe'
@@ -26,7 +30,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const facturas= new Facturas(req.body);
+    var facturas= new Facturas(req.body);
+    facturas.codigo = await consecutivoController.generarConsecutivo('Factura');
     try {
         await facturas.save();
         res.json({

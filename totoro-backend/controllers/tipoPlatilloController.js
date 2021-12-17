@@ -11,7 +11,6 @@ exports.getAll = async(req, res)=>{
 
 exports.get = async(req, res)=>{
     try {
-        console.log(req.params.id)
         const id = req.params.id;
         const tipoPlatillos = await TipoPlatillos.findById(id);
         if(!tipoPlatillos){
@@ -22,6 +21,20 @@ exports.get = async(req, res)=>{
         res.json(tipoPlatillos)
     } catch (error) {
         res.status(400).send(error);
+    }
+}
+
+exports.findById = async(codigo, res)=>{
+    try {
+        const tipoPlatillos = await TipoPlatillos.findById(codigo);
+        if(!tipoPlatillos){
+            return {
+                mensaje:'Objeto no existe'
+            };
+        }
+        return tipoPlatillos;
+    } catch (error) {
+        return error;
     }
 }
 

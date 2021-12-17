@@ -1,4 +1,5 @@
 const Orden = require('totoro-models').Orden;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const orden= new Orden(req.body);
+    var orden= new Orden(req.body);
+    orden.codigo = await consecutivoController.generarConsecutivo('Orden');
     try {
         await orden.save();
         res.json({
@@ -64,4 +66,19 @@ exports.delete= async(req, res)=>{
     } catch (error) {
         res.status(400).send(error);
     }
+}
+
+exports.findActivoByMesa = async(req, res)=>{
+  try {
+    const codMesa = req.params.id;
+    const orden = await Orden.find({ mesas: codMesa }).populate('mesas');
+    if(!orden){
+      res.status(404).json({
+        mensaje:'Objeto no existe'
+      })
+    }
+    res.json(orden)
+  } catch (error) {
+    res.status(400).send(error);
+  }
 }

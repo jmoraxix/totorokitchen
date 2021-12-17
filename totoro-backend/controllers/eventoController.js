@@ -1,4 +1,5 @@
 const Eventos = require('totoro-models').Evento;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const evento= new Eventos(req.body);
+    var evento= new Eventos(req.body);
+    evento.codigo = await consecutivoController.generarConsecutivo('Evento');
     try {
         await evento.save();
         res.json({

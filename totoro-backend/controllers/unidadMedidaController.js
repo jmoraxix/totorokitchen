@@ -1,4 +1,5 @@
 const UnidadMedidas = require('totoro-models').UnidadMedida;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const unidadMedidas= new UnidadMedidas(req.body);
+    var unidadMedidas= new UnidadMedidas(req.body);
+    unidadMedidas.codigo = await consecutivoController.generarConsecutivo('UnidadMedida');
     try {
         await unidadMedidas.save();
         res.json({

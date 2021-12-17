@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import UnidadMedidaDataService from "../services/unidadMedida.service";
 import DetalleUnidadDataService from "../services/detalleUnidad.service";
-import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -107,9 +106,6 @@ export function UnidadMedida() {
             console.log(e);
           });
     }
-    else {
-      generarConsecutivo('UnidadMedida')
-    }
 
     DetalleUnidadDataService.getAll()
         .then(response => {
@@ -156,16 +152,6 @@ export function UnidadMedida() {
     navigate(-1);
   }
 
-  function generarConsecutivo(tipo) {
-    ConsecutivoService.generarConsecutivo(tipo)
-      .then(response => {
-        setObjeto( { codigo: response.data });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
   return (
     <div>
       <h2>Unidad Medida</h2>
@@ -173,12 +159,14 @@ export function UnidadMedida() {
       <form onSubmit={handleSubmit}>
         { cargaObjeto &&
             <div>
-              <div className="form-group row">
-                <label htmlFor="codigo" className="col-4 col-form-label">Codigo</label>
-                <div className="col-8">
-                  <input name="codigo" type="text" className="form-control" value={objeto.codigo} disabled/>
+              {!isNew &&
+              <div class="form-group row">
+                <label for="codigo" class="col-4 col-form-label">Codigo</label>
+                <div class="col-8">
+                  <input name="codigo" type="text" class="form-control" value={objeto.codigo} disabled/>
                 </div>
               </div>
+              }
               <div className="form-group row">
                 <label htmlFor="unidad" className="col-4 col-form-label">Unidad</label>
                 <div className="col-8">

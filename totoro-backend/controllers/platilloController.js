@@ -1,4 +1,6 @@
 const Platillos = require('totoro-models').Platillo;
+const consecutivoController = require('../controllers/consecutivoController.js');
+const tipoPlatilloController = require('../controllers/tipoPlatilloController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -32,7 +34,11 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const platillos= new Platillos(req.body);
+    var platillos= new Platillos(req.body)
+    console.log(req.body)
+    var tipoPlatillo = await tipoPlatilloController.findById(req.body.tipoPlatillo);
+    platillos.codigo = await consecutivoController.generarConsecutivo(tipoPlatillo.nombre);
+    console.log(platillos)
     try {
         await platillos.save();
         res.json({

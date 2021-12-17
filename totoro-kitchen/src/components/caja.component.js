@@ -8,6 +8,7 @@ import {
   useParams
 } from "react-router-dom";
 import history from 'history/browser';
+import MesaDataService from "../services/mesa.service";
 
 export class Cajas extends Component {
   state = {
@@ -224,4 +225,105 @@ export function Caja() {
       
     </div>
     );
+}
+
+export class CajasRestaurante extends Component {
+  state = {
+    data: [],
+    restaurantesCargados: false,
+    restauranteSeleccionado: '',
+    listaRestaurantes: [],
+    listaCargada: false,
+    listaCajas: []
+  };
+
+  componentDidMount() {
+    this.listarRestaurantes();
+  }
+
+  async listarRestaurantes() {
+    await RestauranteDataService.getAll()
+        .then(response => {
+          this.setState({
+            listaRestaurantes: response.data,
+            restaurantesCargados: true
+          });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  cambiarRestaurante = (e) => {
+    this.listarCajasPorRetaurante(e.target.value);
+  }
+
+  async listarCajasPorRetaurante(restauranteSeleccionado) {
+    await MesaDataService.findByRestaurante(restauranteSeleccionado)
+        .then(response => {
+          console.log('1', response.data);
+          this.setState({
+            listaCajas: response.data,
+            listaCargada: true
+          });
+          console.log('2');
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  render() {
+    return (
+        <>
+          <Container>
+            <br />
+            <Row>
+              <Col><h1>Cajas</h1></Col>
+              <Col>
+                <div className="form-group row">
+                  <div>
+                    <select name="restauranteSeleccionado" className="form-select" onChange={this.cambiarRestaurante}>
+                      <option selected>Seleccione un restaurante</option>
+                      { this.state.listaRestaurantes.map(({ _id, nombre }, index) => <option value={_id} >{nombre}</option>) }
+                    </select>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <Table>
+              <thead>
+              <tr>
+                <th>Codigo</th>
+                <th>Descripcion</th>
+                <th>Dinero</th>
+                <th>Abierta</th>
+                <th></th>
+              </tr>
+              </thead>
+
+              <tbody>
+              { this.state.listaCargada && this.state.listaCajas.map((dato) => (
+                  <tr key={dato._id}>
+                    <td>{dato.codigo}</td>
+                    <td>{dato.descripcion}</td>
+                    <td>{dato.dinero}</td>
+                    <td>{dato.abierta ? 'Si' : 'No'}</td>
+                    <td>
+                      <Button
+                          color="primary"
+                          href={`${history.location.pathname}/${dato._id}`}
+                      >
+                        Ordenes
+                      </Button>
+                    </td>
+                  </tr>
+              ))}
+              </tbody>
+            </Table>
+          </Container>
+
+        </>
+    );
+  }
 }

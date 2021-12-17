@@ -1,4 +1,5 @@
 const Marcas = require('totoro-models').Marca;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const marca= new Marcas(req.body);
+    var marca= new Marcas(req.body);
+    marca.codigo = await consecutivoController.generarConsecutivo('Marca');
     try {
         await marca.save();
         res.json({

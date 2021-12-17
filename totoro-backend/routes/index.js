@@ -3,7 +3,6 @@ const router = express.Router();
 const bitacoraController = require('../controllers/bitacoraController.js');
 const cajaController = require('../controllers/cajaController.js');
 const clienteController = require('../controllers/clienteController.js');
-const comestibleController = require('../controllers/comestibleController.js');
 const consecutivoController = require('../controllers/consecutivoController.js');
 const paisController = require('../controllers/paisController.js');
 const claseComestibleController = require('../controllers/claseComestibleController.js');
@@ -21,7 +20,6 @@ const ordenController = require('../controllers/ordenController.js');
 const productoController = require('../controllers/productoController.js');
 const platilloController = require('../controllers/platilloController.js');
 const proveedorController = require('../controllers/proveedorController.js');
-const rolController = require('../controllers/rolController.js');
 const tipoBebidaController = require('../controllers/tipoBebidaController.js');
 const tipoComestibleController = require('../controllers/tipoComestibleController.js');
 const tipoComidaController = require('../controllers/tipoComidaController.js');
@@ -36,7 +34,6 @@ module.exports = function () {
     /** CRUDs **/
     // Consecutivo
     router.get(`${prefix}/consecutivo`, consecutivoController.getAll)
-    router.get(`${prefix}/consecutivo/generarConsecutivo`, consecutivoController.generarConsecutivo)
     router.get(`${prefix}/consecutivo/:id`, consecutivoController.get)
     router.post(`${prefix}/consecutivo`, consecutivoController.create)
     router.put(`${prefix}/consecutivo/:id`, consecutivoController.update)
@@ -49,6 +46,7 @@ module.exports = function () {
     router.delete(`${prefix}/bitacora/:id`, bitacoraController.delete)
     // Cajas
     router.get(`${prefix}/caja`, cajaController.getAll)
+    router.get(`${prefix}/caja/restaurante`, cajaController.findByRestaurante)
     router.get(`${prefix}/caja/:id`, cajaController.get)
     router.post(`${prefix}/caja`, cajaController.create)
     router.post(`${prefix}/caja/cambiarEstadoCaja`, cajaController.cambiarEstadoCaja)
@@ -60,12 +58,6 @@ module.exports = function () {
     router.post(`${prefix}/cliente`, clienteController.create)
     router.put(`${prefix}/cliente/:id`, clienteController.update)
     router.delete(`${prefix}/cliente/:id`, clienteController.delete)
-    // Comestible
-    router.get(`${prefix}/comestible`, comestibleController.getAll)
-    router.get(`${prefix}/comestible/:id`, comestibleController.get)
-    router.post(`${prefix}/comestible`, comestibleController.create)
-    router.put(`${prefix}/comestible/:id`, comestibleController.update)
-    router.delete(`${prefix}/comestible/:id`, comestibleController.delete)
     // Pais
     router.get(`${prefix}/pais`, paisController.getAll)
     router.get(`${prefix}/pais/:id`, paisController.get)
@@ -128,8 +120,8 @@ module.exports = function () {
      router.delete(`${prefix}/marca/:id`, marcaController.delete)
      // Mesas
      router.get(`${prefix}/mesa`, mesaController.getAll)
-     router.get(`${prefix}/mesa/:id`, mesaController.get)
      router.get(`${prefix}/mesa/restaurante`, mesaController.findByRestaurante)
+     router.get(`${prefix}/mesa/:id`, mesaController.get)
      router.post(`${prefix}/mesa`, mesaController.create)
      router.put(`${prefix}/mesa/:id`, mesaController.update)
      router.delete(`${prefix}/mesa/:id`, mesaController.delete)
@@ -163,12 +155,6 @@ module.exports = function () {
      router.post(`${prefix}/proveedor`, proveedorController.create)
      router.put(`${prefix}/proveedor/:id`, proveedorController.update)
      router.delete(`${prefix}/proveedor/:id`, proveedorController.delete)
-     // Rol
-     router.get(`${prefix}/rol`, rolController.getAll)
-     router.get(`${prefix}/rol/:id`, rolController.get)
-     router.post(`${prefix}/rol`, rolController.create)
-     router.put(`${prefix}/rol/:id`, rolController.update)
-     router.delete(`${prefix}/rol/:id`, rolController.delete)
      // Tipo bebida
      router.get(`${prefix}/tipoBebida`, tipoBebidaController.getAll)
      router.get(`${prefix}/tipoBebida/:id`, tipoBebidaController.get)

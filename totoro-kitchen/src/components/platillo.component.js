@@ -6,7 +6,6 @@ import TipoPlatilloDataService from "../services/tipoPlatillo.service";
 import TipoBebidaDataService from "../services/tipoBebida.service";
 import PaisDataService from "../services/pais.service";
 import MarcaDataService from "../services/marca.service";
-import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -184,7 +183,12 @@ export function Platillo() {
     console.log("Objeto a procesar: ", objeto);
     e.preventDefault();
     if(isNew){
-      generarConsecutivo(tipoObjeto);
+      PlatilloDataService.create(objeto)
+        .then(response => {
+        })
+        .catch(e => {
+          console.log(e);
+        });
     } else {
       PlatilloDataService.update(objeto._id, objeto)
         .then(response => {
@@ -199,29 +203,6 @@ export function Platillo() {
 
   function goBack(){
     navigate(-1);
-  }
-
-  function generarConsecutivo(tipo) {
-    ConsecutivoService.generarConsecutivo(tipo)
-      .then(response => {
-        setObjeto(prevState => ({
-          ...prevState,
-          codigo: response.data
-        }));
-        console.log(tipo)
-        crearObjeto();
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-  function crearObjeto() {
-      PlatilloDataService.create(objeto)
-          .then(response => {
-          })
-          .catch(e => {
-            console.log(e);
-          });
   }
 
   return (

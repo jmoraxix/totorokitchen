@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
 import RestauranteService from "../services/restaurante.service";
-import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -120,9 +119,6 @@ export function Restaurante() {
             console.log(e);
           });
     }
-    else {
-      generarConsecutivo('Pais')
-    }
 
     setCargaObjecto(true);
   }, []);
@@ -161,17 +157,6 @@ export function Restaurante() {
     navigate(-1);
   }
 
-  function generarConsecutivo() {
-    ConsecutivoService.generarConsecutivo('Restaurante')
-      .then(response => {
-        console.log(response);
-        setObjeto( { codigo: response.data });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
   return (
     <div>
       <h2>Restaurante</h2>
@@ -179,12 +164,14 @@ export function Restaurante() {
       <form onSubmit={handleSubmit}>
         { cargaObjeto &&
         <div>
+          {!isNew &&
           <div class="form-group row">
             <label for="codigo" class="col-4 col-form-label">Codigo</label>
             <div class="col-8">
               <input name="codigo" type="text" class="form-control" value={objeto.codigo} disabled/>
             </div>
           </div>
+          }
           <div class="form-group row">
             <label class="col-4 col-form-label">Nombre</label>
             <div class="col-8">

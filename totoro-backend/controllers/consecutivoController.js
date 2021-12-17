@@ -66,15 +66,14 @@ exports.delete= async(req, res)=>{
     }
 }
 
-exports.generarConsecutivo= async(req, res)=>{
+exports.generarConsecutivo= async(tipo, res)=>{
     try {
-        const tipo = req.query.tipo;
         var consecutivo = await Consecutivos.findOne({ tipo: tipo });
 
         if(!consecutivo){
-          res.status(404).json({
+          return {
             mensaje:'Objeto no existe'
-          })
+          };
         }
 
         var nuevoConsecutivo = consecutivo.contienePrefijo ? consecutivo.prefijo : '';
@@ -88,8 +87,8 @@ exports.generarConsecutivo= async(req, res)=>{
             {new: true}
         );
 
-        res.json(nuevoConsecutivo)
+        return nuevoConsecutivo;
     } catch (error) {
-        res.status(400).send(error);
+        return error;
     }
 }

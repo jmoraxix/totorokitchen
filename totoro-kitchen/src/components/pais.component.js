@@ -105,9 +105,6 @@ export function Pais() {
             console.log(e);
           });
     }
-    else {
-      generarConsecutivo('Pais')
-    }
 
     setCargaObjecto(true);
   }, []);
@@ -146,17 +143,6 @@ export function Pais() {
     navigate(-1);
   }
 
-  function generarConsecutivo() {
-    ConsecutivoService.generarConsecutivo('Pais')
-      .then(response => {
-        console.log(response);
-        setObjeto( { codigo: response.data });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
   return (
     <div>
       <h2>Pais</h2>
@@ -164,12 +150,14 @@ export function Pais() {
       <form onSubmit={handleSubmit}>
         { cargaObjeto &&
             <div>
-              <div className="form-group row">
-                <label htmlFor="codigo" className="col-4 col-form-label">Codigo</label>
-                <div className="col-8">
-                  <input name="codigo" type="text" className="form-control" value={objeto.codigo} disabled/>
+              {!isNew &&
+              <div class="form-group row">
+                <label for="codigo" class="col-4 col-form-label">Codigo</label>
+                <div class="col-8">
+                  <input name="codigo" type="text" class="form-control" value={objeto.codigo} disabled/>
                 </div>
               </div>
+              }
               <div className="form-group row">
                 <label htmlFor="pais" className="col-4 col-form-label">Nombre</label>
                 <div className="col-8">

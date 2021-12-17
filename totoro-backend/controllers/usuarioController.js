@@ -1,4 +1,5 @@
 const Usuarios = require('totoro-models').Usuarios;
+const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -26,7 +27,8 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    const usuarios= new Usuarios(req.body);
+    var usuarios= new Usuarios(req.body);
+    usuarios.codigo = await consecutivoController.generarConsecutivo('Usuario');
     try {
         await usuarios.save();
         res.json({

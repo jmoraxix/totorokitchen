@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
 import ClienteDataService from "../services/cliente.service";
-import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -105,9 +104,6 @@ export function Cliente() {
             console.log(e);
           });
     }
-    else {
-      generarConsecutivo('Cliente')
-    }
 
     setCargaObjecto(true);
   }, []);
@@ -146,16 +142,6 @@ export function Cliente() {
     navigate(-1);
   }
 
-  function generarConsecutivo(tipo) {
-    ConsecutivoService.generarConsecutivo(tipo)
-      .then(response => {
-        setObjeto( { codigo: response.data });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
   return (
     <div>
       <h2>Cliente</h2>
@@ -163,12 +149,14 @@ export function Cliente() {
       <form onSubmit={handleSubmit}>
         { cargaObjeto &&
             <div>
-              <div className="form-group row">
-                <label htmlFor="codigo" className="col-4 col-form-label">Codigo</label>
-                <div className="col-8">
-                  <input name="codigo" type="text" className="form-control" value={objeto.codigo} disabled/>
+              {!isNew &&
+              <div class="form-group row">
+                <label for="codigo" class="col-4 col-form-label">Codigo</label>
+                <div class="col-8">
+                  <input name="codigo" type="text" class="form-control" value={objeto.codigo} disabled/>
                 </div>
               </div>
+              }
               <div className="form-group row">
                 <label htmlFor="cliente" className="col-4 col-form-label">Nombre</label>
                 <div className="col-8">
