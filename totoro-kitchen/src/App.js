@@ -9,11 +9,13 @@ import { Container } from 'reactstrap';
 
 import Home from "./components/home.component";
 import { Consecutivos, Consecutivo } from "./components/consecutivo.component";
+import { Clientes, Cliente } from "./components/cliente.component";
 import { Restaurantes, Restaurante } from "./components/restaurante.component";
 import { Mesas, Mesa } from "./components/mesa.component";
 import { Cajas, Caja } from "./components/caja.component";
 import { Paises, Pais } from "./components/pais.component";
 import { Empresas, Empresa } from "./components/empresa.component";
+import { Eventos, Evento } from "./components/evento.component";
 import { Marcas, Marca } from "./components/marca.component";
 import { Platillos, Platillo } from "./components/platillo.component";
 import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
@@ -67,6 +69,10 @@ function App() {
               <Route path="/consecutivo">
                 <Route path=":_id" element={<Consecutivo />} />
               </Route>
+              <Route path="/cliente" element={<Clientes />}/>
+              <Route path="/cliente">
+                <Route path=":_id" element={<Cliente />} />
+              </Route>
               <Route path="/restaurante" element={<Restaurantes />}/>
               <Route path="/restaurante">
                 <Route path=":_id" element={<Restaurante />} />
@@ -99,6 +105,10 @@ function App() {
               <Route path="/empresa" element={<Empresas />}/>
               <Route path="/empresa">
                 <Route path=":_id" element={<Empresa />} />
+              </Route>
+              <Route path="/evento" element={<Eventos />}/>
+              <Route path="/evento">
+                <Route path=":_id" element={<Evento />} />
               </Route>
               <Route path="/marca" element={<Marcas />}/>
               <Route path="/marca">
