@@ -16,6 +16,7 @@ import { Cajas, Caja } from "./components/caja.component";
 import { Paises, Pais } from "./components/pais.component";
 import { Empresas, Empresa } from "./components/empresa.component";
 import { Eventos, Evento } from "./components/evento.component";
+import { Empleados, Empleado } from "./components/empleado.component";
 import { Marcas, Marca } from "./components/marca.component";
 import { Platillos, Platillo } from "./components/platillo.component";
 import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
@@ -26,6 +27,7 @@ import { ClaseComestibles, ClaseComestible } from "./components/claseComestible.
 import { TipoPlatillos, TipoPlatillo } from "./components/tipoPlatillo.component";
 import { TipoProductos, TipoProducto } from "./components/tipoProducto.component";
 import { UnidadMedidas, UnidadMedida } from "./components/unidadMedidas.component";
+import { Usuarios, Usuario } from "./components/usuario.component";
 import { DetalleUnidades, DetalleUnidad } from "./components/detalleUnidad.component";
 
 function App() {
@@ -110,6 +112,10 @@ function App() {
               <Route path="/evento">
                 <Route path=":_id" element={<Evento />} />
               </Route>
+              <Route path="/empleado" element={<Empleados />}/>
+              <Route path="/empleado">
+                <Route path=":_id" element={<Empleado />} />
+              </Route>
               <Route path="/marca" element={<Marcas />}/>
               <Route path="/marca">
                 <Route path=":_id" element={<Marca />} />
@@ -154,6 +160,10 @@ function App() {
               <Route path="/unidadMedida" element={<UnidadMedidas />}/>
               <Route path="/unidadMedida">
                 <Route path=":_id" element={<UnidadMedida />} />
+              </Route>
+              <Route path="/usuario" element={<Usuarios />}/>
+              <Route path="/usuario">
+                <Route path=":_id" element={<Usuario />} />
               </Route>
 
               {/**** Usuarios ****/}
