@@ -9,6 +9,10 @@ class PlatilloDataService {
         return http.get(`/platillo/${id}`);
     }
 
+    findByTipo(tipo) {
+        return http.get(`/platillo/tipo?tipo=${tipo}`);
+    }
+
     create(data) {
         return http.post("/platillo", data);
     }

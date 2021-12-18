@@ -62,21 +62,32 @@ export class Empresas extends Component {
             </thead>
 
             <tbody>
-                {this.state.dataLoaded && this.state.data.map((dato) => (
-                  <tr key={dato._id}>
-                    <td>{dato.cedJuridica}</td>
-                    <td>{dato.nombre}</td>
-                    <td>
-                      <Button
-                        color="primary"
-                        href={`${history.location.pathname}/${dato._id}`}
-                      >
-                        Editar
-                    </Button>{" "}
-                    <Button color="danger" onClick={() => this.eliminarObjeto(dato._id)}>Eliminar</Button>
-                  </td>
-                </tr>
-              ))}
+                { !this.state.dataLoaded &&
+                <div>
+                  Cargando...
+                </div>
+                }
+                { this.state.dataLoaded && ( this.state.data.length === 0 ?
+                    <tr>
+                      <td>No hay datos</td>
+                    </tr>
+                    :
+                    this.state.data.map((dato) => (
+                      <tr key={dato._id}>
+                        <td>{dato.cedJuridica}</td>
+                        <td>{dato.nombre}</td>
+                        <td>
+                          <Button
+                            color="primary"
+                            href={`${history.location.pathname}/${dato._id}`}
+                          >
+                            Editar
+                          </Button>{" "}
+                          <Button color="danger" onClick={() => this.eliminarObjeto(dato._id)}>Eliminar</Button>
+                        </td>
+                      </tr>
+                    )))
+                }
             </tbody>
           </Table>
         </Container>

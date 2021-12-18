@@ -3,7 +3,22 @@ const consecutivoController = require('../controllers/consecutivoController.js')
 
 exports.getAll = async(req, res)=>{
     try {
-        const orden = await Orden.find();
+        const orden = await Orden.find()
+            .populate('mesa')
+            .populate({
+              path: 'mesa',
+              populate: {
+                path: 'restaurante',
+                model: 'Restaurante'
+              }
+            })
+            .populate({
+              path: 'platillos',
+              populate: {
+                path: 'platillo',
+                model: 'Platillo'
+              }
+            });
         res.json(orden);
     } catch (error) {
         res.status(400).send(error);
@@ -76,7 +91,7 @@ exports.delete= async(req, res)=>{
     }
 }
 
-exports.cerrarOrden = async(req, res)=>{
+exports.cancelarOrden = async(req, res)=>{
     try{
         const id= req.params.id;
         var orden = await Orden.findById({ _id : id });
@@ -89,18 +104,35 @@ exports.cerrarOrden = async(req, res)=>{
         );
 
       res.json({
-            mensaje:`Objeto eliminado ${id} con exito`
+            mensaje:`Orden cerrada ${id} con exito`
         })
     } catch (error) {
         res.status(400).send(error);
     }
 }
 
+exports.cerrarOrden = async(id, res)=>{
+    try{
+        var orden = await Orden.findById({ _id : id });
+        orden.activa = false;
+        orden.fechaSalida = Date.now();
+
+        await Orden.findOneAndUpdate(
+            { _id : id },
+            orden
+        );
+    } catch (error) {
+        return error
+    }
+}
+
 exports.agregarPlatillo = async(req, res)=>{
     try{
         const id= req.params.id;
+        const idPlatillo = req.query.platillo;
+
         var orden = await Orden.findById({ _id : id });
-        orden.platillos.push(req.body);
+        orden.platillos.push({ platillo: idPlatillo });
 
         await Orden.findOneAndUpdate(
             { _id : id },
@@ -108,7 +140,7 @@ exports.agregarPlatillo = async(req, res)=>{
         );
 
       res.json({
-            mensaje:`Objeto eliminado ${id} con exito`
+            mensaje:`Platillo actualizado ${id} con exito`
         })
     } catch (error) {
         res.status(400).send(error);
@@ -120,10 +152,9 @@ exports.quitarPlatillo = async(req, res)=>{
     const id = req.params.id;
     const idPlatillo = req.query.platillo;
     var orden = await Orden.findById({ _id : id });
-    orden.platillos.push(req.body);
 
     orden.platillos = orden.platillos.filter(function(item){
-      return item.platillo != idPlatillo;
+      return item._id != idPlatillo;
     });
 
     await Orden.findOneAndUpdate(
@@ -132,7 +163,7 @@ exports.quitarPlatillo = async(req, res)=>{
     );
 
     res.json({
-      mensaje:`Objeto eliminado ${id} con exito`
+      mensaje:`Platillo actualizado ${id} con exito`
     })
   } catch (error) {
     res.status(400).send(error);
@@ -143,7 +174,21 @@ exports.findOrdenActivaByMesa = async(req, res)=>{
   try {
     const codMesa = req.params.id;
     var orden = await Orden.findOne({ mesa: codMesa, activa: true })
-        .populate('mesas');
+        .populate('mesa')
+        .populate({
+          path: 'platillos',
+          populate: {
+            path: 'platillo',
+            model: 'Platillo'
+          }
+        })
+        .populate({
+          path: 'platillos.platillo',
+          populate: {
+            path: 'tipoPlatillo',
+            model: 'TipoPlatillo'
+          }
+        });
     if(!orden){
       orden = new Orden({ mesa: codMesa });
       orden.codigo = await consecutivoController.generarConsecutivo('Orden');

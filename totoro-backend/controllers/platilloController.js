@@ -33,6 +33,26 @@ exports.get = async(req, res)=>{
     }
 }
 
+exports.findByTipo = async(req, res)=>{
+    try {
+        const tipo = req.query.tipo;
+        const platillos = await Platillos.find({ tipoPlatillo: tipo })
+            .populate('unidadMedida')
+            .populate('tipoComida')
+            .populate('tipoBebida')
+            .populate('pais')
+            .populate('marca');
+        if(!platillos){
+            res.status(404).json({
+                mensaje:'Objeto no existe'
+            })
+        }
+        res.json(platillos)
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
 exports.create = async(req, res)=>{
     var platillos = new Platillos(req.body)
     const tipoPlatillo = await tipoPlatilloController.findById(req.body.tipoPlatillo);

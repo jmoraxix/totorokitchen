@@ -1,9 +1,13 @@
 const Facturas = require('totoro-models').Factura;
 const consecutivoController = require('../controllers/consecutivoController.js');
+const ordenController = require('../controllers/ordenController.js');
 
 exports.getAll = async(req, res)=>{
     try {
-        const facturas = await Facturas.find();
+        const facturas = await Facturas.find()
+            .populate('orden')
+            .populate('cliente')
+            .populate('restaurante');
         res.json(facturas);
     } catch (error) {
         res.status(400).send(error);
@@ -16,6 +20,13 @@ exports.get = async(req, res)=>{
         const id = req.params.id;
         const facturas = await Facturas.findById(id)
             .populate('orden')
+            .populate({
+              path: 'orden',
+              populate: {
+                path: 'platillos.platillo',
+                model: 'Platillo'
+              }
+            })
             .populate('cliente')
             .populate('restaurante');
         if(!facturas){
@@ -32,6 +43,7 @@ exports.get = async(req, res)=>{
 exports.create = async(req, res)=>{
     var facturas= new Facturas(req.body);
     facturas.codigo = await consecutivoController.generarConsecutivo('Factura');
+    ordenController.cerrarOrden(facturas.orden._id);
     try {
         await facturas.save();
         res.json({

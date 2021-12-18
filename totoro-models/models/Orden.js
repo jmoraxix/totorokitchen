@@ -25,8 +25,7 @@ const ordenSchema = new Schema({
         default: () => Date.now()
     },
     fechaSalida: {
-        type: Date,
-        trim: true
+        type: Date
     },
     teniaReserva: {
         type: Boolean

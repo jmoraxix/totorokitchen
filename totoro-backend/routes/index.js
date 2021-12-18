@@ -133,7 +133,7 @@ module.exports = function () {
      router.post(`${prefix}/orden`, ordenController.create)
      router.put(`${prefix}/orden/agregar/:id`, ordenController.agregarPlatillo)
      router.put(`${prefix}/orden/quitar/:id`, ordenController.quitarPlatillo)
-     router.put(`${prefix}/orden/cerrar/:id`, ordenController.cerrarOrden)
+     router.put(`${prefix}/orden/cerrar/:id`, ordenController.cancelarOrden)
      router.put(`${prefix}/orden/:id`, ordenController.update)
      router.delete(`${prefix}/orden/:id`, ordenController.delete)
      // Producto
@@ -144,6 +144,7 @@ module.exports = function () {
      router.delete(`${prefix}/producto/:id`, productoController.delete)
      // Platillos
      router.get(`${prefix}/platillo`, platilloController.getAll)
+     router.get(`${prefix}/platillo/tipo`, platilloController.findByTipo)
      router.get(`${prefix}/platillo/:id`, platilloController.get)
      router.post(`${prefix}/platillo`, platilloController.create)
      router.put(`${prefix}/platillo/:id`, platilloController.update)

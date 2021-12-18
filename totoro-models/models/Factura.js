@@ -9,8 +9,8 @@ const facturasSchema = new Schema({
         uppercase: true
     },
     fecha: {
-        type: String,
-        trim: true
+        type: Date,
+        default: () => Date.now()
     },
     total: {
         type: Number

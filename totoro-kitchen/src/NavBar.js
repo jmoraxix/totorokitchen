@@ -78,7 +78,7 @@ export default class NavigationBar extends React.Component {
                   <NavLink href="/orden">Ordenes</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/facturas">Facturas</NavLink>
+                  <NavLink href="/factura">Facturas</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="/platillo">Platillos</NavLink>

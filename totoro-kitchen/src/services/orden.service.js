@@ -21,8 +21,8 @@ class OrdenDataService {
         return http.put(`/orden/${id}`, data);
     }
 
-    agregarPlatillo(id, data) {
-        return http.put(`/orden/agregar/${id}`, data);
+    agregarPlatillo(id, platilloId) {
+        return http.put(`/orden/agregar/${id}?platillo=${platilloId}`);
     }
 
     quitarPlatillo(id, platilloId) {

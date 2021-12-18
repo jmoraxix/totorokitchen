@@ -13,7 +13,8 @@ import { Clientes, Cliente } from "./components/cliente.component";
 import { Restaurantes, Restaurante } from "./components/restaurante.component";
 import { Mesas, Mesa, MesasRestaurante } from "./components/mesa.component";
 import { Cajas, Caja, CajasRestaurante } from "./components/caja.component";
-import { Ordenes, Orden, OrdenRestaurante } from "./components/orden.component";
+import { Ordenes, OrdenRestaurante } from "./components/orden.component";
+import { Facturas, Factura, FacturaRestaurante } from "./components/factura.component";
 import { Paises, Pais } from "./components/pais.component";
 import { Bitacoras, Bitacora } from "./components/bitacora.component";
 import { Empresas, Empresa } from "./components/empresa.component";
@@ -71,6 +72,7 @@ function App() {
               <Route path="/restaurante/mesas" element={<MesasRestaurante />}/>
               <Route path="/restaurante/mesas">
                 <Route path=":_id" element={<OrdenRestaurante />} />
+                <Route path=":_id/facturar" element={<FacturaRestaurante />} />
               </Route>
               <Route path="/restaurante/cajas" element={<CajasRestaurante />}/>
 
@@ -96,16 +98,9 @@ function App() {
                 <Route path=":_id" element={<Caja />} />
               </Route>
               <Route path="/orden" element={<Ordenes />}/>
-              <Route path="/orden">
-                <Route path=":_id" element={<Orden />} />
-              </Route>
-              <Route path="/estadoOrden" element={<Restaurantes />}/>
-              <Route path="/estadoOrden">
-                <Route path=":_id" element={<Restaurante />} />
-              </Route>
-              <Route path="/factura" element={<Restaurantes />}/>
+              <Route path="/factura" element={<Facturas />}/>
               <Route path="/factura">
-                <Route path=":_id" element={<Restaurante />} />
+                <Route path=":_id" element={<Factura />} />
               </Route>
 
               <Route path="/pais" element={<Paises />}/>
@@ -131,10 +126,6 @@ function App() {
               <Route path="/marca" element={<Marcas />}/>
               <Route path="/marca">
                 <Route path=":_id" element={<Marca />} />
-              </Route>
-              <Route path="/orden" element={<Ordenes />}/>
-              <Route path="/orden">
-                <Route path=":_id" element={<Orden />} />
               </Route>
               <Route path="/platillo" element={<Platillos />}/>
               <Route path="/platillo">

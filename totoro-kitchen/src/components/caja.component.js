@@ -66,6 +66,11 @@ export class Cajas extends Component {
             </thead>
 
             <tbody>
+                {!this.state.dataLoaded &&
+                  <div>
+                  Cargando...
+                  </div>
+                }
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>

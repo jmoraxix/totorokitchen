@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Component } from "react";
 import OrdenDataService from "../services/orden.service";
 import PlatilloDataService from "../services/platillo.service";
+import TipoPlatilloDataService from "../services/tipoPlatillo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -60,6 +61,7 @@ export class Ordenes extends Component {
                 <th>Entrada</th>
                 <th>Salida</th>
                 <th>Mesa</th>
+                <th>Restaurante</th>
                 <th>Activa</th>
                 <th></th>
               </tr>
@@ -69,19 +71,20 @@ export class Ordenes extends Component {
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
-                    <td>{(new Date()).toLocaleDateString('en-US', dato.fechaEntrada)} | {(new Date()).toLocaleTimeString('en-US', dato.fechaEntrada)}</td>
-                    <td>{(new Date()).toLocaleDateString('en-US', dato.fechaSalida)} | {(new Date()).toLocaleTimeString('en-US', dato.fechaSalida)}</td>
+                    { !dato.fechaEntrada ? <td></td> :
+                      <td>{(new Date(dato.fechaEntrada)).toLocaleDateString('en-US')}
+                      | {(new Date(dato.fechaEntrada)).toLocaleTimeString('en-US')}</td>
+                    }
+                    { !dato.fechaSalida ? <td></td> :
+                      <td>{(new Date(dato.fechaSalida)).toLocaleDateString('en-US')}
+                      | {(new Date(dato.fechaSalida)).toLocaleTimeString('en-US')}</td>
+                    }
                     <td>{dato.mesa.numero}</td>
-                    <td>{dato.activa}</td>
+                    <td>{dato.mesa.restaurante?.nombre}</td>
+                    <td>{dato.activa ? 'Si' : 'No'}</td>
                     <td>
-                      <Button
-                        color="primary"
-                        href={`${history.location.pathname}/${dato._id}`}
-                      >
-                        Editar
-                    </Button>{" "}
-                    <Button color="danger" onClick={() => this.eliminarObjeto(dato._id)}>Eliminar</Button>
-                  </td>
+                      <Button color="danger" onClick={() => this.eliminarObjeto(dato._id)}>Eliminar</Button>
+                    </td>
                 </tr>
               ))}
             </tbody>
@@ -93,109 +96,26 @@ export class Ordenes extends Component {
   }
 }
 
-export function Orden() {
-  let { _id } = useParams();
-  let navigate = useNavigate();
-  const [objeto, setObjeto] = useState({});
-  const [cargaObjeto, setCargaObjecto] = useState(false);
-  const [isNew] = useState(_id === 'new');
-
-  useEffect(() => {
-    if (!isNew){
-      OrdenDataService.get(_id)
-          .then(response => {
-            setObjeto(response.data)
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-    }
-
-    setCargaObjecto(true);
-  }, []);
-
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setObjeto(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  function handleSubmit(e) {
-    console.log("Objeto a procesar: ", objeto);
-    e.preventDefault();
-    if(isNew){
-      OrdenDataService.create(objeto)
-        .then(response => {
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    } else {
-      OrdenDataService.update(objeto._id, objeto)
-        .then(response => {
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
-
-    goBack();
-  }
-
-  function goBack(){
-    navigate(-1);
-  }
-
-  return (
-    <div>
-      <h2>Orden</h2>
-
-      <form onSubmit={handleSubmit}>
-        { cargaObjeto &&
-            <div>
-              {!isNew &&
-              <div class="form-group row">
-                <label for="codigo" class="col-4 col-form-label">Codigo</label>
-                <div class="col-8">
-                  <input name="codigo" type="text" class="form-control" value={objeto.codigo} disabled/>
-                </div>
-              </div>
-              }
-              <div className="form-group row">
-                <label htmlFor="pais" className="col-4 col-form-label">Nombre</label>
-                <div className="col-8">
-                  <input name="pais" type="text" className="form-control" required="required" value={objeto.pais} onChange={handleChange}/>
-                </div>
-              </div>
-              <div className="form-group row">
-                <div className="offset-8 col-2">
-                  <a className="btn btn-danger" onClick={goBack}>Cancelar</a>
-                </div>
-                <div className="col-2">
-                  <button name="submit" type="submit" className="btn btn-primary">Guardar</button>
-                </div>
-              </div>
-            </div>
-        }
-      </form>
-      
-    </div>
-    );
-}
-
-
 export function OrdenRestaurante() {
   let { _id } = useParams();
   let navigate = useNavigate();
   const [orden, setOrden] = useState({});
-  const [listaPlatillos, setlListaPlatillos] = useState({});
   const [cargaObjeto, setCargaObjecto] = useState(false);
+  const [listaPlatillos, setlListaPlatillos] = useState({});
+  const [listaTipoPlatillo, setListaTipoPlatillo] = useState([]);
+  const [cargaListaPlatillos, setCargaListaPlatillos] = useState(false);
+  const [tipoPlatillo, setTipoPlatillo] = useState('');
 
   useEffect(() => {
     refrescarOrden();
+
+    TipoPlatilloDataService.getAll()
+      .then(response => {
+        setListaTipoPlatillo(response.data)
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }, []);
 
   function refrescarOrden(){
@@ -210,31 +130,55 @@ export function OrdenRestaurante() {
       });
   }
 
-  function agregarPlatillo(codigo) {
-    OrdenDataService.agregarPlatillo(codigo)
+  function agregarPlatillo(e) {
+    const codigo = e.target.value;
+    OrdenDataService.agregarPlatillo(orden._id, codigo)
         .then(response => {
           console.log(response.data);
-          this.refrescarOrden();
+          refrescarOrden();
         })
         .catch(e => {
           console.log(e);
         });
   }
 
-  function quitarPlatillo(codigo) {
-    OrdenDataService.quitarPlatillo(orden.codigo, codigo)
+  function quitarPlatillo(e) {
+    const codigo = e.target.value;
+    OrdenDataService.quitarPlatillo(orden._id, codigo)
         .then(response => {
           console.log(response.data);
-          this.refrescarOrden();
+          refrescarOrden();
         })
         .catch(e => {
           console.log(e);
         });
   }
+
+  const cambioTipoPlatillo = e => {
+    setTipoPlatillo(listaTipoPlatillo.find( tipo => tipo._id === e.target.value).tipo)
+    PlatilloDataService.findByTipo(e.target.value)
+        .then(response => {
+          setlListaPlatillos(response.data)
+          setCargaListaPlatillos(true);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  };
 
   function goBack(){
     navigate(-1);
   }
+
+  const ColoredLine = ({ color }) => (
+      <hr
+          style={{
+            color: color,
+            backgroundColor: color,
+            height: 3
+          }}
+      />
+  );
 
   return (
     <div>
@@ -249,9 +193,6 @@ export function OrdenRestaurante() {
               <Row>
                 <Col><h2>Mesa { orden.mesa?.numero } | { orden.mesa?.nombre }</h2></Col>
               </Row>
-              <Row>
-                <Col><h3>Platillos:</h3></Col>
-              </Row>
               <Table>
                 <thead>
                 <tr>
@@ -265,18 +206,67 @@ export function OrdenRestaurante() {
 
                 <tbody>
                 { cargaObjeto && orden.platillos?.map((item) => (
-                    <tr key={item.platillo._id}>
+                    <tr key={item.platillo?._id}>
                       <td>{item.cantidad}</td>
-                      <td>{item.platillo.nombre}</td>
-                      <td>{item.platillo.tipoPlatillo.tipo}</td>
-                      <td>{item.platillo.precio}</td>
+                      <td>{item.platillo?.nombre}</td>
+                      <td>{item.platillo?.tipoPlatillo?.tipo}</td>
+                      <td>{item.platillo?.precio}</td>
                       <td>
-                        <Button color="danger" onClick={() => this.quitarPlatillo(item.platillo._id)}>Remover</Button>
+                        <Button color="danger" value={item._id} onClick={quitarPlatillo}>Remover</Button>
                       </td>
                     </tr>
                 ))}
                 </tbody>
               </Table>
+
+              <br/>
+              <br/>
+              <br/>
+              <ColoredLine color="white" />
+              <br/>
+              <br/>
+              <br/>
+
+              <Row>
+                <Col><h3>Platillos</h3></Col>
+              </Row>
+              <div className="form-group row">
+                <label htmlFor="tipoPlatillo" className="col-4 col-form-label">Tipo de platillo</label>
+                <div className="col-8">
+                  <select name="tipoPlatillo" className="form-select" onChange={cambioTipoPlatillo}>
+                    <option>Seleccione una opcion</option>
+                    { listaTipoPlatillo.map(({ _id, tipo }, index) => <option value={_id} >{tipo}</option>) }
+                  </select>
+                </div>
+              </div>
+
+              { cargaListaPlatillos &&
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Tipo</th>
+                    <th>Detalle</th>
+                    <th></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                { cargaListaPlatillos && listaPlatillos?.map((dato) => (
+                    <tr key={dato._id}>
+                      <td>{dato.nombre}</td>
+                      <td>{dato.precio}</td>
+                      <td>{dato.tipoComida ? dato.tipoComida?.tipo : dato.tipoBebida?.tipo}</td>
+                      <td>{dato.detalle}</td>
+                      <td>
+                        <Button color="success" value={dato._id} onClick={agregarPlatillo}>Agregar</Button>
+                      </td>
+                    </tr>
+                ))}
+                </tbody>
+              </Table>
+              }
             </Container>
           </div>
       }
