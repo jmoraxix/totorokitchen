@@ -72,7 +72,7 @@ export class Mesas extends Component {
                     <td>{dato.numero}</td>
                     <td>{dato.nombre}</td>
                     <td>{dato.cantSillas}</td>
-                    <td>{dato.restaurantes?.nombre}</td>
+                    <td>{dato.restaurante?.nombre}</td>
                     <td>
                       <Button
                           color="primary"
@@ -192,9 +192,9 @@ export function Mesa() {
               </div>
             </div>
             <div className="form-group row">
-              <label htmlFor="restaurantes" className="col-4 col-form-label">Restaurante</label>
+              <label htmlFor="restaurante" className="col-4 col-form-label">Restaurante</label>
               <div className="col-8">
-                <select name="restaurantes" className="form-select" value={objeto.restaurantes?._id} onChange={handleChange}>
+                <select name="restaurante" className="form-select" value={objeto.restaurante?._id} onChange={handleChange}>
                   <option selected>Seleccione una opcion</option>
                   { listaRestaurantes.map(({ _id, nombre }, index) => <option value={_id} >{nombre}</option>) }
                 </select>
@@ -231,7 +231,7 @@ export class MesasRestaurante extends Component {
   }
 
   async listarRestaurantes() {
-    await RestauranteDataService.getAll()
+    await RestauranteDataService.getAllActivos()
         .then(response => {
           this.setState({
             listaRestaurantes: response.data,

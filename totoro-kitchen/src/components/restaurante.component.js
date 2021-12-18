@@ -187,7 +187,7 @@ export function Restaurante() {
           <div className="form-group row">
             <label htmlFor="aforo" className="col-4 col-form-label">Aforo</label>
             <div className="col-8">
-              <input name="aforo" type="text" className="form-control" value={objeto.aforo}/>
+              <input name="aforo" type="number" className="form-control" value={objeto.aforo} onChange={handleChange}/>
             </div>
           </div>
           <div className="form-group row">

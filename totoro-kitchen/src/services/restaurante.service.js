@@ -5,6 +5,10 @@ class RestauranteDataService {
         return http.get("/restaurante");
     }
 
+    getAllActivos() {
+        return http.get("/restaurante/activos");
+    }
+
     get(id) {
         return http.get(`/restaurante/${id}`);
     }

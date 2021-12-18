@@ -1,5 +1,4 @@
 const Cajas = require('totoro-models').Caja;
-const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
@@ -28,7 +27,6 @@ exports.get = async(req, res)=>{
 
 exports.create = async(req, res)=>{
     var cajas= new Cajas(req.body);
-    cajas.codigo = await consecutivoController.generarConsecutivo('Caja');
     try {
         await cajas.save();
         res.json({
@@ -71,7 +69,7 @@ exports.delete= async(req, res)=>{
 exports.findByRestaurante = async(req, res)=>{
   try {
     const codRestaurante = req.query.codigo;
-    const caja = await Cajas.find({ restaurantes: codRestaurante }).populate('restaurante');
+    const caja = await Cajas.find({ restaurante: codRestaurante }).populate('restaurante');
     if(!caja){
       res.status(404).json({
         mensaje:'Objeto no existe'
@@ -83,12 +81,28 @@ exports.findByRestaurante = async(req, res)=>{
   }
 }
 
-exports.cambiarEstadoCaja = async(req, res)=>{
+exports.abrirCaja = async(req, res)=>{
   try {
     const id= req.params.id;
-    const estado= req.params.estado;
-    const caja = await Cajas.findById(id).populate('restaurante');
-    caja.abierta = estado;
+    const caja = await Cajas.findById(id);
+    caja.abierta = true;
+    caja.save();
+
+    res.json({
+      mensaje:'Objeto actualizado con exito'
+    })
+  } catch (error) {
+    res.status(400).send(error);
+  }
+}
+
+
+exports.cerrarCaja = async(req, res)=>{
+  try {
+    const id= req.params.id;
+    const caja = await Cajas.findById(id);
+    caja.abierta = false;
+    caja.dinero = 0;
     caja.save();
 
     res.json({

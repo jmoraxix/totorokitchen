@@ -111,6 +111,17 @@ export function Platillo() {
   const [isNew] = useState(_id === 'new');
 
   useEffect(() => {
+    if (!isNew){
+      PlatilloDataService.get(_id)
+          .then(response => {
+            setObjeto(response.data)
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    }
+
     UnidadMedidaDataService.getAll()
         .then(response => {
           setListaUnidades(response.data)
@@ -154,17 +165,7 @@ export function Platillo() {
           console.log(e);
         });
 
-      PlatilloDataService.get(_id)
-        .then(response => {
-          setObjeto(response.data)
-          setTipoObjeto(response.data.tipoPlatillo.tipo)
-          console.log(response.data);
-
-          setCargaObjecto(true);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+    setCargaObjecto(true);
   }, []);
 
   const handleChange = e => {

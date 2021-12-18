@@ -10,6 +10,15 @@ exports.getAll = async(req, res)=>{
     }
 }
 
+exports.getAllActivos = async(req, res)=>{
+    try {
+        const restaurantes = await Restaurantes.find({ activo: true });
+        res.json(restaurantes);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
 exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)

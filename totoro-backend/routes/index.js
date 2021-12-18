@@ -48,7 +48,8 @@ module.exports = function () {
     router.get(`${prefix}/caja/restaurante`, cajaController.findByRestaurante)
     router.get(`${prefix}/caja/:id`, cajaController.get)
     router.post(`${prefix}/caja`, cajaController.create)
-    router.post(`${prefix}/caja/cambiarEstadoCaja`, cajaController.cambiarEstadoCaja)
+    router.post(`${prefix}/caja/abrirCaja/:id`, cajaController.abrirCaja)
+    router.post(`${prefix}/caja/cerrarCaja/:id`, cajaController.cerrarCaja)
     router.put(`${prefix}/caja/:id`, cajaController.update)
     router.delete(`${prefix}/caja/:id`, cajaController.delete)
     // Clientes
@@ -120,6 +121,7 @@ module.exports = function () {
      router.delete(`${prefix}/mesa/:id`, mesaController.delete)
      // Restaurantes
      router.get(`${prefix}/restaurante`, restauranteController.getAll)
+     router.get(`${prefix}/restaurante/activos`, restauranteController.getAllActivos)
      router.get(`${prefix}/restaurante/:id`, restauranteController.get)
      router.post(`${prefix}/restaurante`, restauranteController.create)
      router.put(`${prefix}/restaurante/:id`, restauranteController.update)

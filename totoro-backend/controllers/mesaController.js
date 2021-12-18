@@ -73,7 +73,7 @@ exports.delete= async(req, res)=>{
 exports.findByRestaurante = async(req, res)=>{
   try {
     const codRestaurante = req.query.codigo;
-    const mesas = await Mesas.find({ restaurantes: codRestaurante }).populate('restaurantes');
+    const mesas = await Mesas.find({ restaurante: codRestaurante }).populate('restaurante');
     if(!mesas){
       res.status(404).json({
         mensaje:'Objeto no existe'

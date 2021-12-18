@@ -25,8 +25,12 @@ class CajasDataService {
       return http.get(`/caja/restaurante?codigo=${id}`);
     }
 
-    cambiarEstadoCaja(id, estado) {
-      return http.post(`/caja/cambiarEstadoCaja?id=${id}&estado=${estado}`);
+    abrirCaja(id) {
+      return http.post(`/caja/abrirCaja/${id}`);
+    }
+
+    cerrarCaja(id) {
+      return http.post(`/caja/cerrarCaja/${id}`);
     }
 }
 

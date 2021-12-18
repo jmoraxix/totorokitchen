@@ -8,7 +8,6 @@ import {
   useParams
 } from "react-router-dom";
 import history from 'history/browser';
-import MesaDataService from "../services/mesa.service";
 
 export class Cajas extends Component {
   state = {
@@ -189,7 +188,7 @@ export function Caja() {
           <div className="form-group row">
             <label htmlFor="dinero" className="col-4 col-form-label">Dinero en caja</label>
             <div className="col-8">
-              <input name="dinero" type="number" className="form-control" value={objeto.dinero}/>
+              <input name="dinero" type="number" className="form-control" value={objeto.dinero} onChange={handleChange}/>
             </div>
           </div>
           <div class="form-group row">
@@ -231,7 +230,6 @@ export class CajasRestaurante extends Component {
   state = {
     data: [],
     restaurantesCargados: false,
-    restauranteSeleccionado: '',
     listaRestaurantes: [],
     listaCargada: false,
     listaCajas: []
@@ -242,7 +240,7 @@ export class CajasRestaurante extends Component {
   }
 
   async listarRestaurantes() {
-    await RestauranteDataService.getAll()
+    await RestauranteDataService.getAllActivos()
         .then(response => {
           this.setState({
             listaRestaurantes: response.data,
@@ -259,7 +257,7 @@ export class CajasRestaurante extends Component {
   }
 
   async listarCajasPorRetaurante(restauranteSeleccionado) {
-    await MesaDataService.findByRestaurante(restauranteSeleccionado)
+    await CajaDataService.findByRestaurante(restauranteSeleccionado)
         .then(response => {
           console.log('1', response.data);
           this.setState({
@@ -267,6 +265,28 @@ export class CajasRestaurante extends Component {
             listaCargada: true
           });
           console.log('2');
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  abrirCaja(_id){
+    CajaDataService.abrirCaja(_id)
+        .then(response => {
+          console.log(response.code);
+          this.listarRestaurantes()
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  cerrarCaja(_id){
+    CajaDataService.cerrarCaja(_id)
+        .then(response => {
+          console.log(response.code);
+          this.listarRestaurantes()
         })
         .catch(e => {
           console.log(e);
@@ -310,12 +330,11 @@ export class CajasRestaurante extends Component {
                     <td>{dato.dinero}</td>
                     <td>{dato.abierta ? 'Si' : 'No'}</td>
                     <td>
-                      <Button
-                          color="primary"
-                          href={`${history.location.pathname}/${dato._id}`}
-                      >
-                        Ordenes
-                      </Button>
+                      { !dato.abierta ?
+                          <Button color="success" onClick={() => this.abrirCaja(dato._id)}>Abrir</Button>
+                          :
+                          <Button color="danger" onClick={() => this.cerrarCaja(dato._id)}>Cerrar</Button>
+                      }
                     </td>
                   </tr>
               ))}
