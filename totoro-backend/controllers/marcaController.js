@@ -14,7 +14,9 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const marca = await Marcas.findById(id).populate('pais').populate('empresa');
+        const marca = await Marcas.findById(id)
+            .populate('pais')
+            .populate('empresa');
         if(!marca){
             res.status(404).json({
                 mensaje:'Objeto no existe'

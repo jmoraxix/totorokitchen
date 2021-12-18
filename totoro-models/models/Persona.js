@@ -9,7 +9,8 @@ const personaSchema = new Schema({
     apellidos:{
         type:String,
         trim:true
-    },correo:{
+    },
+    correo:{
         type:String,
         trim:true,
         unique:true,

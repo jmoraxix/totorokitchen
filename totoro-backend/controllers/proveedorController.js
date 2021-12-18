@@ -1,4 +1,4 @@
-const Proveedores = require('totoro-models').Proveedores;
+const Proveedores = require('totoro-models').Proveedor;
 const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
@@ -14,7 +14,9 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const proveedores = await Proveedores.findById(id).populate('producto').populate('restaurante');
+        const proveedores = await Proveedores.findById(id)
+            .populate('producto')
+            .populate('restaurante');
         if(!proveedores){
             res.status(404).json({
                 mensaje:'Objeto no existe'

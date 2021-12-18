@@ -2,33 +2,33 @@ const mongoose = require('mongoose');
 
 
 const Bitacora = require('./models/Bitacora');
-const Cajas = require('./models/Caja');
+const Caja = require('./models/Caja');
 const ClaseComestible = require('./models/ClaseComestible');
-const Clientes = require('./models/Cliente');
+const Cliente = require('./models/Cliente');
 const Consecutivo = require('./models/Consecutivo');
 const DetalleUnidad = require('./models/DetalleUnidad');
-const Empleados = require('./models/Empleado');
+const Empleado = require('./models/Empleado');
 const Empresa = require('./models/Empresa');
 const Evento = require('./models/Evento');
-const Facturas = require('./models/Factura');
+const Factura = require('./models/Factura');
 const LineaComestible = require('./models/LineaComestible');
 const Marca = require('./models/Marca');
-const Mesas = require('./models/Mesa');
+const Mesa = require('./models/Mesa');
 const Orden = require('./models/Orden');
 const Pais = require('./models/Pais');
 const Persona = require('./models/Persona');
 const Platillo = require('./models/Platillo');
 const Producto = require('./models/Producto');
-const Proveedores = require('./models/Proveedor');
-const Puestos = require('./models/Puesto');
-const Restaurantes = require('./models/Restaurante');
+const Proveedor = require('./models/Proveedor');
+const Puesto = require('./models/Puesto');
+const Restaurante = require('./models/Restaurante');
 const TipoBebida = require('./models/TipoBebida');
 const TipoComestible = require('./models/TipoComestible');
 const TipoComida = require('./models/TipoComida');
 const TipoPlatillo = require('./models/TipoPlatillo');
 const TipoProducto = require('./models/TipoProducto');
 const UnidadMedida = require('./models/UnidadMedida');
-const Usuarios = require('./models/Usuario');
+const Usuario = require('./models/Usuario');
 
 
 
@@ -40,31 +40,31 @@ mongoose.connect('mongodb+srv://Admin:QRwAb1x0VruYHgwL@cltadriano.req5g.mongodb.
 
 module.exports = {
     Bitacora: mongoose.model('Bitacora', Bitacora),
-    Cajas: mongoose.model('Cajas', Cajas),
+    Caja: mongoose.model('Caja', Caja),
     ClaseComestible: mongoose.model('ClaseComestible', ClaseComestible),
-    Clientes: mongoose.model('Clientes', Clientes),
+    Cliente: mongoose.model('Cliente', Cliente),
     Consecutivo: mongoose.model('Consecutivo', Consecutivo),
     DetalleUnidad: mongoose.model('DetalleUnidad', DetalleUnidad),
-    Empleados: mongoose.model('Empleados', Empleados),
+    Empleado: mongoose.model('Empleado', Empleado),
     Empresa: mongoose.model('Empresa', Empresa),
     Evento: mongoose.model('Evento', Evento),
-    Facturas: mongoose.model('Facturas', Facturas),
+    Factura: mongoose.model('Factura', Factura),
     LineaComestible: mongoose.model('LineaComestible', LineaComestible),
     Marca: mongoose.model('Marca', Marca),
-    Mesas: mongoose.model('Mesas', Mesas),
+    Mesa: mongoose.model('Mesa', Mesa),
     Orden: mongoose.model('Orden', Orden),
     Pais: mongoose.model('Pais', Pais),
     Persona: mongoose.model('Persona', Persona),
     Platillo: mongoose.model('Platillo', Platillo),    
     Producto: mongoose.model('Producto', Producto),
-    Proveedores: mongoose.model('Proveedores', Proveedores),
-    Puestos: mongoose.model('Puestos', Puestos),
-    Restaurantes: mongoose.model('Restaurantes', Restaurantes),
+    Proveedor: mongoose.model('Proveedor', Proveedor),
+    Puesto: mongoose.model('Puesto', Puesto),
+    Restaurante: mongoose.model('Restaurante', Restaurante),
     TipoBebida: mongoose.model('TipoBebida', TipoBebida),
     TipoComestible: mongoose.model('TipoComestible', TipoComestible),
     TipoComida: mongoose.model('TipoComida', TipoComida),
     TipoPlatillo: mongoose.model('TipoPlatillo', TipoPlatillo),
     TipoProducto: mongoose.model('TipoProducto', TipoProducto),    
     UnidadMedida: mongoose.model('UnidadMedida', UnidadMedida),
-    Usuarios: mongoose.model('Usuarios', Usuarios),
+    Usuario: mongoose.model('Usuario', Usuario)
 };

@@ -18,9 +18,9 @@ const cajasSchema = new Schema({
         type: Boolean
     },
     restaurante: {
-    type: Schema.Types.ObjectId,
-    ref: 'Restaurantes'
-  }
+      type: Schema.Types.ObjectId,
+      ref: 'Restaurante'
+    }
 })
 cajasSchema.plugin(AutoIncrement, { id: 'cajasSchema_counter', inc_field: 'codigo' });
 

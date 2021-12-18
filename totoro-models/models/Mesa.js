@@ -18,9 +18,9 @@ const mesasSchema = new Schema({
     cantSillas: {
         type: Number
     },
-    restaurantes: {
+    restaurante: {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurantes'
+        ref: 'Restaurante'
     }
 })
 

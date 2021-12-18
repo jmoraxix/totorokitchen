@@ -20,10 +20,8 @@ import { Empresas, Empresa } from "./components/empresa.component";
 import { Eventos, Evento } from "./components/evento.component";
 import { Empleados, Empleado } from "./components/empleado.component";
 import { Marcas, Marca } from "./components/marca.component";
-import { Ordenes, Orden } from "./components/orden.component";
 import { Platillos, Platillo } from "./components/platillo.component";
 import { Productos, Producto } from "./components/producto.component";
-
 import { TipoBebidas, TipoBebida } from "./components/tipoBebida.component";
 import { TipoComidas, TipoComida } from "./components/tipoComida.component";
 import { TipoComestibles, TipoComestible } from "./components/tipoComestible.component";

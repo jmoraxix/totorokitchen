@@ -56,8 +56,11 @@ export class Ordenes extends Component {
           <Table>
             <thead>
               <tr>
-                <th>Consecutivo</th>
-                <th>Pais</th>
+                <th>Codigo</th>
+                <th>Entrada</th>
+                <th>Salida</th>
+                <th>Mesa</th>
+                <th>Activa</th>
                 <th></th>
               </tr>
             </thead>
@@ -66,7 +69,10 @@ export class Ordenes extends Component {
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
-                    <td>{dato.pais}</td>
+                    <td>{(new Date()).toLocaleDateString('en-US', dato.fechaEntrada)} | {(new Date()).toLocaleTimeString('en-US', dato.fechaEntrada)}</td>
+                    <td>{(new Date()).toLocaleDateString('en-US', dato.fechaSalida)} | {(new Date()).toLocaleTimeString('en-US', dato.fechaSalida)}</td>
+                    <td>{dato.mesa.numero}</td>
+                    <td>{dato.activa}</td>
                     <td>
                       <Button
                         color="primary"
@@ -258,19 +264,13 @@ export function OrdenRestaurante() {
                 </thead>
 
                 <tbody>
-                { cargaObjeto && orden.platillos.map((item) => (
+                { cargaObjeto && orden.platillos?.map((item) => (
                     <tr key={item.platillo._id}>
                       <td>{item.cantidad}</td>
                       <td>{item.platillo.nombre}</td>
                       <td>{item.platillo.tipoPlatillo.tipo}</td>
                       <td>{item.platillo.precio}</td>
                       <td>
-                        <Button
-                            color="primary"
-                            href={`${history.location.pathname}/${item.platillo._id}`}
-                        >
-                          Editar
-                        </Button>{" "}
                         <Button color="danger" onClick={() => this.quitarPlatillo(item.platillo._id)}>Remover</Button>
                       </td>
                     </tr>

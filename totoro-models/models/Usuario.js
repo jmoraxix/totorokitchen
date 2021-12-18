@@ -19,9 +19,9 @@ const usuarioSchema = new Schema({
     activo: {
         type: Boolean
     },
-    empleados: {
+    empleado: {
         type: Schema.Types.ObjectId,
-        ref: 'Empleados'
+        ref: 'Empleado'
     }
 })
 module.exports = usuarioSchema;

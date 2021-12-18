@@ -5,7 +5,7 @@ exports.getAll = async(req, res)=>{
     try {
         const productos = await Productos.find()
             .populate('tipoProducto')
-            .populate('restaurantes')
+            .populate('restaurante')
             .populate('marca');
         res.json(productos);
     } catch (error) {
@@ -24,7 +24,7 @@ exports.get = async(req, res)=>{
             .populate('tipoProducto')
             .populate('lineaComestible')
             .populate('claseComestible')
-            .populate('restaurantes');
+            .populate('restaurante');
         if(!productos){
             res.status(404).json({
                 mensaje:'Objeto no existe'

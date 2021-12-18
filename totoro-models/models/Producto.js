@@ -39,9 +39,9 @@ const productoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'ClaseComestible'
     },
-    restaurantes: {
+    restaurante: {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurantes'
+        ref: 'Restaurante'
     }
 })
 

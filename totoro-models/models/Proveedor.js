@@ -48,9 +48,9 @@ const proveedoresSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Producto'
     },
-    restaurantes: {
+    restaurante: {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurantes'
+        ref: 'Restaurante'
     }
 })
 

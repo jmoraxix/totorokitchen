@@ -1,4 +1,4 @@
-const Cajas = require('totoro-models').Cajas;
+const Cajas = require('totoro-models').Caja;
 const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{

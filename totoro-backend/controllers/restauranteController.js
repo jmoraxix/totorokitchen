@@ -1,4 +1,4 @@
-const Restaurantes = require('totoro-models').Restaurantes;
+const Restaurantes = require('totoro-models').Restaurante;
 const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{

@@ -22,6 +22,14 @@ const bitacoraSchema = new Schema({
     },
     entradaDinero: {
         type: Number
+    },
+    caja: {
+      type: Schema.Types.ObjectId,
+      ref: 'Caja'
+    },
+    evento: {
+      type: Schema.Types.ObjectId,
+      ref: 'Evento'
     }
 })
 

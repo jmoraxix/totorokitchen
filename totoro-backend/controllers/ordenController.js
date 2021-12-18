@@ -142,13 +142,14 @@ exports.quitarPlatillo = async(req, res)=>{
 exports.findOrdenActivaByMesa = async(req, res)=>{
   try {
     const codMesa = req.params.id;
-    const orden = await Orden.find({ mesa: codMesa, activa: true })
+    var orden = await Orden.findOne({ mesa: codMesa, activa: true })
         .populate('mesas');
     if(!orden){
-      res.status(404).json({
-        mensaje:'Objeto no existe'
-      })
+      orden = new Orden({ mesa: codMesa });
+      orden.codigo = await consecutivoController.generarConsecutivo('Orden');
+      await orden.save();
     }
+    console.log(codMesa, orden);
     res.json(orden)
   } catch (error) {
     res.status(400).send(error);

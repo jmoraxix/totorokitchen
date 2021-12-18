@@ -19,13 +19,13 @@ const facturasSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Orden'
     },
-    clientes: {
+    cliente: {
         type: Schema.Types.ObjectId,
-        ref: 'Clientes'
+        ref: 'Cliente'
     },
-    restaurantes: {
+    restaurante: {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurantes'
+        ref: 'Restaurante'
     }
 })
 

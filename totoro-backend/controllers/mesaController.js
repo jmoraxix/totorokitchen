@@ -1,9 +1,10 @@
-const Mesas = require('totoro-models').Mesas;
+const Mesas = require('totoro-models').Mesa;
 const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
     try {
-        const mesas = await Mesas.find().populate('restaurantes');
+        const mesas = await Mesas.find()
+            .populate('restaurante');
         res.json(mesas);
     } catch (error) {
         res.status(400).send(error);
@@ -14,7 +15,8 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const mesas = await Mesas.findById(id).populate('restaurantes');
+        const mesas = await Mesas.findById(id)
+            .populate('restaurante');
         if(!mesas){
             res.status(404).json({
                 mensaje:'Objeto no existe'

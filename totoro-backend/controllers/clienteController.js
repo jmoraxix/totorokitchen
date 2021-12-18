@@ -1,4 +1,4 @@
-const Clientes = require('totoro-models').Clientes;
+const Clientes = require('totoro-models').Cliente;
 const consecutivoController = require('../controllers/consecutivoController.js');
 
 exports.getAll = async(req, res)=>{
@@ -14,7 +14,7 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const clientes = await Clientes.findById(id).populate('restaurantes');
+        const clientes = await Clientes.findById(id);
         if(!clientes){
             res.status(404).json({
                 mensaje:'Objeto no existe'

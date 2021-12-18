@@ -40,13 +40,13 @@ const empleadosSchema = new Schema({
         type: String,
         trim: true
     },
-    restaurantes: {
+    restaurante: {
         type: Schema.Types.ObjectId,
-        ref: 'Restaurantes'
+        ref: 'Restaurante'
     },
-    puestos: {
+    puesto: {
         type: Schema.Types.ObjectId,
-        ref: 'Puestos'
+        ref: 'Puesto'
     }
 })
 

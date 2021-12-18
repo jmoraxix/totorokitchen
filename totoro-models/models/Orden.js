@@ -38,7 +38,7 @@ const ordenSchema = new Schema({
     platillos: [itemOrden],
     mesa: {
         type: Schema.Types.ObjectId,
-        ref: 'Mesas'
+        ref: 'Mesa'
     }
 })
 
