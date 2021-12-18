@@ -3,7 +3,7 @@ const consecutivoController = require('../controllers/consecutivoController.js')
 
 exports.getAll = async(req, res)=>{
     try {
-        const usuarios = await Usuarios.find();
+        const usuarios = await Usuarios.find()
         res.json(usuarios);
     } catch (error) {
         res.status(400).send(error);
@@ -15,7 +15,7 @@ exports.get = async(req, res)=>{
         console.log(req.params.id)
         const id = req.params.id;
         const usuarios = await Usuarios.findById(id)
-            .populate('empleado');
+            .populate('consecutivo');
         if(!usuarios){
             res.status(404).json({
                 mensaje:'Objeto no existe'
@@ -29,7 +29,8 @@ exports.get = async(req, res)=>{
 
 exports.create = async(req, res)=>{
     var usuarios= new Usuarios(req.body);
-    usuarios.codigo = await consecutivoController.generarConsecutivo('Usuario');
+   usuarios.codigo = await consecutivoController.generarConsecutivo('Usuario');
+   console.log(req.body)
     try {
         await usuarios.save();
         res.json({

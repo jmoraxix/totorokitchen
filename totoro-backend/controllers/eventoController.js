@@ -3,8 +3,8 @@ const consecutivoController = require('../controllers/consecutivoController.js')
 
 exports.getAll = async(req, res)=>{
     try {
-        const evento = await Eventos.find();
-        res.json(evento);
+        const eventos = await Eventos.find();
+        res.json(eventos);
     } catch (error) {
         res.status(400).send(error);
     }
@@ -14,25 +14,25 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const evento = await Eventos.findById(id);
-        if(!evento){
+        const eventos = await Eventos.findById(id).populate('consecutivo');
+        if(!eventos){
             res.status(404).json({
-                mensaje:'El evento no existe'
+                mensaje:'Objeto no existe'
             })
         }
-        res.json(evento)
+        res.json(eventos)
     } catch (error) {
         res.status(400).send(error);
     }
 }
 
 exports.create = async(req, res)=>{
-    var evento= new Eventos(req.body);
-    evento.codigo = await consecutivoController.generarConsecutivo('Evento');
+    var eventos= new Eventos(req.body);
+console.log(eventos, req.body)
     try {
-        await evento.save();
+        await eventos.save();
         res.json({
-            mensaje:'Se creo un evento'
+            mensaje:'Objeto creado con exito'
         })
 
     } catch (error) {
@@ -43,13 +43,13 @@ exports.create = async(req, res)=>{
 exports.update = async(req, res)=>{
     try {
         const id= req.params.id;
-        const evento = await Eventos.findOneAndUpdate(
+        const eventos = await Eventos.findOneAndUpdate(
             {_id:id},
             req.body,
             {new: true}
             );
             res.json({
-                mensaje:'Se actualizo el evento'
+                mensaje:'Objeto actualizado con exito'
             })
     } catch (error) {
         res.status(400).send(error);
@@ -59,9 +59,9 @@ exports.update = async(req, res)=>{
 exports.delete= async(req, res)=>{
     try{
         const id= req.params.id;
-        const evento = await Eventos.findOneAndDelete({_id:id});
+        const eventos = await Eventos.findOneAndDelete({_id:id});
         res.json({
-            mensaje:`Se elimino el evento ${id} con exito`
+            mensaje:`Objeto eliminado ${id} con exito`
         })
     } catch (error) {
         res.status(400).send(error);

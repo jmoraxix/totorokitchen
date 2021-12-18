@@ -66,6 +66,10 @@ export default class NavigationBar extends React.Component {
                   <NavLink href="/consecutivo">Consecutivos</NavLink>
                 </NavItem>
                 <NavItem>
+                  <NavLink href="/usuario">Usuarios</NavLink>
+                </NavItem>
+                <NavItem></NavItem>
+                <NavItem>
                   <NavLink href="/restaurante">Restaurante</NavLink>
                 </NavItem>
                 <NavItem>
@@ -73,6 +77,9 @@ export default class NavigationBar extends React.Component {
                 </NavItem>
                 <NavItem>
                   <NavLink href="/caja">Cajas</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/evento">Eventos</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="/orden">Ordenes</NavLink>

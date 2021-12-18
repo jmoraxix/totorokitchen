@@ -56,8 +56,10 @@ export class Usuarios extends Component {
           <Table>
             <thead>
               <tr>
-                <th>Consecutivo</th>
+                <th>Codigo</th>
                 <th>Usuario</th>
+                <th>Contraseña</th>
+                <th>Activo</th>
                 <th></th>
               </tr>
             </thead>
@@ -67,6 +69,9 @@ export class Usuarios extends Component {
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
                     <td>{dato.usuario}</td>
+                    <td>{dato.contrasena}</td>
+                    <td>{dato.activo}</td>
+
                     <td>
                       <Button
                         color="primary"
@@ -158,21 +163,33 @@ export function Usuario() {
 
   return (
     <div>
-      <h2>Pais</h2>
+      <h2>Nuevo Usuario</h2>
 
       <form onSubmit={handleSubmit}>
         { cargaObjeto &&
             <div>
               <div className="form-group row">
-                <label htmlFor="codigo" className="col-4 col-form-label">Codigo</label>
+                <label for="codigo" className="col-4 col-form-label">Codigo</label>
                 <div className="col-8">
                   <input name="codigo" type="text" className="form-control" value={objeto.codigo} disabled/>
                 </div>
               </div>
               <div className="form-group row">
-                <label htmlFor="usuario" className="col-4 col-form-label">Tipo</label>
+                <label htmlFor="usuario" className="col-4 col-form-label">Usuario</label>
                 <div className="col-8">
                   <input name="usuario" type="text" className="form-control" required="required" value={objeto.usuario} onChange={handleChange}/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label htmlFor="contrasena" className="col-4 col-form-label">Contraseña</label>
+                <div className="col-8">
+                  <input name="contrasena" type="text" className="form-control" required="required" value={objeto.contrasena} onChange={handleChange}/>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label htmlFor="activo" className="col-4 col-form-label">Activo</label>
+                <div className="col-8">
+                  <input name="activo" type="text" className="form-control" required="required" value={objeto.activo} onChange={handleChange}/>
                 </div>
               </div>
               <div className="form-group row">
