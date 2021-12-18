@@ -9,7 +9,6 @@ const claseComestibleController = require('../controllers/claseComestibleControl
 const detalleUnidadController = require('../controllers/detalleUnidadController.js');
 const empleadosController = require('../controllers/empleadoController.js');
 const empresaController = require('../controllers/empresaController.js');
-const estadoOrdenController = require('../controllers/estadoOrdenController.js');
 const eventoController = require('../controllers/eventoController.js');
 const facturaController = require('../controllers/facturaController.js');
 const lineaComestibleController = require('../controllers/lineaComestibleController.js');
@@ -88,12 +87,6 @@ module.exports = function () {
      router.post(`${prefix}/empresa`, empresaController.create)
      router.put(`${prefix}/empresa/:id`, empresaController.update)
      router.delete(`${prefix}/empresa/:id`, empresaController.delete)
-     // Estado Orden
-     router.get(`${prefix}/estadoOrden`, estadoOrdenController.getAll)
-     router.get(`${prefix}/estadoOrden/:id`, estadoOrdenController.get)
-     router.post(`${prefix}/estadoOrden`, estadoOrdenController.create)
-     router.put(`${prefix}/estadoOrden/:id`, estadoOrdenController.update)
-     router.delete(`${prefix}/estadoOrden/:id`, estadoOrdenController.delete)
      // Evento
      router.get(`${prefix}/evento`, eventoController.getAll)
      router.get(`${prefix}/evento/:id`, eventoController.get)
@@ -133,8 +126,12 @@ module.exports = function () {
      router.delete(`${prefix}/restaurante/:id`, restauranteController.delete)
      // Orden
      router.get(`${prefix}/orden`, ordenController.getAll)
+     router.get(`${prefix}/orden/mesa/:id`, ordenController.findOrdenActivaByMesa)
      router.get(`${prefix}/orden/:id`, ordenController.get)
      router.post(`${prefix}/orden`, ordenController.create)
+     router.put(`${prefix}/orden/agregar/:id`, ordenController.agregarPlatillo)
+     router.put(`${prefix}/orden/quitar/:id`, ordenController.quitarPlatillo)
+     router.put(`${prefix}/orden/cerrar/:id`, ordenController.cerrarOrden)
      router.put(`${prefix}/orden/:id`, ordenController.update)
      router.delete(`${prefix}/orden/:id`, ordenController.delete)
      // Producto

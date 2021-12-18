@@ -21,6 +21,10 @@ class CajasDataService {
         return http.delete(`/caja/${id}`);
     }
 
+    findByRestaurante(id) {
+      return http.get(`/caja/restaurante?codigo=${id}`);
+    }
+
     cambiarEstadoCaja(id, estado) {
       return http.post(`/caja/cambiarEstadoCaja?id=${id}&estado=${estado}`);
     }

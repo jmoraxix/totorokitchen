@@ -14,7 +14,15 @@ exports.get = async(req, res)=>{
     try {
         console.log(req.params.id)
         const id = req.params.id;
-        const orden = await Orden.findById(id).populate('estadoOrden').populate('mesas').populate('platillos');
+        const orden = await Orden.findById(id)
+            .populate('mesa')
+            .populate({
+              path: 'platillos',
+              populate: {
+                path: 'platillo',
+                model: 'Platillo'
+              }
+            });
         if(!orden){
             res.status(404).json({
                 mensaje:'Objeto no existe'
@@ -43,14 +51,14 @@ exports.create = async(req, res)=>{
 exports.update = async(req, res)=>{
     try {
         const id= req.params.id;
-        const orden = await Orden.findOneAndUpdate(
-            {_id:id},
-            req.body,
-            {new: true}
-            );
-            res.json({
-                mensaje:'Objeto actualizado con exito'
-            })
+        const orden = await Orden.findByIdAndUpdate(
+          { _id: id },
+          req.body,
+          { upsert: true }
+          );
+        res.json({
+            mensaje:'Objeto actualizado con exito'
+        })
     } catch (error) {
         res.status(400).send(error);
     }
@@ -68,10 +76,74 @@ exports.delete= async(req, res)=>{
     }
 }
 
-exports.findActivoByMesa = async(req, res)=>{
+exports.cerrarOrden = async(req, res)=>{
+    try{
+        const id= req.params.id;
+        var orden = await Orden.findById({ _id : id });
+        orden.activa = false;
+        orden.fechaSalida = Date.now();
+
+        await Orden.findOneAndUpdate(
+            { _id : id },
+            orden
+        );
+
+      res.json({
+            mensaje:`Objeto eliminado ${id} con exito`
+        })
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
+exports.agregarPlatillo = async(req, res)=>{
+    try{
+        const id= req.params.id;
+        var orden = await Orden.findById({ _id : id });
+        orden.platillos.push(req.body);
+
+        await Orden.findOneAndUpdate(
+            { _id : id },
+            orden
+        );
+
+      res.json({
+            mensaje:`Objeto eliminado ${id} con exito`
+        })
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
+exports.quitarPlatillo = async(req, res)=>{
+  try{
+    const id = req.params.id;
+    const idPlatillo = req.query.platillo;
+    var orden = await Orden.findById({ _id : id });
+    orden.platillos.push(req.body);
+
+    orden.platillos = orden.platillos.filter(function(item){
+      return item.platillo != idPlatillo;
+    });
+
+    await Orden.findOneAndUpdate(
+        { _id : id },
+        orden
+    );
+
+    res.json({
+      mensaje:`Objeto eliminado ${id} con exito`
+    })
+  } catch (error) {
+    res.status(400).send(error);
+  }
+}
+
+exports.findOrdenActivaByMesa = async(req, res)=>{
   try {
     const codMesa = req.params.id;
-    const orden = await Orden.find({ mesas: codMesa }).populate('mesas');
+    const orden = await Orden.find({ mesa: codMesa, activa: true })
+        .populate('mesas');
     if(!orden){
       res.status(404).json({
         mensaje:'Objeto no existe'

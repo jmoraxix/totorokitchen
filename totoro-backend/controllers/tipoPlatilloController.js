@@ -24,20 +24,6 @@ exports.get = async(req, res)=>{
     }
 }
 
-exports.findById = async(codigo, res)=>{
-    try {
-        const tipoPlatillos = await TipoPlatillos.findById(codigo);
-        if(!tipoPlatillos){
-            return {
-                mensaje:'Objeto no existe'
-            };
-        }
-        return tipoPlatillos;
-    } catch (error) {
-        return error;
-    }
-}
-
 exports.create = async(req, res)=>{
     const tipoPlatillos= new TipoPlatillos(req.body);
     try {
@@ -77,4 +63,18 @@ exports.delete= async(req, res)=>{
     } catch (error) {
         res.status(400).send(error);
     }
+}
+
+exports.findById = async(codigo, res)=>{
+  try {
+    const tipoPlatillos = await TipoPlatillos.findById(codigo);
+    if(!tipoPlatillos){
+      return {
+        mensaje:'Objeto no existe'
+      };
+    }
+    return tipoPlatillos;
+  } catch (error) {
+    return error;
+  }
 }

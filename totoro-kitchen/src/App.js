@@ -11,8 +11,9 @@ import Home from "./components/home.component";
 import { Consecutivos, Consecutivo } from "./components/consecutivo.component";
 import { Clientes, Cliente } from "./components/cliente.component";
 import { Restaurantes, Restaurante } from "./components/restaurante.component";
-import { Mesas, Mesa } from "./components/mesa.component";
-import { Cajas, Caja } from "./components/caja.component";
+import { Mesas, Mesa, MesasRestaurante } from "./components/mesa.component";
+import { Cajas, Caja, CajasRestaurante } from "./components/caja.component";
+import { Ordenes, Orden, OrdenRestaurante } from "./components/orden.component";
 import { Paises, Pais } from "./components/pais.component";
 import { Bitacoras, Bitacora } from "./components/bitacora.component";
 import { Empresas, Empresa } from "./components/empresa.component";
@@ -43,13 +44,13 @@ function App() {
           <div className="col">
             <h1>Totoro Kitchen</h1>
           </div>
-          <div className="col-3">
-            <div className="justify-content-end">
-              <div>
-                Signed in as: <a href="#login">Mark Otto</a>
-              </div>
-            </div>
-          </div>
+          {/*<div className="col-3">*/}
+          {/*  <div className="justify-content-end">*/}
+          {/*    <div>*/}
+          {/*      Signed in as: <a href="#login">Mark Otto</a>*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
       </Container>
 
@@ -69,7 +70,11 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
 
-              <Route path="/restaurante/mesas" element={<Restaurantes />}/>
+              <Route path="/restaurante/mesas" element={<MesasRestaurante />}/>
+              <Route path="/restaurante/mesas">
+                <Route path=":_id" element={<OrdenRestaurante />} />
+              </Route>
+              <Route path="/restaurante/cajas" element={<CajasRestaurante />}/>
 
               {/**** CRUDs ****/}
               <Route path="/consecutivo" element={<Consecutivos />}/>
@@ -92,9 +97,9 @@ function App() {
               <Route path="/caja">
                 <Route path=":_id" element={<Caja />} />
               </Route>
-              <Route path="/orden" element={<Restaurantes />}/>
+              <Route path="/orden" element={<Ordenes />}/>
               <Route path="/orden">
-                <Route path=":_id" element={<Restaurante />} />
+                <Route path=":_id" element={<Orden />} />
               </Route>
               <Route path="/estadoOrden" element={<Restaurantes />}/>
               <Route path="/estadoOrden">

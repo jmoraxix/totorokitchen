@@ -22,7 +22,7 @@ class MesasDataService {
     }
 
     findByRestaurante(id) {
-      return http.get(`/mesa/restaurante?nombre=${id}`);
+      return http.get(`/mesa/restaurante?codigo=${id}`);
     }
 }
 

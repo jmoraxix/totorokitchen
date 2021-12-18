@@ -34,11 +34,9 @@ exports.get = async(req, res)=>{
 }
 
 exports.create = async(req, res)=>{
-    var platillos= new Platillos(req.body)
-    console.log(req.body)
-    var tipoPlatillo = await tipoPlatilloController.findById(req.body.tipoPlatillo);
-    platillos.codigo = await consecutivoController.generarConsecutivo(tipoPlatillo.nombre);
-    console.log(platillos)
+    var platillos = new Platillos(req.body)
+    const tipoPlatillo = await tipoPlatilloController.findById(req.body.tipoPlatillo);
+    platillos.codigo = await consecutivoController.generarConsecutivo(tipoPlatillo.tipo);
     try {
         await platillos.save();
         res.json({

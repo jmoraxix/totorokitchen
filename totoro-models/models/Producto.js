@@ -27,6 +27,10 @@ const productoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'TipoComestible'
     },
+    tipoProducto: {
+        type: Schema.Types.ObjectId,
+        ref: 'TipoProducto'
+    },
     lineaComestible: {
         type: Schema.Types.ObjectId,
         ref: 'LineaComestible'

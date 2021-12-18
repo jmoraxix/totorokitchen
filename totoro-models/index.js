@@ -9,7 +9,6 @@ const Consecutivo = require('./models/Consecutivo');
 const DetalleUnidad = require('./models/DetalleUnidad');
 const Empleados = require('./models/Empleado');
 const Empresa = require('./models/Empresa');
-const EstadoOrden = require('./models/EstadoOrden');
 const Evento = require('./models/Evento');
 const Facturas = require('./models/Factura');
 const LineaComestible = require('./models/LineaComestible');
@@ -40,8 +39,7 @@ mongoose.connect('mongodb+srv://Admin:QRwAb1x0VruYHgwL@cltadriano.req5g.mongodb.
 });
 
 module.exports = {
-    
-    Bitacora: mongoose.model('Bitacora', Bitacora),   
+    Bitacora: mongoose.model('Bitacora', Bitacora),
     Cajas: mongoose.model('Cajas', Cajas),
     ClaseComestible: mongoose.model('ClaseComestible', ClaseComestible),
     Clientes: mongoose.model('Clientes', Clientes),
@@ -49,7 +47,6 @@ module.exports = {
     DetalleUnidad: mongoose.model('DetalleUnidad', DetalleUnidad),
     Empleados: mongoose.model('Empleados', Empleados),
     Empresa: mongoose.model('Empresa', Empresa),
-    EstadoOrden: mongoose.model('EstadoOrden', EstadoOrden),
     Evento: mongoose.model('Evento', Evento),
     Facturas: mongoose.model('Facturas', Facturas),
     LineaComestible: mongoose.model('LineaComestible', LineaComestible),
@@ -70,6 +67,4 @@ module.exports = {
     TipoProducto: mongoose.model('TipoProducto', TipoProducto),    
     UnidadMedida: mongoose.model('UnidadMedida', UnidadMedida),
     Usuarios: mongoose.model('Usuarios', Usuarios),
-
-
 };

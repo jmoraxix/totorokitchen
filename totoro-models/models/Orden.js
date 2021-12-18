@@ -1,6 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const itemOrden = new Schema({
+    platillo: {
+        type: Schema.Types.ObjectId,
+        ref: 'Platillo'
+    },
+    cantidad: {
+        type: Number,
+        default: 1
+    }
+})
+
+
 const ordenSchema = new Schema({
     codigo: {
         type: String,
@@ -9,25 +21,22 @@ const ordenSchema = new Schema({
         uppercase: true
     },
     fechaEntrada: {
-        type: String,
-        trim: true
+        type: Date,
+        default: () => Date.now()
     },
     fechaSalida: {
-        type: String,
+        type: Date,
         trim: true
     },
     teniaReserva: {
         type: Boolean
     },
-    estadoOrden: {
-        type: Schema.Types.ObjectId,
-        ref: 'EstadoOrden'
+    activa: {
+        type: Boolean,
+        default: true
     },
-    platillos: {
-        type: Schema.Types.ObjectId,
-        ref: 'Platillos'
-    },
-    mesas: {
+    platillos: [itemOrden],
+    mesa: {
         type: Schema.Types.ObjectId,
         ref: 'Mesas'
     }

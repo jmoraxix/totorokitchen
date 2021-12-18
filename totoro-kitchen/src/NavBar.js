@@ -9,7 +9,7 @@ import {
 import "./css/NavBar.css";
 import { Collapse } from 'react-collapse';
 
-export default class Example extends React.Component {
+export default class NavigationBar extends React.Component {
   constructor(props) {
     super(props);
 

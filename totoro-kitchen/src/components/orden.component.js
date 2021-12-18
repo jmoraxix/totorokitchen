@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import OrdenDataService from "../services/orden.service";
-import ConsecutivoService from "../services/consecutivo.service";
+import PlatilloDataService from "../services/platillo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
 import {
@@ -57,7 +57,7 @@ export class Ordenes extends Component {
             <thead>
               <tr>
                 <th>Consecutivo</th>
-                <th>Orden</th>
+                <th>Pais</th>
                 <th></th>
               </tr>
             </thead>
@@ -66,7 +66,7 @@ export class Ordenes extends Component {
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
-                    <td>{dato.orden}</td>
+                    <td>{dato.pais}</td>
                     <td>
                       <Button
                         color="primary"
@@ -104,9 +104,6 @@ export function Orden() {
           .catch(e => {
             console.log(e);
           });
-    }
-    else {
-      generarConsecutivo('Orden')
     }
 
     setCargaObjecto(true);
@@ -146,33 +143,25 @@ export function Orden() {
     navigate(-1);
   }
 
-  function generarConsecutivo(tipo) {
-    ConsecutivoService.generarConsecutivo(tipo)
-      .then(response => {
-        setObjeto( { codigo: response.data });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
   return (
     <div>
-      <h2>Pais</h2>
+      <h2>Orden</h2>
 
       <form onSubmit={handleSubmit}>
         { cargaObjeto &&
             <div>
-              <div className="form-group row">
-                <label htmlFor="codigo" className="col-4 col-form-label">Codigo</label>
-                <div className="col-8">
-                  <input name="codigo" type="text" className="form-control" value={objeto.codigo} disabled/>
+              {!isNew &&
+              <div class="form-group row">
+                <label for="codigo" class="col-4 col-form-label">Codigo</label>
+                <div class="col-8">
+                  <input name="codigo" type="text" class="form-control" value={objeto.codigo} disabled/>
                 </div>
               </div>
+              }
               <div className="form-group row">
-                <label htmlFor="orden" className="col-4 col-form-label">Tipo</label>
+                <label htmlFor="pais" className="col-4 col-form-label">Nombre</label>
                 <div className="col-8">
-                  <input name="orden" type="text" className="form-control" required="required" value={objeto.orden} onChange={handleChange}/>
+                  <input name="pais" type="text" className="form-control" required="required" value={objeto.pais} onChange={handleChange}/>
                 </div>
               </div>
               <div className="form-group row">
@@ -187,6 +176,111 @@ export function Orden() {
         }
       </form>
       
+    </div>
+    );
+}
+
+
+export function OrdenRestaurante() {
+  let { _id } = useParams();
+  let navigate = useNavigate();
+  const [orden, setOrden] = useState({});
+  const [listaPlatillos, setlListaPlatillos] = useState({});
+  const [cargaObjeto, setCargaObjecto] = useState(false);
+
+  useEffect(() => {
+    refrescarOrden();
+  }, []);
+
+  function refrescarOrden(){
+    OrdenDataService.getOrdenByMesa(_id)
+      .then(response => {
+        setOrden(response.data);
+        console.log(response.data);
+        setCargaObjecto(true);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  function agregarPlatillo(codigo) {
+    OrdenDataService.agregarPlatillo(codigo)
+        .then(response => {
+          console.log(response.data);
+          this.refrescarOrden();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  function quitarPlatillo(codigo) {
+    OrdenDataService.quitarPlatillo(orden.codigo, codigo)
+        .then(response => {
+          console.log(response.data);
+          this.refrescarOrden();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  function goBack(){
+    navigate(-1);
+  }
+
+  return (
+    <div>
+      { cargaObjeto &&
+          <div>
+            <Container>
+              <br />
+              <Row>
+                <Col><h1>Orden { orden.codigo }</h1></Col>
+                <Col><Button color="success" href={`${history.location.pathname}/facturar`}>Facturar</Button></Col>
+              </Row>
+              <Row>
+                <Col><h2>Mesa { orden.mesa?.numero } | { orden.mesa?.nombre }</h2></Col>
+              </Row>
+              <Row>
+                <Col><h3>Platillos:</h3></Col>
+              </Row>
+              <Table>
+                <thead>
+                <tr>
+                  <th>Cantidad</th>
+                  <th>Platillo</th>
+                  <th>Tipo</th>
+                  <th>Costo</th>
+                  <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                { cargaObjeto && orden.platillos.map((item) => (
+                    <tr key={item.platillo._id}>
+                      <td>{item.cantidad}</td>
+                      <td>{item.platillo.nombre}</td>
+                      <td>{item.platillo.tipoPlatillo.tipo}</td>
+                      <td>{item.platillo.precio}</td>
+                      <td>
+                        <Button
+                            color="primary"
+                            href={`${history.location.pathname}/${item.platillo._id}`}
+                        >
+                          Editar
+                        </Button>{" "}
+                        <Button color="danger" onClick={() => this.quitarPlatillo(item.platillo._id)}>Remover</Button>
+                      </td>
+                    </tr>
+                ))}
+                </tbody>
+              </Table>
+            </Container>
+          </div>
+      }
+
     </div>
     );
 }
