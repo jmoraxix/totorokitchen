@@ -55,7 +55,7 @@ export class Eventos extends Component {
           <Table>
             <thead>
               <tr>
-                <th>Consecutivo</th>
+                <th>Codigo</th>
                 <th>Evento</th>
                 <th></th>
               </tr>
@@ -65,7 +65,7 @@ export class Eventos extends Component {
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
-                    <td>{dato.evento}</td>
+                    <td>{dato.tipo}</td>
                     <td>
                       <Button
                         color="primary"
@@ -144,7 +144,7 @@ export function Evento() {
 
   return (
     <div>
-      <h2>Pais</h2>
+      <h2>Evento</h2>
 
       <form onSubmit={handleSubmit}>
         { cargaObjeto &&
@@ -158,9 +158,9 @@ export function Evento() {
               </div>
               }
               <div className="form-group row">
-                <label htmlFor="evento" className="col-4 col-form-label">Tipo</label>
+                <label htmlFor="tipo" className="col-4 col-form-label">Evento</label>
                 <div className="col-8">
-                  <input name="evento" type="text" className="form-control" required="required" value={objeto.evento} onChange={handleChange}/>
+                  <input name="tipo" type="text" className="form-control" required="required" value={objeto.tipo} onChange={handleChange}/>
                 </div>
               </div>
               <div className="form-group row">

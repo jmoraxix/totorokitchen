@@ -1,5 +1,7 @@
 import React, { useState, useEffect, Component } from "react";
 import BitacoraDataService from "../services/bitacora.service";
+import CajaDataService from "../services/caja.service";
+import EventoDataService from "../services/evento.service";
 import ConsecutivoService from "../services/consecutivo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Table, Button, Container } from 'reactstrap';
@@ -57,7 +59,12 @@ export class Bitacoras extends Component {
             <thead>
               <tr>
                 <th>Consecutivo</th>
-                <th>Bitacora</th>
+                <th>Fecha</th>
+                <th>Descripcion</th>
+                <th>Detalle</th>
+                <th>Entrada Dinero</th>
+                <th>Caja</th>
+                <th>Evento</th>
                 <th></th>
               </tr>
             </thead>
@@ -66,7 +73,13 @@ export class Bitacoras extends Component {
                 {this.state.dataLoaded && this.state.data.map((dato) => (
                   <tr key={dato._id}>
                     <td>{dato.codigo}</td>
-                    <td>{dato.bitacora}</td>
+                    <td>{dato.fecha}</td>
+                    <td>{dato.descripcion}</td>
+                    <td>{dato.detalle}</td>
+                    <td>{dato.entradaDinero}</td>
+                    <td>{dato.caja?.codigo}</td>
+                    <td>{dato.evento?.codigo}</td>
+                    
                     <td>
                       <Button
                         color="primary"
@@ -92,6 +105,7 @@ export function Bitacora() {
   let navigate = useNavigate();
   const [objeto, setObjeto] = useState({});
   const [cargaObjeto, setCargaObjecto] = useState(false);
+  
   const [isNew] = useState(_id === 'new');
 
   useEffect(() => {
