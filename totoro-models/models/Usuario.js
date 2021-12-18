@@ -17,11 +17,12 @@ const usuarioSchema = new Schema({
         trim: true
     },
     activo: {
-        type: Boolean
-    },
+        type: String //Boolean
+    }
+    /*,
     empleado: {
         type: Schema.Types.ObjectId,
         ref: 'Empleado'
-    }
+    }*/
 })
 module.exports = usuarioSchema;
